@@ -1,0 +1,60 @@
+===== MOCHA KDE - ESTADO VISUAL BOM =====
+qua 29 abr 2026 18:41:25 -03
+
+===== GERACOES =====
+Generation  Build-date           NixOS version                Kernel        Configuration Revision  Specialisation          Current
+21          2026-04-29 18:32:29  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-lts-fallback']  False
+20          2026-04-29 18:16:59  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  True
+19          2026-04-29 17:21:22  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+18          2026-04-29 17:16:40  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+17          2026-04-29 17:03:35  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+16          2026-04-29 17:01:19  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+15          2026-04-29 15:01:20  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+14          2026-04-29 14:27:07  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+13          2026-04-29 11:23:07  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+12          2026-04-29 11:07:30  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+11          2026-04-29 10:52:08  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-lts-fallback']  False
+10          2026-04-29 10:48:53  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-lts-fallback']  False
+9           2026-04-29 00:55:06  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-lts-fallback']  False
+8           2026-04-28 21:33:12  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-lts-fallback']  False
+7           2026-04-28 17:05:15  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-lts-fallback']  False
+6           2026-04-28 10:41:04  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 []                      False
+5           2026-04-28 08:36:45  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 []                      False
+4           2026-04-28 08:20:39  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 []                      False
+3           2026-04-28 07:55:20  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 []                      False
+2           2026-04-28 07:12:37  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 []                      False
+1           2026-04-28 06:35:39  25.11.9840.a4bf06618f0b      6.12.83       Unknown                 []                      False
+
+===== SISTEMA ATUAL =====
+/nix/store/s5a0sv0vdlavjc2xz106bsgv3fzwg0w4-nixos-system-diesel-os-lab-Diesel-OS-Lab-Mocha-Edition
+
+===== SESSAO =====
+XDG_CURRENT_DESKTOP=KDE
+DESKTOP_SESSION=plasma
+
+===== DISPLAY MANAGER =====
+● display-manager.service - Display Manager
+     Loaded: loaded (/etc/systemd/system/display-manager.service; linked; preset: ignored)
+     Active: active (running) since Wed 2026-04-29 18:36:32 -03; 4min 55s ago
+ Invocation: 08072845e83948bdb8e02aad4fc42dce
+    Process: 2094 ExecStartPre=/nix/store/f33hcm46wg4zgk4j442z6xfia47b3dxf-unit-script-display-manager-pre-start/bin/display-manager-pre-start (code=exited, status=0/SUCCESS)
+   Main PID: 2097 (sddm)
+         IP: 0B in, 0B out
+         IO: 76.7M read, 32K written
+      Tasks: 4 (limit: 18905)
+     Memory: 105.6M (peak: 125.6M)
+        CPU: 720ms
+     CGroup: /system.slice/display-manager.service
+             ├─2097 /nix/store/kh444rvla6is48kql96d6k55zz7n2njq-sddm-unwrapped-0.21.0/bin/sddm
+             └─2105 /nix/store/nmid94b9jj6ymgci81misv3lqwq08jma-xorg-server-21.1.22/bin/X -config /nix/store/ykbb9r9kyncf2lxw8gw91nls659rfv59-xserver.conf -xkbdir /nix/store/b6972i9717zsa71bxgmpjnnaqd0w1qsa-xkeyboard-config-2.47/etc/X11/xkb -logfile /dev/null -verbose 3 -nolisten tcp -terminate -nolisten tcp -background none -seat seat0 vt2 -auth /run/sddm/xauth_fyuWMT -noreset -displayfd 16
+
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event0  - Logitech G300s Optical Gaming Mouse: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event1  - Logitech G300s Optical Gaming Mouse Keyboard: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event5  - LogoTech Mechanical Keyboard: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event7  - LogoTech Mechanical Keyboard System Control: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event8  - LogoTech Mechanical Keyboard: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event4  - 2.4G Mouse: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event13 - Eee PC WMI hotkeys: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event6  - LogoTech Mechanical Keyboard Consumer Control: device removed
+abr 29 18:36:41 diesel-os-lab xserver-wrapper[2105]: (II) event9  - Logitech MX Vertical: device removed
+abr 29 18:36:41 diesel-os-lab sddm[2097]: Session started true

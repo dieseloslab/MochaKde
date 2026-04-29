@@ -1,0 +1,5 @@
+/home/hal/.config/kdeglobals:122:ColorSchemeHash=328013701d149daeccdeb0a1fa6a8ef3804f2fd4
+/home/hal/.config/kdeglobals:125:[Icons]
+/home/hal/.config/kdeglobals:126:Theme=Mocha-Folders
+/home/hal/.config/kdeglobals:129:LookAndFeelPackage=org.kde.breezedark.desktop
+/home/hal/.config/plasmarc:1:[Theme]
