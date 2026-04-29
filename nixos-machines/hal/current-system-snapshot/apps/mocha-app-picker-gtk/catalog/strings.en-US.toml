@@ -1,0 +1,200 @@
+# Mocha App Picker — strings en-US
+
+
+
+[ui]
+
+# ---------- installer backend ----------
+"install.running" = "Applying changes..."
+"install.success" = "Installation completed successfully."
+"install.failed" = "The installation was not completed."
+"install.log" = "Installation log"
+"install.backend_disconnected" = "The installation backend was interrupted."
+"script.title" = "Mocha App Picker - installation"
+"script.no_nix_changes" = "No declarative changes detected."
+"script.skip_rebuild" = "Skipping nixos-rebuild."
+"script.write_nix" = "Writing configuration to"
+"script.apply_rebuild" = "Applying declarative changes with nixos-rebuild switch..."
+"script.remove_flatpak_selected" = "Removing unchecked Flatpaks..."
+"script.flatpak_not_installed" = "Flatpak was not installed"
+"script.uninstall_flatpak" = "Removing Flatpak"
+"script.no_flatpak_remove" = "No Flatpak to remove."
+"script.ensure_flathub" = "Checking Flathub repository..."
+"script.install_flatpak_selected" = "Installing selected Flatpaks..."
+"script.flatpak_already" = "Flatpak already installed"
+"script.install_flatpak" = "Installing Flatpak"
+"script.no_flatpak" = "No new Flatpak to install."
+"script.success" = "Installation completed successfully."
+window_title = "Mocha — App Picker"
+search_placeholder = "Search apps…"
+btn_apply = "Apply"
+btn_cancel = "Cancel"
+btn_close = "Close"
+btn_details = "Details"
+status_installed = "Installed"
+status_pending_install = "Will be installed"
+status_pending_remove = "Will be removed"
+status_not_installed = "Not installed"
+dialog_apply_title = "Apply changes?"
+dialog_apply_body = "A system rebuild will run. This may take a few minutes."
+dialog_error_title = "Error"
+dialog_success_title = "Done"
+dialog_success_body = "Applications updated successfully."
+
+[tabs]
+browsers = "Browsers"
+games = "Games"
+gamer_tools = "Gamer Tools"
+flatpak = "Flatpak"
+communication = "Communication"
+productivity = "Productivity"
+media = "Media"
+creation = "Creation"
+system = "System"
+remote = "Remote Access"
+
+# ---------- browsers ----------
+[apps.brave]
+name = "Brave"
+desc = "Privacy-focused browser with a built-in ad blocker."
+
+[apps.vivaldi]
+name = "Vivaldi"
+desc = "Highly customizable browser aimed at power users."
+
+[apps.chromium]
+name = "Chromium"
+desc = "Open-source browser that serves as the base for Chrome."
+
+[apps.librewolf]
+name = "LibreWolf"
+desc = "Hardened Firefox fork with no telemetry and privacy by default."
+
+# ---------- games ----------
+[apps.protonplus]
+name = "ProtonPlus"
+desc = "Modern manager for Proton and Wine versions used by Steam."
+
+[apps.protonupqt]
+name = "ProtonUp-Qt"
+desc = "Installs and updates Proton-GE and Wine-GE in a few clicks."
+
+[apps.heroic]
+name = "Heroic Games Launcher"
+desc = "Client for Epic Games, GOG, and Amazon Prime Gaming on Linux."
+
+[apps.lutris]
+name = "Lutris"
+desc = "Gaming platform that unifies Wine, emulators, and stores."
+
+[apps.bottles]
+name = "Bottles"
+desc = "Runs Windows software in clean, isolated environments."
+
+# ---------- gamer_tools ----------
+[apps.gamescope]
+name = "Gamescope"
+desc = "Valve's micro-compositor for running games in an isolated session."
+
+[apps.goverlay]
+name = "GOverlay"
+desc = "Graphical configurator for overlays like MangoHud and vkBasalt."
+
+[apps.vkbasalt]
+name = "vkBasalt"
+desc = "Vulkan layer that adds post-processing effects to games."
+
+# ---------- flatpak ----------
+[apps.warehouse]
+name = "Warehouse"
+desc = "Advanced graphical manager for Flatpak apps and data."
+
+[apps.flatseal]
+name = "Flatseal"
+desc = "Permission editor for installed Flatpak applications."
+
+[apps.gearlever]
+name = "Gear Lever"
+desc = "Manages and updates AppImage applications."
+
+# ---------- communication ----------
+[apps.discord]
+name = "Discord"
+desc = "Popular voice, video, and text client for gamers and communities."
+
+[apps.telegram]
+name = "Telegram"
+desc = "Fast cross-platform messenger with cloud sync."
+
+# ---------- productivity ----------
+[apps.libreoffice]
+name = "LibreOffice"
+desc = "Full office suite: documents, spreadsheets, and presentations."
+
+[apps.thunderbird]
+name = "Thunderbird"
+desc = "Mozilla's email, calendar, and contacts client."
+
+[apps.evolution-flatpak]
+name = "Evolution"
+desc = "Email and groupware client integrated with GNOME."
+
+# ---------- media ----------
+[apps.vlc]
+name = "VLC"
+desc = "Media player that handles virtually every format."
+
+# ---------- creation ----------
+[apps.obs-flatpak]
+name = "OBS Studio"
+desc = "Professional screen recording and live streaming software."
+
+[apps.kdenlive]
+name = "Kdenlive"
+desc = "Robust non-linear video editor from the KDE project."
+
+[apps.blender]
+name = "Blender"
+desc = "3D suite for modeling, animation, simulation, and rendering."
+
+[apps.gimp]
+name = "GIMP"
+desc = "Advanced raster image editor, a Photoshop alternative."
+
+[apps.inkscape]
+name = "Inkscape"
+desc = "Professional vector graphics editor for art and diagrams."
+
+# ---------- system ----------
+[apps.virt-manager]
+name = "Virt-Manager"
+desc = "Graphical interface for managing virtual machines via libvirt/KVM."
+
+[apps.gnome-boxes]
+name = "GNOME Boxes"
+desc = "Create and use virtual machines with a streamlined GNOME flow."
+
+[apps.virtualbox]
+name = "VirtualBox"
+desc = "Oracle's virtualizer for running other operating systems."
+
+[apps.vmware]
+name = "VMware Workstation"
+desc = "Broadcom/VMware's professional desktop virtualizer."
+
+[apps.gparted]
+name = "GParted"
+desc = "Graphical disk partition editor."
+
+# ---------- remote ----------
+[apps.rustdesk]
+name = "RustDesk"
+desc = "Open-source remote access, an alternative to TeamViewer and AnyDesk."
+
+[apps.teamviewer]
+name = "TeamViewer"
+desc = "Popular commercial remote access and support solution."
+
+[apps.anydesk]
+name = "AnyDesk"
+desc = "Fast and lightweight remote access with low latency."

@@ -1,0 +1,27 @@
+Diesel OS Lab - GNOME Mocha Edition
+Boas-vindas ao Mocha Game
+
+Recomendação principal:
+
+  Use o launcher:
+    Steam - Mocha Game Session
+
+Ele abre a Steam em modo gamer:
+  - Mocha Game Mode ON;
+  - tuned latency-performance;
+  - MangoHud habilitado;
+  - restauração do perfil anterior ao fechar a Steam.
+
+Também existem launchers auxiliares:
+  - Mocha Game Mode ON
+  - Mocha Game Mode OFF
+
+Esses botões existem para casos em que a Steam já esteja aberta ou para jogos fora da Steam.
+
+Aviso:
+  Não aplicar launch options automaticamente em todos os jogos por padrão.
+  A Steam não oferece um mecanismo oficial, limpo e universal para isso.
+  Alterar arquivos internos como localconfig.vdf é possível, mas frágil e dependente do perfil/SteamID.
+
+Para Sniper Elite 5:
+  manter Steam Overlay desligado se houver crash no gameoverlayrenderer.so.

@@ -1,0 +1,21 @@
+# Mocha App Picker — notas técnicas pt-BR
+# Cada entrada é referenciada via note_key em apps.toml.
+# Schema:
+#   title    título curto da nota (usado no diálogo "Detalhes")
+#   body     corpo, pode ter múltiplas linhas
+#   level    "info" | "warning" | "caution"  (para ícone na UI)
+
+[gamescope]
+level = "info"
+title = "Sobre o Gamescope no Wayland/NVIDIA"
+body = """
+O Gamescope funciona melhor lançando jogos via Steam com a opção
+"gamescope -- %command%" nas opções de inicialização.
+
+Em sessões Wayland com driver NVIDIA proprietário, alguns títulos
+podem precisar das flags adicionais:
+    --backend=sdl --expose-wayland
+
+Se o jogo não abrir ou ficar com tela preta, tente rodar pelo
+terminal para ver os logs antes de reportar.
+"""

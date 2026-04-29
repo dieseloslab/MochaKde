@@ -1,0 +1,307 @@
+@import url("mocha-role-map.css");
+
+/* >>> MOCHA OVERVIEW BACKDROP BEGIN >>> */
+
+#overviewGroup,
+#overview,
+.overview-group,
+.overview-controls,
+.workspace-animation,
+.search-controller {
+  background-color: rgba(42, 27, 20, 0.72);
+  background-gradient-direction: none;
+}
+
+.app-display,
+.app-well,
+.app-grid,
+.search-section-content {
+  background-color: transparent;
+}
+
+/* <<< MOCHA OVERVIEW BACKDROP END <<< */
+
+
+/* ===== Diesel OS Lab Mocha persistent quick-settings override ===== */
+
+#quickSettings,
+.quick-settings,
+.quick-settings-grid,
+.quick-toggle-menu,
+.popup-menu-content,
+.popup-menu-boxpointer,
+.background-menu,
+.menu,
+.popup-menu,
+.quick-settings-system-item {
+  background-color: rgba(30, 20, 16, 0.955) !important;
+  color: #F2E7DD !important;
+  border: 1px solid rgba(198, 169, 141, 0.12) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.58) !important;
+  background-image: none !important;
+}
+
+.quick-toggle,
+.quick-menu-toggle,
+.quick-toggle-menu-button,
+.icon-button,
+.button,
+.popup-menu-item,
+.quick-settings .button,
+.quick-settings .icon-button,
+.quick-settings .popup-menu-item,
+.quick-settings-system-item .icon-button,
+.quick-settings-system-item .button {
+  background-color: rgba(255, 255, 255, 0.016) !important;
+  color: #F2E7DD !important;
+  border: 1px solid rgba(198, 169, 141, 0.08) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.quick-toggle:hover,
+.quick-menu-toggle:hover,
+.quick-toggle-menu-button:hover,
+.icon-button:hover,
+.button:hover,
+.popup-menu-item:hover,
+.popup-menu-item:focus,
+.popup-menu-item:selected,
+.quick-settings .button:hover,
+.quick-settings .icon-button:hover,
+.quick-settings-system-item .icon-button:hover,
+.quick-settings-system-item .button:hover {
+  background-color: rgba(198, 169, 141, 0.075) !important;
+  color: #FFF8F2 !important;
+  border: 1px solid rgba(198, 169, 141, 0.14) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.quick-toggle:checked,
+.quick-menu-toggle:checked,
+.quick-toggle:active,
+.quick-menu-toggle:active,
+.quick-toggle:focus,
+.quick-menu-toggle:focus,
+.button:checked,
+.button:active,
+.button:focus,
+.popup-menu-item:checked,
+.popup-menu-item:active,
+.popup-menu-item:selected,
+.toggle-switch:checked,
+.quick-settings .button:checked,
+.quick-settings .button:active,
+.quick-settings .icon-button:checked,
+.quick-settings .icon-button:active,
+.quick-settings-system-item .icon-button:checked,
+.quick-settings-system-item .icon-button:active,
+.quick-settings-system-item .button:checked,
+.quick-settings-system-item .button:active {
+  background-color: #5A4033 !important;
+  color: #FFF8F2 !important;
+  border: 1px solid rgba(214, 184, 154, 0.18) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.quick-toggle:checked:hover,
+.quick-menu-toggle:checked:hover,
+.quick-toggle:active:hover,
+.quick-menu-toggle:active:hover,
+.button:checked:hover,
+.button:active:hover,
+.popup-menu-item:checked:hover,
+.popup-menu-item:active:hover,
+.quick-settings .button:checked:hover,
+.quick-settings .icon-button:checked:hover,
+.quick-settings-system-item .icon-button:checked:hover,
+.quick-settings-system-item .button:checked:hover {
+  background-color: #6B4F3E !important;
+  color: #FFF8F2 !important;
+  border: 1px solid rgba(242, 231, 221, 0.16) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.quick-toggle StIcon,
+.quick-menu-toggle StIcon,
+.quick-toggle-menu-button StIcon,
+.popup-menu-item StIcon,
+.button StIcon,
+.icon-button StIcon,
+.quick-toggle .quick-toggle-title,
+.quick-toggle .quick-toggle-subtitle,
+.quick-menu-toggle .quick-toggle-title,
+.quick-menu-toggle .quick-toggle-subtitle {
+  color: #F2E7DD !important;
+}
+
+.quick-toggle:checked StIcon,
+.quick-menu-toggle:checked StIcon,
+.quick-toggle:active StIcon,
+.quick-menu-toggle:active StIcon,
+.button:checked StIcon,
+.button:active StIcon,
+.icon-button:checked StIcon,
+.icon-button:active StIcon,
+.quick-toggle:checked .quick-toggle-title,
+.quick-toggle:checked .quick-toggle-subtitle,
+.quick-menu-toggle:checked .quick-toggle-title,
+.quick-menu-toggle:checked .quick-toggle-subtitle,
+.quick-toggle:active .quick-toggle-title,
+.quick-toggle:active .quick-toggle-subtitle,
+.quick-menu-toggle:active .quick-toggle-title,
+.quick-menu-toggle:active .quick-toggle-subtitle {
+  color: #FFF8F2 !important;
+}
+
+.toggle-switch {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(198, 169, 141, 0.10) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.toggle-switch:checked {
+  background-color: #5A4033 !important;
+  border: 1px solid rgba(214, 184, 154, 0.18) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.slider {
+  -barlevel-background-color: rgba(255, 255, 255, 0.07) !important;
+  -barlevel-active-background-color: #C6A98D !important;
+  -slider-handle-background-color: #F2E7DD !important;
+}
+
+.calendar,
+.datemenu-popup,
+.calendar-month-label,
+.calendar-day-label,
+.events-button,
+.world-clocks-button,
+.weather-button,
+.datemenu-today-button {
+  color: #F2E7DD !important;
+  background-color: transparent !important;
+}
+
+.calendar .calendar-today,
+.calendar-day:selected,
+.calendar-day:focus {
+  background-color: rgba(132, 84, 58, 0.24) !important;
+  color: #FFF8F2 !important;
+}
+
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+  background-color: rgba(214, 184, 154, 0.10) !important;
+}
+
+
+/* ===== Diesel OS Lab Mocha persistent shell dialogs fix ===== */
+
+.modal-dialog,
+.end-session-dialog,
+.message-dialog,
+.prompt-dialog,
+.run-dialog,
+.audio-device-selection-dialog,
+.dialog,
+.switcher-list,
+.osd-window,
+.resize-popup,
+.candidate-popup-boxpointer,
+.workspace-switcher-group,
+.nm-dialog {
+  background-color: rgba(30, 20, 16, 0.955) !important;
+  color: #F2E7DD !important;
+  border: 1px solid rgba(198, 169, 141, 0.12) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.58) !important;
+  background-image: none !important;
+}
+
+.modal-dialog .modal-dialog-content,
+.message-dialog-content,
+.prompt-dialog-main-layout,
+.end-session-dialog-layout,
+.audio-selection-device,
+.dialog-content-box {
+  background-color: transparent !important;
+  color: #F2E7DD !important;
+}
+
+.modal-dialog .button,
+.message-dialog .button,
+.prompt-dialog .button,
+.end-session-dialog .button,
+.run-dialog .button,
+.audio-device-selection-dialog .button,
+.dialog .button,
+button {
+  background-color: rgba(255, 255, 255, 0.016) !important;
+  color: #F2E7DD !important;
+  border: 1px solid rgba(198, 169, 141, 0.08) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+  outline: none !important;
+}
+
+.modal-dialog .button:hover,
+.message-dialog .button:hover,
+.prompt-dialog .button:hover,
+.end-session-dialog .button:hover,
+.run-dialog .button:hover,
+.audio-device-selection-dialog .button:hover,
+.dialog .button:hover,
+button:hover {
+  background-color: rgba(198, 169, 141, 0.075) !important;
+  color: #FFF8F2 !important;
+  border: 1px solid rgba(198, 169, 141, 0.14) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+  outline: none !important;
+}
+
+.modal-dialog .button:focus,
+.modal-dialog .button:active,
+.modal-dialog .button:checked,
+.message-dialog .button:focus,
+.message-dialog .button:active,
+.message-dialog .button:checked,
+.prompt-dialog .button:focus,
+.prompt-dialog .button:active,
+.prompt-dialog .button:checked,
+.end-session-dialog .button:focus,
+.end-session-dialog .button:active,
+.end-session-dialog .button:checked,
+.run-dialog .button:focus,
+.run-dialog .button:active,
+.run-dialog .button:checked,
+.audio-device-selection-dialog .button:focus,
+.audio-device-selection-dialog .button:active,
+.audio-device-selection-dialog .button:checked,
+.dialog .button:focus,
+.dialog .button:active,
+.dialog .button:checked,
+button:focus,
+button:active,
+button:checked {
+  background-color: #5A4033 !important;
+  color: #FFF8F2 !important;
+  border: 1px solid rgba(214, 184, 154, 0.18) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+  outline: none !important;
+}
+
+.modal-dialog StIcon,
+.message-dialog StIcon,
+.prompt-dialog StIcon,
+.end-session-dialog StIcon,
+.audio-device-selection-dialog StIcon,
+.dialog StIcon {
+  color: #F2E7DD !important;
+}

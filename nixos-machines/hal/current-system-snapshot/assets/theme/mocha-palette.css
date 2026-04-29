@@ -1,0 +1,22 @@
+/* Diesel OS Lab - GNOME Mocha Edition */
+/* Paleta nativa do GNOME Shell */
+
+@define-color mocha_bg_main        #2A1B14;
+@define-color mocha_bg_secondary   #35231A;
+@define-color mocha_surface        rgba(51, 40, 35, 0.96);
+
+@define-color mocha_text_main      #D6B89A;
+@define-color mocha_text_secondary #F2E7DD;
+@define-color mocha_text_muted     #CBB8A7;
+
+@define-color mocha_accent         #C6A98D;
+@define-color mocha_accent_hover   #B89C84;
+@define-color mocha_accent_deep    #6B4F3E;
+@define-color mocha_on_accent      #1E1815;
+
+@define-color mocha_border         rgba(92, 70, 56, 0.90);
+@define-color mocha_focus          #D8BE9C;
+@define-color mocha_selection      #5A4033;
+
+@define-color mocha_olive_muted    #7A8B6F;
+@define-color mocha_olive_soft     #9CAA8A;

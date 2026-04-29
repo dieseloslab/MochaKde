@@ -1,0 +1,11 @@
+/*
+  Diesel OS Lab - GNOME Mocha Edition
+
+  Este arquivo fica intencionalmente vazio.
+
+  Motivo:
+  - userChrome.css aplica o tema Mocha à interface do Firefox.
+  - userContent.css mexe no conteúdo das páginas.
+  - Para preservar Dark Reader, temas dos sites e evitar páginas cinzas,
+    o Mocha não aplica CSS ao conteúdo web.
+*/

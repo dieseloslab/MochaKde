@@ -1,0 +1,61 @@
+Diesel OS Lab - GNOME Mocha Edition
+Estado salvo em: 2026-04-24 21:16:26 -0300
+
+Fonte operacional ativa:
+  /etc/nixos
+
+Espelho local:
+  /mnt/vmstore/Mocha/nixos-machines/hal
+
+Regra do projeto:
+  /etc/nixos é a fonte ativa do sistema instalado.
+  vmstore e GitHub são espelho/backup/sincronização.
+  Não usar /mnt/vmstore como dependência operacional do sistema ativo.
+
+Sistema ativo:
+  /nix/store/0mgkabngddvhbrw5wv7s2v08napxfwnh-nixos-system-diesel-os-lab-26.05.20260423.dirty
+
+Kernel:
+  6.19.12-zen1
+
+NVIDIA:
+595.58.03, NVIDIA GeForce RTX 5060 Ti, P8, 30, 10.06
+
+GTK:
+  gtk-theme: 'Mocha'
+  color-scheme: 'prefer-dark'
+
+Firefox:
+  userChrome.css aplicado.
+  userContent.css intencionalmente não aplicado para preservar Dark Reader.
+
+Hibernação:
+  Teste real aprovado em 2026-04-24 21:16:26 -0300
+  Método: sudo systemctl hibernate
+  Resultado: retorno de S4 com GNOME/NVIDIA funcionais.
+  Falhas systemd: 0
+
+Swap / zram:
+NAME           TYPE       SIZE USED PRIO
+/dev/zram0     partition  6,2G 1,6G  100
+/dev/nvme0n1p4 partition 33,2G   0B   -1
+
+Resume / parâmetros NVIDIA:
+nvidia-drm.modeset=1
+nvidia-drm.fbdev=1
+nvidia.NVreg_PreserveVideoMemoryAllocations=1
+resume=/dev/disk/by-uuid/84b307a9-d28a-44a8-8f86-9346f717d73d
+nvidia-drm.modeset=1
+nvidia-drm.fbdev=1
+nvidia.NVreg_UseKernelSuspendNotifiers=1
+nvidia.NVreg_PreserveVideoMemoryAllocations=1
+
+Falhas do sistema:
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+
+Falhas do usuário:
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.

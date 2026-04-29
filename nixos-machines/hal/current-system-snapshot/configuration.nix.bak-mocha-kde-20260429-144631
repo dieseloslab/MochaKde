@@ -1,0 +1,46 @@
+# /etc/nixos/configuration.nix
+
+{ ... }:
+
+{
+  imports = [
+    ./modules/nvidia-595-71-05-test.nix
+    ./modules/mocha-vm-alternatives.nix
+    ./modules/mocha-vm-managers.nix
+    ./hardware-configuration.nix
+    ./modules/boot.nix
+    ./modules/locale.nix
+    ./modules/networking.nix
+    ./modules/mocha-firewall-profiles.nix
+    ./modules/mocha-firewall-center.nix
+    ./modules/desktop-gnome.nix
+    ./modules/branding.nix
+    ./modules/mocha-boot-branding.nix
+    ./modules/mocha-flatpak-theme-bridge.nix
+    ./modules/hardware-nvidia.nix
+    ./modules/gaming.nix
+    ./modules/maintenance.nix
+    ./modules/packages.nix
+    ./modules/optional-apps.nix
+    ./modules/mocha-app-picker-gtk.nix
+    ./modules/mocha-welcome.nix
+    ./modules/mocha-donation-reminder.nix
+    ./modules/mocha-update-center.nix
+    ./modules/user-hal.nix
+    ./modules/vmstore.nix
+    ./modules/tuned.nix
+    ./modules/system76-scheduler-test.nix
+    ./modules/local-gnome-extensions.nix
+    ./modules/firefox-theme.nix
+  ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  system.stateVersion = "25.11";
+
+  users.users.hal.extraGroups = [ "libvirtd" "kvm" ];
+
+}

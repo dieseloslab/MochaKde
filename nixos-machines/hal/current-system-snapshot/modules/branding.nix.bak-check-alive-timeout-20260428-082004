@@ -1,0 +1,318 @@
+# /etc/nixos/modules/branding.nix
+
+{ pkgs, lib, mochaRoot ? /etc/nixos, ... }:
+
+let
+  userName = "hal";
+  userGroup = "users";
+  userHome = "/home/${userName}";
+
+  themeName = "Mocha";
+  iconTheme = "Tela-circle-brown";
+  cursorTheme = "Bibata-Modern-Mocha";
+  cursorSize = 24;
+
+  terminalProfile = "b1dcc9dd-5262-4d8d-a863-c897e6d979b9";
+
+  gnomeShellThemeDir = "${userHome}/.themes/${themeName}/gnome-shell";
+  localGnomeShellThemeDir = "${userHome}/.local/share/themes/${themeName}/gnome-shell";
+  gtk3ThemeDir = "${userHome}/.themes/${themeName}/gtk-3.0";
+  gtk4ThemeDir = "${userHome}/.themes/${themeName}/gtk-4.0";
+  localGtk3ThemeDir = "${userHome}/.local/share/themes/${themeName}/gtk-3.0";
+  localGtk4ThemeDir = "${userHome}/.local/share/themes/${themeName}/gtk-4.0";
+  gtk3Dir = "${userHome}/.config/gtk-3.0";
+  gtk4Dir = "${userHome}/.config/gtk-4.0";
+
+  mochaAssets = pkgs.stdenvNoCC.mkDerivation {
+    pname = "mocha-assets";
+    version = "1";
+
+    src = mochaRoot + "/assets";
+
+    dontConfigure = true;
+    dontBuild = true;
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p "$out/share/icons"
+      cp -a "$src/cursors/${cursorTheme}" "$out/share/icons/"
+
+      mkdir -p "$out/share/backgrounds/diesel-os-lab"
+      cp -a "$src/branding/wallpaper/wallpaper.png" \
+        "$out/share/backgrounds/diesel-os-lab/wallpaper.png"
+
+      mkdir -p "$out/share/diesel-os-lab/branding/avatar"
+      cp -a "$src/branding/avatar/avatar.png" \
+        "$out/share/diesel-os-lab/branding/avatar/avatar.png"
+
+      mkdir -p "$out/share/diesel-os-lab/branding/logo"
+      cp -a "$src/branding/logo/diesel-os-lab-icon.png" \
+        "$out/share/diesel-os-lab/branding/logo/diesel-os-lab-icon.png"
+
+      mkdir -p "$out/share/icons/hicolor/256x256/apps"
+      cp -a "$src/branding/logo/diesel-os-lab-icon.png" \
+        "$out/share/icons/hicolor/256x256/apps/diesel-os-lab.png"
+
+      mkdir -p "$out/share/pixmaps"
+      cp -a "$src/branding/logo/diesel-os-lab-icon.png" \
+        "$out/share/pixmaps/diesel-os-lab.png"
+
+      mkdir -p "$out/share/diesel-os-lab/theme"
+      cp -a "$src/theme/mocha-palette.css" \
+        "$out/share/diesel-os-lab/theme/mocha-palette.css"
+      cp -a "$src/theme/mocha-role-map.css" \
+        "$out/share/diesel-os-lab/theme/mocha-role-map.css"
+
+      mkdir -p "$out/share/diesel-os-lab/theme/${themeName}/gnome-shell"
+      cp -a "$src/theme/gnome-shell/gnome-shell.css" \
+        "$out/share/diesel-os-lab/theme/${themeName}/gnome-shell/gnome-shell.css"
+      cp -a "$src/theme/mocha-palette.css" \
+        "$out/share/diesel-os-lab/theme/${themeName}/gnome-shell/mocha-palette.css"
+      cp -a "$src/theme/mocha-role-map.css" \
+        "$out/share/diesel-os-lab/theme/${themeName}/gnome-shell/mocha-role-map.css"
+
+      mkdir -p "$out/share/diesel-os-lab/theme/gtk"
+      cp -a "$src/theme/gtk/gtk-3.0.css" \
+        "$out/share/diesel-os-lab/theme/gtk/gtk-3.0.css"
+      cp -a "$src/theme/gtk/gtk-4.0.css" \
+        "$out/share/diesel-os-lab/theme/gtk/gtk-4.0.css"
+      cp -a "$src/theme/gtk/gtk-3.0.settings.ini" \
+        "$out/share/diesel-os-lab/theme/gtk/gtk-3.0.settings.ini"
+      cp -a "$src/theme/gtk/gtk-4.0.settings.ini" \
+        "$out/share/diesel-os-lab/theme/gtk/gtk-4.0.settings.ini"
+
+      runHook postInstall
+    '';
+  };
+
+  wallpaperUri = "file://${mochaAssets}/share/backgrounds/diesel-os-lab/wallpaper.png";
+
+  donateUrl = "https://www.paypal.com/donate/?business=RE5E2EWMKAFBW&no_recurring=0&currency_code=BRL";
+
+  mochaDonate = pkgs.writeShellScriptBin "mocha-donate" ''
+    exec ${pkgs.xdg-utils}/bin/xdg-open ${lib.escapeShellArg donateUrl}
+  '';
+
+  mochaDonateDesktop = pkgs.makeDesktopItem {
+    name = "mocha-donate";
+    desktopName = "Doar para o Diesel OS Lab";
+    genericName = "Doações";
+    comment = "Apoie o projeto Diesel OS Lab - GNOME Mocha Edition";
+    exec = "mocha-donate";
+    icon = "diesel-os-lab";
+    terminal = false;
+    categories = [
+      "Utility"
+    ];
+  };
+in
+{
+  environment.systemPackages = [
+    mochaAssets
+    mochaDonate
+    mochaDonateDesktop
+  ];
+
+  environment.sessionVariables = {
+    XCURSOR_THEME = cursorTheme;
+    XCURSOR_SIZE = toString cursorSize;
+  };
+
+  system.activationScripts.mochaVisuals.text = ''
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${gnomeShellThemeDir}"
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${localGnomeShellThemeDir}"
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${gtk3ThemeDir}"
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${gtk4ThemeDir}"
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${localGtk3ThemeDir}"
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${localGtk4ThemeDir}"
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${gtk3Dir}"
+    install -d -m 0755 -o ${userName} -g ${userGroup} "${gtk4Dir}"
+
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/${themeName}/gnome-shell/gnome-shell.css "${gnomeShellThemeDir}/"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/${themeName}/gnome-shell/mocha-palette.css "${gnomeShellThemeDir}/"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/${themeName}/gnome-shell/mocha-role-map.css "${gnomeShellThemeDir}/"
+
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/${themeName}/gnome-shell/gnome-shell.css "${localGnomeShellThemeDir}/"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/${themeName}/gnome-shell/mocha-palette.css "${localGnomeShellThemeDir}/"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/${themeName}/gnome-shell/mocha-role-map.css "${localGnomeShellThemeDir}/"
+
+    cat > "${userHome}/.themes/${themeName}/index.theme" <<EOF_THEME
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=${themeName}
+Comment=Diesel OS Lab - GNOME Mocha Edition
+
+[X-GNOME-Metatheme]
+GtkTheme=${themeName}
+MetacityTheme=Adwaita
+IconTheme=${iconTheme}
+CursorTheme=${cursorTheme}
+ButtonLayout=:minimize,maximize,close
+EOF_THEME
+
+    cp -f "${userHome}/.themes/${themeName}/index.theme" "${userHome}/.local/share/themes/${themeName}/index.theme"
+
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-3.0.css "${gtk3Dir}/gtk.css"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-4.0.css "${gtk4Dir}/gtk.css"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-3.0.settings.ini "${gtk3Dir}/settings.ini"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-4.0.settings.ini "${gtk4Dir}/settings.ini"
+
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-3.0.css "${gtk3ThemeDir}/gtk.css"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-4.0.css "${gtk4ThemeDir}/gtk.css"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-3.0.css "${localGtk3ThemeDir}/gtk.css"
+    cp -f ${mochaAssets}/share/diesel-os-lab/theme/gtk/gtk-4.0.css "${localGtk4ThemeDir}/gtk.css"
+
+    chown -R ${userName}:${userGroup} "${userHome}/.themes/${themeName}"
+    chown -R ${userName}:${userGroup} "${userHome}/.local/share/themes/${themeName}"
+    chown -R ${userName}:${userGroup} "${gtk3Dir}"
+    chown -R ${userName}:${userGroup} "${gtk4Dir}"
+
+    chmod -R u+rwX "${userHome}/.themes/${themeName}"
+    chmod -R u+rwX "${userHome}/.local/share/themes/${themeName}"
+    chmod -R u+rwX "${gtk3Dir}"
+    chmod -R u+rwX "${gtk4Dir}"
+  '';
+
+  environment.etc."os-release".text = lib.mkForce ''
+    NAME="Diesel OS Lab"
+    PRETTY_NAME="Diesel OS Lab - GNOME Mocha Edition"
+    ID="diesel-os-lab"
+    ID_LIKE="nixos"
+    DEFAULT_HOSTNAME="diesel-os-lab"
+    VERSION="25.11 (Xantusia)"
+    VERSION_ID="25.11"
+    VERSION_CODENAME="xantusia"
+    IMAGE_ID="gnome-mocha-edition"
+    LOGO="diesel-os-lab"
+    HOME_URL="https://dieseloslab.org/"
+    SUPPORT_URL="https://dieseloslab.org/"
+    BUG_REPORT_URL="https://github.com/dieseloslab/Mocha/issues"
+    VENDOR_NAME="Diesel OS Lab"
+    ANSI_COLOR="0;38;2;198;169;141"
+  '';
+
+  programs.dconf.profiles.user.databases = [
+    {
+      settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          gtk-theme = themeName;
+          icon-theme = iconTheme;
+          cursor-theme = cursorTheme;
+          cursor-size = lib.gvariant.mkInt32 cursorSize;
+          enable-animations = false;
+        };
+
+        "org/gnome/desktop/background" = {
+          picture-uri = wallpaperUri;
+          picture-uri-dark = wallpaperUri;
+          picture-options = "zoom";
+        };
+
+        "org/gnome/desktop/screensaver" = {
+          picture-uri = wallpaperUri;
+          picture-options = "zoom";
+        };
+
+        "org/gnome/mutter" = {
+          experimental-features = [ "scale-monitor-framebuffer" ];
+        };
+
+        "org/gnome/settings-daemon/plugins/power" = {
+          sleep-inactive-ac-type = "hibernate";
+          sleep-inactive-ac-timeout = lib.gvariant.mkUint32 900;
+          sleep-inactive-battery-type = "hibernate";
+          sleep-inactive-battery-timeout = lib.gvariant.mkUint32 900;
+        };
+
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+          enabled-extensions = [
+            "dash-to-dock@micxgx.gmail.com"
+            "caffeine@patapon.info"
+            "apps-menu@gnome-shell-extensions.gcampax.github.com"
+            "user-theme@gnome-shell-extensions.gcampax.github.com"
+            "tuned-switcher@rea1-ms"
+            "power-off-options@axelitama.github.io"
+          ];
+          favorite-apps = [
+            "firefox.desktop"
+            "org.gnome.Nautilus.desktop"
+            "steam.desktop"
+            "bitwarden.desktop"
+            "onlyoffice-desktopeditors.desktop"
+            "org.gnome.Terminal.desktop"
+          ];
+        };
+
+        "org/gnome/shell/extensions/user-theme" = {
+          name = themeName;
+        };
+
+        "org/gnome/shell/extensions/dash-to-dock" = {
+          dock-position = "BOTTOM";
+          extend-height = false;
+          dock-fixed = false;
+          autohide = true;
+          autohide-in-fullscreen = true;
+          intellihide = true;
+          disable-overview-on-startup = true;
+          require-pressure-to-show = false;
+          pressure-threshold = lib.gvariant.mkDouble 0.0;
+          show-trash = false;
+          show-mounts = false;
+          isolate-workspaces = false;
+          click-action = "minimize";
+          scroll-action = "cycle-windows";
+          show-delay = lib.gvariant.mkDouble 0.0;
+          hide-delay = lib.gvariant.mkDouble 0.0;
+          animation-time = lib.gvariant.mkDouble 0.15;
+          dash-max-icon-size = lib.gvariant.mkInt32 40;
+          transparency-mode = "FIXED";
+          background-opacity = lib.gvariant.mkDouble 0.75;
+        };
+
+        "org/gnome/desktop/wm/preferences" = {
+          button-layout = ":minimize,maximize,close";
+        };
+
+        "org/gnome/terminal/legacy/profiles:" = {
+          default = terminalProfile;
+          list = [ terminalProfile ];
+        };
+
+        "org/gnome/terminal/legacy/profiles:/:${terminalProfile}" = {
+          visible-name = "Mocha";
+          use-theme-colors = false;
+          bold-color-same-as-fg = false;
+          background-color = "rgb(42,27,20)";
+          foreground-color = "rgb(214,184,154)";
+          bold-color = "rgb(255,244,235)";
+          palette = [
+            "rgb(42,27,20)"
+            "rgb(107,79,62)"
+            "rgb(90,64,51)"
+            "rgb(198,169,141)"
+            "rgb(184,156,132)"
+            "rgb(214,184,154)"
+            "rgb(242,231,221)"
+            "rgb(255,244,235)"
+            "rgb(53,35,26)"
+            "rgb(107,79,62)"
+            "rgb(90,64,51)"
+            "rgb(198,169,141)"
+            "rgb(184,156,132)"
+            "rgb(214,184,154)"
+            "rgb(242,231,221)"
+            "rgb(255,244,235)"
+          ];
+        };
+
+        "org/gnome/terminal/legacy/keybindings" = {
+          select-all = "<Primary><Shift>a";
+        };
+      };
+    }
+  ];
+}

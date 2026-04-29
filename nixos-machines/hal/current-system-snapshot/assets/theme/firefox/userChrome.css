@@ -1,0 +1,39 @@
+:root {
+  --mocha-bg-main: #2A1B14 !important;
+  --mocha-bg-secondary: #35231A !important;
+  --mocha-bg-elevated: #35231A !important;
+  --mocha-surface: rgba(53, 35, 26, 0.92) !important;
+
+  --mocha-text-main: #D6B89A !important;
+  --mocha-text-strong: #FFF4EB !important;
+  --mocha-text-soft: #F2E7DD !important;
+
+  --mocha-accent: #C6A98D !important;
+  --mocha-accent-hover: #B89C84 !important;
+  --mocha-accent-deep: #6B4F3E !important;
+  --mocha-on-accent: #1E1815 !important;
+
+  --mocha-border: rgba(198, 169, 141, 0.20) !important;
+  --mocha-border-strong: rgba(198, 169, 141, 0.30) !important;
+  --mocha-hover: rgba(90, 64, 51, 0.28) !important;
+  --mocha-selected: rgba(90, 64, 51, 0.40) !important;
+  --mocha-panel: rgba(30, 20, 16, 0.985) !important;
+  --mocha-shadow: rgba(0, 0, 0, 0.40) !important;
+
+  --toolbar-bgcolor: var(--mocha-bg-elevated) !important;
+  --toolbar-color: var(--mocha-text-main) !important;
+  --lwt-text-color: var(--mocha-text-main) !important;
+  --toolbar-field-color: var(--mocha-text-strong) !important;
+  --toolbar-field-focus-color: var(--mocha-text-strong) !important;
+  --toolbar-field-background-color: rgba(42, 27, 20, 0.92) !important;
+  --toolbar-field-focus-background-color: rgba(42, 27, 20, 0.98) !important;
+  --toolbar-field-border-color: var(--mocha-border) !important;
+  --toolbar-field-focus-border-color: var(--mocha-accent) !important;
+  --toolbarbutton-icon-fill: var(--mocha-text-main) !important;
+  --toolbarbutton-hover-background: rgba(198, 169, 141, 0.10) !important;
+  --toolbarbutton-active-background: rgba(198, 169, 141, 0.16) !important;
+  --lwt-accent-color: var(--mocha-bg-main) !important;
+  --arrowpanel-background: var(--mocha-panel) !important;
+  --arrowpanel-color: var(--mocha-text-soft) !important;
+  --arrowpanel-border-color: var(--mocha-border) !important;
+}

@@ -1,0 +1,86 @@
+# /etc/nixos/modules/maintenance.nix
+#
+# Diesel OS Lab - GNOME Mocha Edition
+#
+# Manutencao e pequenos ajustes operacionais do sistema.
+#
+# Regra importante:
+# o sistema ativo no SSD nao deve depender operacionalmente de vmstore,
+# MOCHAFAST ou qualquer disco externo.
+#
+# Cache externo:
+# quando MOCHAFAST/vmstore estiver montado e for desejado usar o cache
+# local, usar NIX_CONFIG temporario no comando de build/rebuild, por exemplo:
+#
+#   sudo env NIX_CONFIG='
+#   experimental-features = nix-command flakes
+#   substituters = file:///media/mochafast/nix-cache https://cache.nixos.org/
+#   trusted-substituters = file:///media/mochafast/nix-cache https://cache.nixos.org/
+#   require-sigs = false
+#   fallback = true
+#   ' nixos-rebuild build --flake /etc/nixos#diesel-os-lab --show-trace
+#
+# Isso preserva a eficiencia quando o cache esta disponivel,
+# sem criar dependencia permanente de disco externo.
+
+{
+  services.fstrim.enable = true;
+  services.fprintd.enable = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  nix.optimise = {
+    automatic = true;
+    dates = [ "weekly" ];
+  };
+
+  # Corrige porta USB defeituosa / instavel que fica gerando spam no kernel:
+  #
+  #   usb usb6-port2: Cannot enable. Maybe the USB cable is bad?
+  #   usb usb6-port2: config error
+  #
+  # Teste aprovado em 2026-04-25:
+  #   echo 1 > /sys/devices/pci0000:00/0000:00:08.1/0000:09:00.4/usb6/6-0:1.0/usb6-port2/disable
+  #
+  # Resultado:
+  #   disable = 1
+  #   nenhum novo erro usb6-port2 apos o marcador.
+  systemd.services.mocha-disable-bad-usb-port = {
+    description = "Disable unstable USB6 port2 on Diesel OS Lab Mocha";
+
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-udev-settle.service" ];
+    wants = [ "systemd-udev-settle.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+
+    script = ''
+      port="/sys/devices/pci0000:00/0000:00:08.1/0000:09:00.4/usb6/6-0:1.0/usb6-port2/disable"
+
+      if [ -e "$port" ]; then
+        echo 1 > "$port"
+        echo "Mocha: usb6-port2 desativada."
+      else
+        echo "Mocha: usb6-port2 nao encontrada neste boot; nada a fazer."
+      fi
+    '';
+  };
+
+  # Reaplica a correcao depois de suspensao/hibernacao, caso o kernel reavalie
+  # a porta USB no retorno da energia.
+  powerManagement.resumeCommands = ''
+    port="/sys/devices/pci0000:00/0000:00:08.1/0000:09:00.4/usb6/6-0:1.0/usb6-port2/disable"
+
+    if [ -e "$port" ]; then
+      echo 1 > "$port"
+      echo "Mocha: usb6-port2 redesativada apos resume."
+    fi
+  '';
+}

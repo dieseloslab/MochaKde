@@ -1,0 +1,31 @@
+# Diesel OS Lab - GNOME Mocha Edition
+# Steam / jogos / MangoHud
+
+Modo recomendado do Mocha:
+
+  Steam - Mocha Game Session
+
+Esse launcher:
+  1. ativa Mocha Game Mode;
+  2. muda tuned para latency-performance;
+  3. inicia a Steam com MANGOHUD=1;
+  4. restaura o perfil tuned anterior quando a Steam é fechada.
+
+Uso:
+  Abra pelo menu do GNOME:
+    Steam - Mocha Game Session
+
+Importante:
+  Para Sniper Elite 5, manter o Steam Overlay desligado se o jogo voltar a falhar.
+  O teste mostrou que o jogo abriu com Steam Overlay desligado e MangoHud simples.
+
+Linha por jogo opcional, caso precise forçar MangoHud manualmente:
+
+  MANGOHUD=1 MANGOHUD_CONFIG=horizontal,fps,frametime,gpu_stats,gpu_core_clock,vram,cpu_stats,cpu_mhz,ram,position=top-left,font_size=14,background_alpha=0.35,table_columns=20 %command%
+
+Não usar como padrão:
+  /run/current-system/sw/bin/mocha-steam-run %command%
+
+Motivo:
+  O wrapper por jogo funcionou em teste fake, mas foi frágil com Steam/Proton real.
+  O padrão do Mocha passa a ser sessão de jogo, não wrapper por jogo.

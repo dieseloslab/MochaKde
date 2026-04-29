@@ -1,0 +1,35 @@
+# /etc/nixos/modules/optional-apps.nix
+#
+# Diesel OS Lab - GNOME Mocha Edition
+#
+# Este arquivo é gerenciado pelo Mocha App Picker.
+# Programas opcionais escolhidos pelo usuário após a instalação.
+
+{ pkgs, lib, options, ... }:
+
+let
+  hasTeamViewerService = options.services ? teamviewer;
+  hasAnyDeskService = options.services ? anydesk;
+  hasVirtualBoxHost = (options.virtualisation ? virtualbox) && (options.virtualisation.virtualbox ? host);
+  hasVmwareHost = (options.virtualisation ? vmware) && (options.virtualisation.vmware ? host);
+in
+lib.mkMerge [
+  {
+    environment.systemPackages = with pkgs; [
+      anydesk
+      gparted
+      protonplus
+      teamviewer
+      vmware-workstation
+    ];
+  }
+  (lib.optionalAttrs hasAnyDeskService {
+    services.anydesk.enable = true;
+  })
+  (lib.optionalAttrs hasTeamViewerService {
+    services.teamviewer.enable = true;
+  })
+  (lib.optionalAttrs hasVmwareHost {
+    virtualisation.vmware.host.enable = true;
+  })
+]

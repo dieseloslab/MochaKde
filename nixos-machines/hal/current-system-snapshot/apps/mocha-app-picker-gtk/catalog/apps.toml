@@ -1,0 +1,222 @@
+# Mocha App Picker — catálogo de apps
+# Schema:
+#   id        slug estável (usado no código Rust e como key em strings.*.toml)
+#   pkg       nome real do pacote (attr nixpkgs OU app id flatpak)
+#   tab       aba de exibição (deve existir em strings.*.toml [tabs])
+#   backend   "nixpkgs" | "flatpak" | "special"
+#   note_key  opcional; se presente, busca em notes.<lang>.toml
+
+# ---------- browsers ----------
+[[app]]
+id = "brave"
+pkg = "brave"
+tab = "browsers"
+backend = "nixpkgs"
+
+[[app]]
+id = "vivaldi"
+pkg = "vivaldi"
+tab = "browsers"
+backend = "nixpkgs"
+
+[[app]]
+id = "chromium"
+pkg = "chromium"
+tab = "browsers"
+backend = "nixpkgs"
+
+[[app]]
+id = "librewolf"
+pkg = "librewolf"
+tab = "browsers"
+backend = "nixpkgs"
+
+# ---------- games ----------
+[[app]]
+id = "protonplus"
+pkg = "protonplus"
+tab = "games"
+backend = "nixpkgs"
+
+[[app]]
+id = "protonupqt"
+pkg = "protonup-qt"
+tab = "games"
+backend = "nixpkgs"
+
+[[app]]
+id = "heroic"
+pkg = "heroic"
+tab = "games"
+backend = "nixpkgs"
+
+[[app]]
+id = "lutris"
+pkg = "lutris"
+tab = "games"
+backend = "nixpkgs"
+
+[[app]]
+id = "bottles"
+pkg = "bottles"
+tab = "games"
+backend = "nixpkgs"
+
+# ---------- gamer_tools ----------
+[[app]]
+id = "gamescope"
+pkg = "gamescope"
+tab = "gamer_tools"
+backend = "nixpkgs"
+note_key = "gamescope"
+
+[[app]]
+id = "goverlay"
+pkg = "goverlay"
+tab = "gamer_tools"
+backend = "nixpkgs"
+
+[[app]]
+id = "vkbasalt"
+pkg = "vkbasalt"
+tab = "gamer_tools"
+backend = "nixpkgs"
+
+# ---------- flatpak ----------
+[[app]]
+id = "warehouse"
+pkg = "io.github.flattool.Warehouse"
+tab = "flatpak"
+backend = "flatpak"
+
+[[app]]
+id = "flatseal"
+pkg = "com.github.tchx84.Flatseal"
+tab = "flatpak"
+backend = "flatpak"
+
+[[app]]
+id = "gearlever"
+pkg = "it.mijorus.gearlever"
+tab = "flatpak"
+backend = "flatpak"
+
+# ---------- communication ----------
+[[app]]
+id = "discord"
+pkg = "discord"
+tab = "communication"
+backend = "nixpkgs"
+
+[[app]]
+id = "telegram"
+pkg = "telegram-desktop"
+tab = "communication"
+backend = "nixpkgs"
+
+# ---------- productivity ----------
+[[app]]
+id = "libreoffice"
+pkg = "libreoffice-fresh"
+tab = "productivity"
+backend = "nixpkgs"
+
+[[app]]
+id = "thunderbird"
+pkg = "thunderbird"
+tab = "productivity"
+backend = "nixpkgs"
+
+[[app]]
+id = "evolution-flatpak"
+pkg = "org.gnome.Evolution"
+tab = "productivity"
+backend = "flatpak"
+
+# ---------- media ----------
+[[app]]
+id = "vlc"
+pkg = "vlc"
+tab = "media"
+backend = "nixpkgs"
+
+# ---------- creation ----------
+[[app]]
+id = "obs-flatpak"
+pkg = "com.obsproject.Studio"
+tab = "creation"
+backend = "flatpak"
+
+[[app]]
+id = "kdenlive"
+pkg = "kdenlive"
+tab = "creation"
+backend = "nixpkgs"
+
+[[app]]
+id = "blender"
+pkg = "blender"
+tab = "creation"
+backend = "nixpkgs"
+
+[[app]]
+id = "gimp"
+pkg = "gimp"
+tab = "creation"
+backend = "nixpkgs"
+
+[[app]]
+id = "inkscape"
+pkg = "inkscape"
+tab = "creation"
+backend = "nixpkgs"
+
+# ---------- system ----------
+[[app]]
+id = "virt-manager"
+pkg = "virt-manager"
+tab = "system"
+backend = "nixpkgs"
+
+[[app]]
+id = "gnome-boxes"
+pkg = "gnome-boxes"
+tab = "system"
+backend = "nixpkgs"
+
+[[app]]
+id = "virtualbox"
+pkg = "virtualbox"
+tab = "system"
+backend = "special"
+
+[[app]]
+id = "vmware"
+pkg = "vmware-workstation"
+tab = "system"
+backend = "special"
+
+[[app]]
+id = "gparted"
+pkg = "gparted"
+tab = "system"
+backend = "nixpkgs"
+
+# ---------- remote ----------
+[[app]]
+id = "rustdesk"
+pkg = "rustdesk-flutter"
+tab = "remote"
+backend = "nixpkgs"
+
+[[app]]
+id = "teamviewer"
+pkg = "teamviewer"
+tab = "remote"
+backend = "special"
+
+[[app]]
+id = "anydesk"
+pkg = "anydesk"
+tab = "remote"
+backend = "special"

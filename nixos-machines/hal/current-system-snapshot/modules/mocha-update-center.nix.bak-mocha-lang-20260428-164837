@@ -1,0 +1,580 @@
+# /etc/nixos/modules/mocha-update-center.nix
+#
+# Diesel OS Lab - GNOME Mocha Edition
+#
+# Mocha Update Center
+#
+# Primeira fundação gráfica para updates seguros:
+#   - atualizar Flatpaks do sistema;
+#   - validar a configuração atual com nixos-rebuild test;
+#   - reaplicar a geração atual com nixos-rebuild switch;
+#   - ver gerações disponíveis;
+#   - deixar upgrade de canal/kernel/NVIDIA bloqueado por segurança.
+#
+# Esta versão já nasce com base i18n:
+#   - pt_BR
+#   - en_US fallback obrigatório
+#   - es_ES
+#   - fr_FR
+#
+# Detecção de idioma:
+#   LC_ALL > LC_MESSAGES > LANG > en_US
+
+{ pkgs, ... }:
+
+let
+  mochaUpdateCenterSrc = pkgs.writeText "mocha-update-center.rs" ''
+    use std::env;
+    use std::fs;
+    use std::path::Path;
+    use std::process::{Command, Stdio};
+    use std::thread;
+    use std::time::Duration;
+
+    const ZENITY: &str = "${pkgs.zenity}/bin/zenity";
+    const BASH: &str = "${pkgs.bash}/bin/bash";
+    const FLATPAK: &str = "${pkgs.flatpak}/bin/flatpak";
+    const GREP: &str = "${pkgs.gnugrep}/bin/grep";
+    const NIXOS_REBUILD: &str = "/run/current-system/sw/bin/nixos-rebuild";
+    const PKEXEC: &str = "/run/wrappers/bin/pkexec";
+
+    #[derive(Clone)]
+    struct Action {
+        id: &'static str,
+        title_key: &'static str,
+        desc_key: &'static str,
+        requires_root: bool,
+    }
+
+    fn actions() -> Vec<Action> {
+        vec![
+            Action {
+                id: "safe-maintenance",
+                title_key: "action_safe_maintenance",
+                desc_key: "desc_safe_maintenance",
+                requires_root: true,
+            },
+            Action {
+                id: "flatpak-update",
+                title_key: "action_flatpak_update",
+                desc_key: "desc_flatpak_update",
+                requires_root: true,
+            },
+            Action {
+                id: "nixos-test",
+                title_key: "action_nixos_test",
+                desc_key: "desc_nixos_test",
+                requires_root: true,
+            },
+            Action {
+                id: "nixos-switch",
+                title_key: "action_nixos_switch",
+                desc_key: "desc_nixos_switch",
+                requires_root: true,
+            },
+            Action {
+                id: "generations",
+                title_key: "action_generations",
+                desc_key: "desc_generations",
+                requires_root: false,
+            },
+            Action {
+                id: "upgrade-locked",
+                title_key: "action_upgrade_locked",
+                desc_key: "desc_upgrade_locked",
+                requires_root: false,
+            },
+        ]
+    }
+
+    fn normalize_lang(raw: &str) -> String {
+        let base = raw
+            .split('.')
+            .next()
+            .unwrap_or(raw)
+            .split('@')
+            .next()
+            .unwrap_or(raw)
+            .trim();
+
+        match base {
+            "pt_BR" | "pt" => "pt_BR".to_string(),
+            "en_US" | "en_GB" | "en" => "en_US".to_string(),
+            "es_ES" | "es_MX" | "es_AR" | "es" => "es_ES".to_string(),
+            "fr_FR" | "fr_CA" | "fr" => "fr_FR".to_string(),
+            _ => "en_US".to_string(),
+        }
+    }
+
+    fn detect_lang() -> String {
+        for key in ["LC_ALL", "LC_MESSAGES", "LANG"] {
+            if let Ok(value) = env::var(key) {
+                if !value.trim().is_empty() && value.trim() != "C" && value.trim() != "POSIX" {
+                    return normalize_lang(&value);
+                }
+            }
+        }
+
+        "en_US".to_string()
+    }
+
+    fn t(lang: &str, key: &str) -> &'static str {
+        match (lang, key) {
+            ("pt_BR", "title") => "Mocha Update Center",
+            ("pt_BR", "intro") => "Escolha uma ação de atualização/manutenção.\n\nAtualizações comuns são seguras. Upgrade de canal, kernel e NVIDIA ficam bloqueados até confirmação explícita.",
+            ("pt_BR", "install_button") => "Executar",
+            ("pt_BR", "cancel_button") => "Sair",
+            ("pt_BR", "column_choose") => "Escolher",
+            ("pt_BR", "column_id") => "ID",
+            ("pt_BR", "column_action") => "Ação",
+            ("pt_BR", "column_desc") => "Descrição",
+            ("pt_BR", "progress") => "Executando ação selecionada...",
+            ("pt_BR", "success") => "Ação concluída com sucesso.",
+            ("pt_BR", "no_nixos") => "Este programa espera encontrar /etc/nixos.",
+            ("pt_BR", "auth_error") => "Falha ao iniciar autenticação/execução.",
+            ("pt_BR", "log_empty") => "Não foi possível ler o log.",
+            ("pt_BR", "failed") => "A ação não foi concluída.",
+            ("pt_BR", "generations_title") => "Gerações do NixOS",
+            ("pt_BR", "upgrade_locked_text") => "Upgrade de canal, kernel e NVIDIA está bloqueado nesta versão.\n\nMotivo: o Mocha atual usa pins sensíveis para kernel/NVIDIA e nixpkgs. Essa troca precisa de fluxo próprio com confirmação forte, validação, snapshot e rollback.\n\nPermitido agora:\n- atualizar Flatpaks;\n- validar o sistema atual;\n- reaplicar a configuração atual;\n- consultar gerações.",
+            ("pt_BR", "action_safe_maintenance") => "Atualização segura",
+            ("pt_BR", "desc_safe_maintenance") => "Atualiza Flatpaks, valida o sistema atual e reaplica a configuração atual sem trocar canal/kernel/NVIDIA.",
+            ("pt_BR", "action_flatpak_update") => "Atualizar Flatpaks",
+            ("pt_BR", "desc_flatpak_update") => "Executa flatpak update --system usando Flathub global.",
+            ("pt_BR", "action_nixos_test") => "Validar sistema atual",
+            ("pt_BR", "desc_nixos_test") => "Executa nixos-rebuild test usando /etc/nixos.",
+            ("pt_BR", "action_nixos_switch") => "Reaplicar sistema atual",
+            ("pt_BR", "desc_nixos_switch") => "Executa nixos-rebuild switch usando os pins atuais.",
+            ("pt_BR", "action_generations") => "Ver gerações",
+            ("pt_BR", "desc_generations") => "Mostra as gerações disponíveis para rollback.",
+            ("pt_BR", "action_upgrade_locked") => "Upgrade de canal/kernel/NVIDIA",
+            ("pt_BR", "desc_upgrade_locked") => "Bloqueado por segurança até criarmos fluxo avançado próprio.",
+
+            ("es_ES", "title") => "Mocha Update Center",
+            ("es_ES", "intro") => "Elija una acción de actualización/mantenimiento.\n\nLas actualizaciones comunes son seguras. El cambio de canal, kernel y NVIDIA queda bloqueado hasta confirmación explícita.",
+            ("es_ES", "install_button") => "Ejecutar",
+            ("es_ES", "cancel_button") => "Salir",
+            ("es_ES", "column_choose") => "Elegir",
+            ("es_ES", "column_id") => "ID",
+            ("es_ES", "column_action") => "Acción",
+            ("es_ES", "column_desc") => "Descripción",
+            ("es_ES", "progress") => "Ejecutando la acción seleccionada...",
+            ("es_ES", "success") => "Acción completada con éxito.",
+            ("es_ES", "no_nixos") => "Este programa espera encontrar /etc/nixos.",
+            ("es_ES", "auth_error") => "Error al iniciar autenticación/ejecución.",
+            ("es_ES", "log_empty") => "No fue posible leer el registro.",
+            ("es_ES", "failed") => "La acción no se completó.",
+            ("es_ES", "generations_title") => "Generaciones de NixOS",
+            ("es_ES", "upgrade_locked_text") => "El cambio de canal, kernel y NVIDIA está bloqueado en esta versión.\n\nMotivo: Mocha usa pins sensibles para kernel/NVIDIA y nixpkgs. Ese cambio necesita un flujo propio con confirmación fuerte, validación, snapshot y rollback.",
+            ("es_ES", "action_safe_maintenance") => "Actualización segura",
+            ("es_ES", "desc_safe_maintenance") => "Actualiza Flatpaks, valida el sistema actual y reaplica la configuración actual sin cambiar canal/kernel/NVIDIA.",
+            ("es_ES", "action_flatpak_update") => "Actualizar Flatpaks",
+            ("es_ES", "desc_flatpak_update") => "Ejecuta flatpak update --system usando Flathub global.",
+            ("es_ES", "action_nixos_test") => "Validar sistema actual",
+            ("es_ES", "desc_nixos_test") => "Ejecuta nixos-rebuild test usando /etc/nixos.",
+            ("es_ES", "action_nixos_switch") => "Reaplicar sistema actual",
+            ("es_ES", "desc_nixos_switch") => "Ejecuta nixos-rebuild switch usando los pins actuales.",
+            ("es_ES", "action_generations") => "Ver generaciones",
+            ("es_ES", "desc_generations") => "Muestra generaciones disponibles para rollback.",
+            ("es_ES", "action_upgrade_locked") => "Cambio de canal/kernel/NVIDIA",
+            ("es_ES", "desc_upgrade_locked") => "Bloqueado por seguridad hasta crear un flujo avanzado propio.",
+
+            ("fr_FR", "title") => "Mocha Update Center",
+            ("fr_FR", "intro") => "Choisissez une action de mise à jour/maintenance.\n\nLes mises à jour courantes sont sûres. Le changement de canal, de noyau et de pilote NVIDIA reste bloqué jusqu'à confirmation explicite.",
+            ("fr_FR", "install_button") => "Exécuter",
+            ("fr_FR", "cancel_button") => "Quitter",
+            ("fr_FR", "column_choose") => "Choisir",
+            ("fr_FR", "column_id") => "ID",
+            ("fr_FR", "column_action") => "Action",
+            ("fr_FR", "column_desc") => "Description",
+            ("fr_FR", "progress") => "Exécution de l'action sélectionnée...",
+            ("fr_FR", "success") => "Action terminée avec succès.",
+            ("fr_FR", "no_nixos") => "Ce programme s'attend à trouver /etc/nixos.",
+            ("fr_FR", "auth_error") => "Échec du démarrage de l'authentification/exécution.",
+            ("fr_FR", "log_empty") => "Impossible de lire le journal.",
+            ("fr_FR", "failed") => "L'action n'a pas été terminée.",
+            ("fr_FR", "generations_title") => "Générations NixOS",
+            ("fr_FR", "upgrade_locked_text") => "Le changement de canal, de noyau et de pilote NVIDIA est bloqué dans cette version.\n\nRaison : Mocha utilise des pins sensibles pour le noyau/NVIDIA et nixpkgs. Ce changement exige un flux dédié avec confirmation forte, validation, snapshot et rollback.",
+            ("fr_FR", "action_safe_maintenance") => "Mise à jour sûre",
+            ("fr_FR", "desc_safe_maintenance") => "Met à jour les Flatpaks, valide le système actuel et réapplique la configuration actuelle sans changer canal/noyau/NVIDIA.",
+            ("fr_FR", "action_flatpak_update") => "Mettre à jour les Flatpaks",
+            ("fr_FR", "desc_flatpak_update") => "Exécute flatpak update --system avec Flathub global.",
+            ("fr_FR", "action_nixos_test") => "Valider le système actuel",
+            ("fr_FR", "desc_nixos_test") => "Exécute nixos-rebuild test avec /etc/nixos.",
+            ("fr_FR", "action_nixos_switch") => "Réappliquer le système actuel",
+            ("fr_FR", "desc_nixos_switch") => "Exécute nixos-rebuild switch avec les pins actuels.",
+            ("fr_FR", "action_generations") => "Voir les générations",
+            ("fr_FR", "desc_generations") => "Affiche les générations disponibles pour rollback.",
+            ("fr_FR", "action_upgrade_locked") => "Changement canal/noyau/NVIDIA",
+            ("fr_FR", "desc_upgrade_locked") => "Bloqué par sécurité jusqu'à la création d'un flux avancé dédié.",
+
+            (_, "title") => "Mocha Update Center",
+            (_, "intro") => "Choose an update/maintenance action.\n\nCommon updates are safe. Channel, kernel and NVIDIA upgrades stay locked until explicit confirmation.",
+            (_, "install_button") => "Run",
+            (_, "cancel_button") => "Exit",
+            (_, "column_choose") => "Choose",
+            (_, "column_id") => "ID",
+            (_, "column_action") => "Action",
+            (_, "column_desc") => "Description",
+            (_, "progress") => "Running selected action...",
+            (_, "success") => "Action completed successfully.",
+            (_, "no_nixos") => "This program expects to find /etc/nixos.",
+            (_, "auth_error") => "Failed to start authentication/execution.",
+            (_, "log_empty") => "Could not read the log.",
+            (_, "failed") => "The action was not completed.",
+            (_, "generations_title") => "NixOS Generations",
+            (_, "upgrade_locked_text") => "Channel, kernel and NVIDIA upgrades are locked in this version.\n\nReason: Mocha currently uses sensitive pins for kernel/NVIDIA and nixpkgs. That change requires a dedicated flow with strong confirmation, validation, snapshot and rollback.",
+            (_, "action_safe_maintenance") => "Safe update",
+            (_, "desc_safe_maintenance") => "Updates Flatpaks, validates the current system and reapplies the current configuration without changing channel/kernel/NVIDIA.",
+            (_, "action_flatpak_update") => "Update Flatpaks",
+            (_, "desc_flatpak_update") => "Runs flatpak update --system using global Flathub.",
+            (_, "action_nixos_test") => "Validate current system",
+            (_, "desc_nixos_test") => "Runs nixos-rebuild test using /etc/nixos.",
+            (_, "action_nixos_switch") => "Reapply current system",
+            (_, "desc_nixos_switch") => "Runs nixos-rebuild switch using current pins.",
+            (_, "action_generations") => "View generations",
+            (_, "desc_generations") => "Shows available generations for rollback.",
+            (_, "action_upgrade_locked") => "Channel/kernel/NVIDIA upgrade",
+            (_, "desc_upgrade_locked") => "Locked for safety until a dedicated advanced flow is created.",
+            (_, _) => "Missing translation.",
+        }
+    }
+
+    fn zenity_error(lang: &str, text: &str) {
+        let _ = Command::new(ZENITY)
+            .arg("--error")
+            .arg("--width=680")
+            .arg(format!("--title={}", t(lang, "title")))
+            .arg(format!("--text={}", text))
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status();
+    }
+
+    fn zenity_info(lang: &str, text: &str) {
+        let _ = Command::new(ZENITY)
+            .arg("--info")
+            .arg("--width=680")
+            .arg(format!("--title={}", t(lang, "title")))
+            .arg(format!("--text={}", text))
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status();
+    }
+
+    fn choose_action(lang: &str) -> Option<String> {
+        let mut command = Command::new(ZENITY);
+
+        command
+            .arg("--list")
+            .arg("--radiolist")
+            .arg("--width=980")
+            .arg("--height=560")
+            .arg(format!("--title={}", t(lang, "title")))
+            .arg(format!("--text={}", t(lang, "intro")))
+            .arg(format!("--ok-label={}", t(lang, "install_button")))
+            .arg(format!("--cancel-label={}", t(lang, "cancel_button")))
+            .arg("--print-column=2")
+            .arg("--hide-column=2")
+            .arg(format!("--column={}", t(lang, "column_choose")))
+            .arg(format!("--column={}", t(lang, "column_id")))
+            .arg(format!("--column={}", t(lang, "column_action")))
+            .arg(format!("--column={}", t(lang, "column_desc")));
+
+        let actions = actions();
+
+        for (idx, action) in actions.iter().enumerate() {
+            let checked = if idx == 0 { "TRUE" } else { "FALSE" };
+
+            command
+                .arg(checked)
+                .arg(action.id)
+                .arg(t(lang, action.title_key))
+                .arg(t(lang, action.desc_key));
+        }
+
+        let output = match command.output() {
+            Ok(output) => output,
+            Err(err) => {
+                zenity_error(lang, &format!("{}:\n{}", t(lang, "auth_error"), err));
+                return None;
+            }
+        };
+
+        if !output.status.success() {
+            return None;
+        }
+
+        let selected = String::from_utf8_lossy(&output.stdout).trim().to_string();
+
+        if selected.is_empty() {
+            None
+        } else {
+            Some(selected)
+        }
+    }
+
+    fn write_script(action: &str, log_path: &str, script_path: &str) -> Result<(), String> {
+        let body = match action {
+            "safe-maintenance" => format!(
+                r#"
+echo "===== Mocha Update Center: safe maintenance ====="
+echo
+echo "Garantindo Flathub global..."
+if ! "{flatpak}" remotes --system --columns=name | "{grep}" -qx 'flathub'; then
+  "{flatpak}" remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+fi
+
+echo
+echo "Atualizando Flatpaks do sistema..."
+"{flatpak}" update --system -y
+
+echo
+echo "Validando sistema atual..."
+cd /etc/nixos
+export NIX_CONFIG='experimental-features = nix-command flakes'
+"{nixos_rebuild}" test --flake /etc/nixos#diesel-os-lab --show-trace
+
+echo
+echo "Reaplicando configuração atual..."
+"{nixos_rebuild}" switch --flake /etc/nixos#diesel-os-lab --show-trace
+"#,
+                flatpak = FLATPAK,
+                grep = GREP,
+                nixos_rebuild = NIXOS_REBUILD,
+            ),
+            "flatpak-update" => format!(
+                r#"
+echo "===== Mocha Update Center: flatpak update ====="
+echo
+echo "Garantindo Flathub global..."
+if ! "{flatpak}" remotes --system --columns=name | "{grep}" -qx 'flathub'; then
+  "{flatpak}" remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+fi
+
+echo
+echo "Atualizando Flatpaks do sistema..."
+"{flatpak}" update --system -y
+"#,
+                flatpak = FLATPAK,
+                grep = GREP,
+            ),
+            "nixos-test" => format!(
+                r#"
+echo "===== Mocha Update Center: nixos-rebuild test ====="
+cd /etc/nixos
+export NIX_CONFIG='experimental-features = nix-command flakes'
+"{nixos_rebuild}" test --flake /etc/nixos#diesel-os-lab --show-trace
+"#,
+                nixos_rebuild = NIXOS_REBUILD,
+            ),
+            "nixos-switch" => format!(
+                r#"
+echo "===== Mocha Update Center: nixos-rebuild switch ====="
+cd /etc/nixos
+export NIX_CONFIG='experimental-features = nix-command flakes'
+"{nixos_rebuild}" switch --flake /etc/nixos#diesel-os-lab --show-trace
+"#,
+                nixos_rebuild = NIXOS_REBUILD,
+            ),
+            _ => {
+                return Err(format!("Unsupported action: {}", action));
+            }
+        };
+
+        let script = format!(
+            r#"#!/usr/bin/env bash
+set -euo pipefail
+
+LOG="{log}"
+
+{{
+{body}
+
+echo
+echo "Ação concluída com sucesso."
+}} > "$LOG" 2>&1
+"#,
+            log = log_path,
+            body = body,
+        );
+
+        fs::write(script_path, script)
+            .map_err(|err| format!("Failed to write script: {}", err))
+    }
+
+    fn tail_log(lang: &str, log_path: &str, lines: usize) -> String {
+        let content = fs::read_to_string(log_path).unwrap_or_else(|_| String::new());
+
+        if content.trim().is_empty() {
+            return format!("{}:\n{}", t(lang, "log_empty"), log_path);
+        }
+
+        let all_lines: Vec<&str> = content.lines().collect();
+        let start = all_lines.len().saturating_sub(lines);
+
+        all_lines[start..].join("\n")
+    }
+
+    fn run_root_action(lang: &str, action: &str) {
+        let pid = std::process::id();
+        let log_path = format!("/tmp/mocha-update-center-{}.log", pid);
+        let script_path = format!("/tmp/mocha-update-center-{}.sh", pid);
+
+        if let Err(err) = write_script(action, &log_path, &script_path) {
+            zenity_error(lang, &err);
+            return;
+        }
+
+        let mut progress = Command::new(ZENITY)
+            .arg("--progress")
+            .arg("--pulsate")
+            .arg("--no-cancel")
+            .arg("--width=560")
+            .arg(format!("--title={}", t(lang, "title")))
+            .arg(format!("--text={}", t(lang, "progress")))
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .spawn()
+            .ok();
+
+        let status = Command::new(PKEXEC)
+            .arg(BASH)
+            .arg(&script_path)
+            .status();
+
+        if let Some(child) = progress.as_mut() {
+            let _ = child.kill();
+            let _ = child.wait();
+        }
+
+        thread::sleep(Duration::from_millis(250));
+
+        match status {
+            Ok(exit_status) if exit_status.success() => {
+                zenity_info(lang, t(lang, "success"));
+            }
+            Ok(exit_status) => {
+                let tail = tail_log(lang, &log_path, 120);
+                zenity_error(
+                    lang,
+                    &format!("{}\n\nStatus: {}\n\n{}", t(lang, "failed"), exit_status, tail),
+                );
+            }
+            Err(err) => {
+                zenity_error(
+                    lang,
+                    &format!(
+                        "{}:\n{}\n\n/run/wrappers/bin/pkexec",
+                        t(lang, "auth_error"),
+                        err
+                    ),
+                );
+            }
+        }
+    }
+
+    fn show_generations(lang: &str) {
+        let output = Command::new(NIXOS_REBUILD)
+            .arg("list-generations")
+            .output();
+
+        let text = match output {
+            Ok(output) => {
+                let mut combined = String::new();
+                combined.push_str(&String::from_utf8_lossy(&output.stdout));
+                combined.push_str(&String::from_utf8_lossy(&output.stderr));
+
+                if combined.trim().is_empty() {
+                    t(lang, "log_empty").to_string()
+                } else {
+                    combined
+                }
+            }
+            Err(err) => format!("{}:\n{}", t(lang, "auth_error"), err),
+        };
+
+        let path = format!("/tmp/mocha-update-center-generations-{}.txt", std::process::id());
+
+        if fs::write(&path, text).is_err() {
+            zenity_error(lang, t(lang, "log_empty"));
+            return;
+        }
+
+        let _ = Command::new(ZENITY)
+            .arg("--text-info")
+            .arg("--width=760")
+            .arg("--height=520")
+            .arg(format!("--title={}", t(lang, "generations_title")))
+            .arg(format!("--filename={}", path))
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status();
+    }
+
+    fn main() {
+        let lang = detect_lang();
+
+        if !Path::new("/etc/nixos").exists() {
+            zenity_error(&lang, t(&lang, "no_nixos"));
+            std::process::exit(1);
+        }
+
+        let selected = match choose_action(&lang) {
+            Some(selected) => selected,
+            None => return,
+        };
+
+        if selected == "upgrade-locked" {
+            zenity_info(&lang, t(&lang, "upgrade_locked_text"));
+            return;
+        }
+
+        if selected == "generations" {
+            show_generations(&lang);
+            return;
+        }
+
+        let action = actions()
+            .into_iter()
+            .find(|action| action.id == selected);
+
+        match action {
+            Some(action) if action.requires_root => run_root_action(&lang, action.id),
+            Some(_) => zenity_error(&lang, "Unsupported non-root action."),
+            None => zenity_error(&lang, "Unknown action."),
+        }
+    }
+  '';
+
+  mochaUpdateCenter = pkgs.runCommand "mocha-update-center" {
+    nativeBuildInputs = [
+      pkgs.rustc
+      pkgs.stdenv.cc
+    ];
+  } ''
+    mkdir -p "$out/bin"
+    rustc ${mochaUpdateCenterSrc} -O \
+      -C linker=${pkgs.stdenv.cc}/bin/cc \
+      -o "$out/bin/mocha-update-center"
+  '';
+
+  mochaUpdateCenterDesktop = pkgs.makeDesktopItem {
+    name = "mocha-update-center";
+    desktopName = "Mocha Update Center";
+    genericName = "System Update Center";
+    comment = "Update and maintain Diesel OS Lab - GNOME Mocha Edition";
+    exec = "mocha-update-center";
+    icon = "system-software-update";
+    terminal = false;
+    categories = [
+      "System"
+      "Settings"
+    ];
+  };
+in
+{
+  environment.systemPackages = [
+    mochaUpdateCenter
+    mochaUpdateCenterDesktop
+  ];
+}

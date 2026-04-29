@@ -1,0 +1,356 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ACTION="${1:-check}"
+
+USER_NAME="hal"
+USER_GROUP="users"
+USER_HOME="/home/hal"
+ETC_NIXOS="/etc/nixos"
+MOCHAFAST_MOUNT="/media/mochafast"
+MOCHAFAST_REPO="$MOCHAFAST_MOUNT/Mocha"
+HOST_REPO_PATH="$MOCHAFAST_REPO/nixos-machines/hal"
+GIT_NAME="Ricardo Diesel"
+GIT_EMAIL="ricardo.diesel@gmail.com"
+SSH_KEY="$USER_HOME/.ssh/id_ed25519_mocca_edition"
+SSH_FINGERPRINT="SHA256:12Q80aFRcYrzMn8Ji1//w5iq5IwKEWqjTkWlu02J9IY"
+
+die() {
+  echo
+  echo "ERRO: $*" >&2
+  exit 1
+}
+
+section() {
+  echo
+  echo "===== $* ====="
+}
+
+usage() {
+  cat <<'USAGE'
+Uso:
+  ./first check
+  ./first fix
+  ./first sync
+  ./first finish
+
+Comando curto padrão:
+  ./first
+
+Ações:
+  check   Verifica estado do primeiro boot interno.
+  fix     Corrige permissões do hal, Firefox, ibus, Git e SSH básico.
+  sync    Sincroniza /etc/nixos para MOCHAFAST e mostra status Git.
+  finish  Roda fix + sync + validação nixos-rebuild test.
+
+Este é o First Boot interno do Diesel OS Lab - GNOME Mocha Edition.
+
+Ele é para restauração pessoal do Mocha, não para usuários públicos.
+
+O First Boot público será outro programa, sem GitHub pessoal, sem chave Mocca
+Edition e sem dependência do MOCHAFAST.
+USAGE
+}
+
+if [ "${ACTION}" = "-h" ] || [ "${ACTION}" = "--help" ] || [ "${ACTION}" = "help" ]; then
+  usage
+  exit 0
+fi
+
+case "$ACTION" in
+  check|fix|sync|finish) ;;
+  *)
+    usage
+    die "acao invalida: $ACTION"
+    ;;
+esac
+
+run_as_hal() {
+  sudo -u "$USER_NAME" env HOME="$USER_HOME" "$@"
+}
+
+ensure_installed_system() {
+  section "Validando sistema instalado"
+  [ -d "$ETC_NIXOS" ] || die "nao encontrei $ETC_NIXOS"
+  [ -f "$ETC_NIXOS/flake.nix" ] || die "nao encontrei $ETC_NIXOS/flake.nix"
+  [ -f "$ETC_NIXOS/configuration.nix" ] || die "nao encontrei $ETC_NIXOS/configuration.nix"
+  [ -d "$ETC_NIXOS/modules" ] || die "nao encontrei $ETC_NIXOS/modules"
+  id "$USER_NAME" >/dev/null 2>&1 || die "usuario $USER_NAME nao existe"
+  echo "OK: sistema instalado detectado."
+}
+
+show_state() {
+  section "Estado geral"
+  echo "Usuario: $USER_NAME"
+  echo "Home: $USER_HOME"
+  echo "Config ativa: $ETC_NIXOS"
+  echo "MOCHAFAST: $MOCHAFAST_REPO"
+  echo
+
+  echo "Geração ativa:"
+  sudo nixos-rebuild list-generations | sed -n '1,8p' || true
+
+  echo
+  echo "Kernel:"
+  uname -r || true
+
+  echo
+  echo "Home:"
+  ls -ld "$USER_HOME" 2>/dev/null || true
+
+  echo
+  echo "Firefox:"
+  ls -ld "$USER_HOME/.mozilla" 2>/dev/null || true
+
+  echo
+  echo "IBus:"
+  ls -ld "$USER_HOME/.config" "$USER_HOME/.config/ibus" "$USER_HOME/.config/ibus/bus" 2>/dev/null || true
+
+  echo
+  echo "Git:"
+  run_as_hal git config --global --get user.name 2>/dev/null || true
+  run_as_hal git config --global --get user.email 2>/dev/null || true
+
+  echo
+  echo "SSH Mocca Edition:"
+  if [ -f "$SSH_KEY" ]; then
+    ssh-keygen -lf "$SSH_KEY" -E sha256 2>/dev/null || true
+  else
+    echo "Chave nao encontrada: $SSH_KEY"
+  fi
+}
+
+fix_hal_permissions() {
+  section "Corrigindo permissões do usuário hal"
+  sudo mkdir -p "$USER_HOME"
+  sudo chown -R "$USER_NAME:$USER_GROUP" "$USER_HOME"
+  sudo chmod 700 "$USER_HOME"
+
+  sudo mkdir -p "$USER_HOME/.config/ibus/bus"
+  sudo chown -R "$USER_NAME:$USER_GROUP" "$USER_HOME/.config"
+  sudo chmod 700 "$USER_HOME/.config" 2>/dev/null || true
+  sudo chmod 700 "$USER_HOME/.config/ibus" 2>/dev/null || true
+  sudo chmod 700 "$USER_HOME/.config/ibus/bus" 2>/dev/null || true
+
+  sudo mkdir -p "$USER_HOME/.mozilla"
+  sudo chown -R "$USER_NAME:$USER_GROUP" "$USER_HOME/.mozilla"
+  sudo find "$USER_HOME/.mozilla" -type d -exec chmod 700 {} \; 2>/dev/null || true
+  sudo find "$USER_HOME/.mozilla" -type f -exec chmod 600 {} \; 2>/dev/null || true
+  sudo find "$USER_HOME/.mozilla" -name '.parentlock' -delete 2>/dev/null || true
+  sudo find "$USER_HOME/.mozilla" -name 'lock' -type l -delete 2>/dev/null || true
+
+  echo "OK: /home/hal corrigido."
+  echo "OK: .mozilla corrigido para evitar Profile Missing."
+  echo "OK: .config/ibus/bus corrigido."
+}
+
+fix_git_config() {
+  section "Configurando Git do hal"
+  run_as_hal git config --global user.name "$GIT_NAME"
+  run_as_hal git config --global user.email "$GIT_EMAIL"
+  run_as_hal git config --global credential.helper store
+
+  echo "OK: Git configurado."
+  echo "Nome: $GIT_NAME"
+  echo "Email: $GIT_EMAIL"
+}
+
+prepare_ssh_config() {
+  section "Preparando SSH do GitHub"
+  sudo mkdir -p "$USER_HOME/.ssh"
+  sudo chown "$USER_NAME:$USER_GROUP" "$USER_HOME/.ssh"
+  sudo chmod 700 "$USER_HOME/.ssh"
+
+  if [ ! -f "$SSH_KEY" ]; then
+    echo "Chave privada Mocca Edition ainda nao existe:"
+    echo "$SSH_KEY"
+    echo
+    echo "Para importar manualmente:"
+    echo "  micro $SSH_KEY"
+    echo
+    echo "Depois cole a chave privada, salve com Ctrl+S e saia com Ctrl+Q."
+    echo "Nao cole chave privada no chat."
+  else
+    sudo chown "$USER_NAME:$USER_GROUP" "$SSH_KEY"
+    sudo chmod 600 "$SSH_KEY"
+
+    echo "Fingerprint encontrado:"
+    run_as_hal ssh-keygen -lf "$SSH_KEY" -E sha256 || true
+
+    if run_as_hal ssh-keygen -lf "$SSH_KEY" -E sha256 | grep -q "$SSH_FINGERPRINT"; then
+      echo "OK: fingerprint Mocca Edition confere."
+    else
+      echo "AVISO: fingerprint da chave nao bate com o esperado:"
+      echo "$SSH_FINGERPRINT"
+    fi
+  fi
+
+  sudo tee "$USER_HOME/.ssh/config" >/dev/null <<EOF
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile $SSH_KEY
+  IdentitiesOnly yes
+EOF
+
+  sudo chown "$USER_NAME:$USER_GROUP" "$USER_HOME/.ssh/config"
+  sudo chmod 600 "$USER_HOME/.ssh/config"
+
+  echo "OK: ~/.ssh/config preparado."
+}
+
+test_github_ssh() {
+  section "Testando GitHub SSH"
+  if [ ! -f "$SSH_KEY" ]; then
+    echo "PULADO: chave ainda nao existe."
+    return 0
+  fi
+
+  set +e
+  run_as_hal ssh -T git@github.com
+  local rc=$?
+  set -e
+
+  if [ "$rc" -eq 1 ]; then
+    echo "OK: GitHub autenticou. O retorno 1 é normal quando o GitHub nao abre shell."
+  elif [ "$rc" -eq 0 ]; then
+    echo "OK: GitHub SSH retornou sucesso."
+  else
+    echo "AVISO: teste SSH retornou codigo $rc."
+  fi
+}
+
+mount_mochafast_if_possible() {
+  section "Montando MOCHAFAST se necessario"
+  sudo mkdir -p "$MOCHAFAST_MOUNT"
+
+  if mountpoint -q "$MOCHAFAST_MOUNT"; then
+    echo "OK: MOCHAFAST ja montado."
+    return 0
+  fi
+
+  if blkid -L MOCHAFAST >/dev/null 2>&1; then
+    sudo mount -L MOCHAFAST "$MOCHAFAST_MOUNT"
+    echo "OK: MOCHAFAST montado em $MOCHAFAST_MOUNT."
+  else
+    echo "AVISO: nao encontrei particao com label MOCHAFAST."
+    echo "Sincronizacao com espelho sera pulada."
+  fi
+}
+
+sync_etc_to_mochafast() {
+  section "Sincronizando /etc/nixos para MOCHAFAST"
+  mount_mochafast_if_possible
+
+  if [ ! -d "$MOCHAFAST_REPO/.git" ]; then
+    echo "PULADO: repositorio Git do MOCHAFAST nao encontrado:"
+    echo "$MOCHAFAST_REPO"
+    return 0
+  fi
+
+  sudo chown -R "$USER_NAME:$USER_GROUP" "$MOCHAFAST_REPO"
+
+  mkdir -p "$HOST_REPO_PATH"
+
+  rsync -a --delete \
+    --exclude='.git' \
+    --exclude='*.bak*' \
+    "$ETC_NIXOS/" \
+    "$HOST_REPO_PATH/"
+
+  cd "$MOCHAFAST_REPO"
+
+  echo
+  echo "Status do MOCHAFAST:"
+  git --no-pager status --short
+}
+
+remove_temporary_initial_password_if_confirmed() {
+  section "Senha temporaria declarativa"
+  local user_file="$ETC_NIXOS/modules/user-hal.nix"
+  local answer=""
+
+  if [ ! -f "$user_file" ]; then
+    echo "PULADO: nao encontrei $user_file"
+    return 0
+  fi
+
+  if ! grep -q 'initialPassword = "1";' "$user_file"; then
+    echo "OK: initialPassword temporario nao esta presente."
+    return 0
+  fi
+
+  echo "Encontrado no sistema ativo:"
+  echo '  initialPassword = "1";'
+  echo
+  echo "Isso deve ser removido depois que a senha real do hal for trocada."
+  echo "Se voce JA trocou a senha do hal, digite SIM para remover agora."
+  read -r -p "Remover initialPassword temporario? " answer
+
+  if [ "$answer" = "SIM" ]; then
+    sudo perl -0pi -e 's/\n    initialPassword = "1";//' "$user_file"
+    echo "OK: initialPassword removido."
+  else
+    echo "Mantido por enquanto."
+  fi
+}
+
+validate_nixos_test() {
+  section "Validando NixOS com nixos-rebuild test"
+  cd "$ETC_NIXOS"
+  sudo env NIX_CONFIG='experimental-features = nix-command flakes' \
+    nixos-rebuild test --flake "$ETC_NIXOS#diesel-os-lab" --show-trace
+}
+
+run_check() {
+  ensure_installed_system
+  show_state
+}
+
+run_fix() {
+  ensure_installed_system
+  fix_hal_permissions
+  fix_git_config
+  prepare_ssh_config
+  test_github_ssh
+}
+
+run_sync() {
+  ensure_installed_system
+  sync_etc_to_mochafast
+}
+
+run_finish() {
+  ensure_installed_system
+  fix_hal_permissions
+  fix_git_config
+  prepare_ssh_config
+  test_github_ssh
+  remove_temporary_initial_password_if_confirmed
+  validate_nixos_test
+  sync_etc_to_mochafast
+
+  section "FIRST BOOT INTERNO FINALIZADO"
+  echo "Se o status do Git mostrou alteracoes, revise, commit e push no MOCHAFAST."
+  echo "Depois rode:"
+  echo "  cd /media/mochafast/Mocha"
+  echo "  git --no-pager status --short"
+}
+
+case "$ACTION" in
+  check)
+    run_check
+    ;;
+
+  fix)
+    run_fix
+    ;;
+
+  sync)
+    run_sync
+    ;;
+
+  finish)
+    run_finish
+    ;;
+esac

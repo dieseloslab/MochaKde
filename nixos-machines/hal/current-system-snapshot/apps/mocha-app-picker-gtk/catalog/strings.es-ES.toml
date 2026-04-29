@@ -1,0 +1,200 @@
+# Mocha App Picker — strings es-ES
+
+
+
+[ui]
+
+# ---------- installer backend ----------
+"install.running" = "Aplicando cambios..."
+"install.success" = "Instalación completada correctamente."
+"install.failed" = "La instalación no se completó."
+"install.log" = "Registro de instalación"
+"install.backend_disconnected" = "El backend de instalación se interrumpió."
+"script.title" = "Mocha App Picker - instalación"
+"script.no_nix_changes" = "No se detectaron cambios declarativos."
+"script.skip_rebuild" = "Omitiendo nixos-rebuild."
+"script.write_nix" = "Escribiendo configuración en"
+"script.apply_rebuild" = "Aplicando cambios declarativos con nixos-rebuild switch..."
+"script.remove_flatpak_selected" = "Eliminando Flatpaks desmarcados..."
+"script.flatpak_not_installed" = "Flatpak no estaba instalado"
+"script.uninstall_flatpak" = "Eliminando Flatpak"
+"script.no_flatpak_remove" = "No hay Flatpak para eliminar."
+"script.ensure_flathub" = "Comprobando repositorio Flathub..."
+"script.install_flatpak_selected" = "Instalando Flatpaks seleccionados..."
+"script.flatpak_already" = "Flatpak ya instalado"
+"script.install_flatpak" = "Instalando Flatpak"
+"script.no_flatpak" = "No hay nuevos Flatpaks para instalar."
+"script.success" = "Instalación completada correctamente."
+window_title = "Mocha — Selector de Aplicaciones"
+search_placeholder = "Buscar aplicaciones…"
+btn_apply = "Aplicar"
+btn_cancel = "Cancelar"
+btn_close = "Cerrar"
+btn_details = "Detalles"
+status_installed = "Instalado"
+status_pending_install = "Se instalará"
+status_pending_remove = "Se eliminará"
+status_not_installed = "No instalado"
+dialog_apply_title = "¿Aplicar los cambios?"
+dialog_apply_body = "Se ejecutará una reconstrucción del sistema. Puede tardar unos minutos."
+dialog_error_title = "Error"
+dialog_success_title = "Completado"
+dialog_success_body = "Aplicaciones actualizadas correctamente."
+
+[tabs]
+browsers = "Navegadores"
+games = "Juegos"
+gamer_tools = "Herramientas de Juego"
+flatpak = "Flatpak"
+communication = "Comunicación"
+productivity = "Productividad"
+media = "Multimedia"
+creation = "Creación"
+system = "Sistema"
+remote = "Acceso Remoto"
+
+# ---------- browsers ----------
+[apps.brave]
+name = "Brave"
+desc = "Navegador centrado en la privacidad, con bloqueador de anuncios integrado."
+
+[apps.vivaldi]
+name = "Vivaldi"
+desc = "Navegador altamente personalizable para usuarios avanzados."
+
+[apps.chromium]
+name = "Chromium"
+desc = "Navegador de código abierto que sirve de base para Chrome."
+
+[apps.librewolf]
+name = "LibreWolf"
+desc = "Fork de Firefox reforzado, sin telemetría y orientado a la privacidad."
+
+# ---------- games ----------
+[apps.protonplus]
+name = "ProtonPlus"
+desc = "Gestor moderno de versiones de Proton y Wine para Steam."
+
+[apps.protonupqt]
+name = "ProtonUp-Qt"
+desc = "Instala y actualiza Proton-GE y Wine-GE en pocos clics."
+
+[apps.heroic]
+name = "Heroic Games Launcher"
+desc = "Cliente para Epic Games, GOG y Amazon Prime Gaming en Linux."
+
+[apps.lutris]
+name = "Lutris"
+desc = "Plataforma de juegos que unifica Wine, emuladores y tiendas."
+
+[apps.bottles]
+name = "Bottles"
+desc = "Ejecuta software de Windows en entornos aislados de forma simple."
+
+# ---------- gamer_tools ----------
+[apps.gamescope]
+name = "Gamescope"
+desc = "Microcompositor de Valve para ejecutar juegos en una sesión aislada."
+
+[apps.goverlay]
+name = "GOverlay"
+desc = "Configurador gráfico de overlays como MangoHud y vkBasalt."
+
+[apps.vkbasalt]
+name = "vkBasalt"
+desc = "Capa Vulkan que añade efectos de posprocesado a los juegos."
+
+# ---------- flatpak ----------
+[apps.warehouse]
+name = "Warehouse"
+desc = "Gestor gráfico avanzado para aplicaciones y datos Flatpak."
+
+[apps.flatseal]
+name = "Flatseal"
+desc = "Editor de permisos para las aplicaciones Flatpak instaladas."
+
+[apps.gearlever]
+name = "Gear Lever"
+desc = "Gestiona y actualiza aplicaciones en formato AppImage."
+
+# ---------- communication ----------
+[apps.discord]
+name = "Discord"
+desc = "Cliente popular de voz, vídeo y texto para gamers y comunidades."
+
+[apps.telegram]
+name = "Telegram"
+desc = "Mensajería multiplataforma rápida con sincronización en la nube."
+
+# ---------- productivity ----------
+[apps.libreoffice]
+name = "LibreOffice"
+desc = "Suite ofimática completa: documentos, hojas de cálculo y presentaciones."
+
+[apps.thunderbird]
+name = "Thunderbird"
+desc = "Cliente de correo, calendario y contactos de Mozilla."
+
+[apps.evolution-flatpak]
+name = "Evolution"
+desc = "Cliente de correo y groupware integrado con GNOME."
+
+# ---------- media ----------
+[apps.vlc]
+name = "VLC"
+desc = "Reproductor multimedia que reproduce prácticamente cualquier formato."
+
+# ---------- creation ----------
+[apps.obs-flatpak]
+name = "OBS Studio"
+desc = "Software profesional de grabación de pantalla y transmisión en vivo."
+
+[apps.kdenlive]
+name = "Kdenlive"
+desc = "Editor de vídeo no lineal robusto del proyecto KDE."
+
+[apps.blender]
+name = "Blender"
+desc = "Suite 3D para modelado, animación, simulación y renderizado."
+
+[apps.gimp]
+name = "GIMP"
+desc = "Editor avanzado de imágenes ráster, alternativa a Photoshop."
+
+[apps.inkscape]
+name = "Inkscape"
+desc = "Editor profesional de gráficos vectoriales para arte y diagramas."
+
+# ---------- system ----------
+[apps.virt-manager]
+name = "Virt-Manager"
+desc = "Interfaz gráfica para gestionar máquinas virtuales con libvirt/KVM."
+
+[apps.gnome-boxes]
+name = "GNOME Boxes"
+desc = "Crea y usa máquinas virtuales con un flujo simplificado de GNOME."
+
+[apps.virtualbox]
+name = "VirtualBox"
+desc = "Virtualizador de Oracle para ejecutar otros sistemas operativos."
+
+[apps.vmware]
+name = "VMware Workstation"
+desc = "Virtualizador profesional de escritorio de Broadcom/VMware."
+
+[apps.gparted]
+name = "GParted"
+desc = "Editor gráfico de particiones de disco."
+
+# ---------- remote ----------
+[apps.rustdesk]
+name = "RustDesk"
+desc = "Acceso remoto de código abierto, alternativa a TeamViewer y AnyDesk."
+
+[apps.teamviewer]
+name = "TeamViewer"
+desc = "Solución comercial popular de acceso remoto y soporte."
+
+[apps.anydesk]
+name = "AnyDesk"
+desc = "Acceso remoto rápido y ligero con baja latencia."

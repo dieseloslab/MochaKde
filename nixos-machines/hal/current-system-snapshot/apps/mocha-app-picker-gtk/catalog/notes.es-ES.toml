@@ -1,0 +1,16 @@
+# Mocha App Picker — notas técnicas es-ES
+
+[gamescope]
+level = "info"
+title = "Sobre Gamescope en Wayland/NVIDIA"
+body = """
+Gamescope funciona mejor lanzando los juegos a través de Steam con
+la opción "gamescope -- %command%" en los parámetros de inicio.
+
+En sesiones Wayland con el controlador NVIDIA propietario, algunos
+títulos pueden necesitar estas flags adicionales:
+    --backend=sdl --expose-wayland
+
+Si un juego no arranca o se queda en pantalla negra, ejecútalo
+desde la terminal para ver los logs antes de reportar el problema.
+"""

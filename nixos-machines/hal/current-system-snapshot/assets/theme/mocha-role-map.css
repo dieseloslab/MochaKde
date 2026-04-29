@@ -1,0 +1,64 @@
+/* Diesel OS Lab - GNOME Mocha Edition */
+/* Mapa semântico do GNOME Shell */
+
+@import url("mocha-palette.css");
+
+@define-color theme_bg_color            @mocha_bg_main;
+@define-color theme_secondary_bg_color  @mocha_bg_secondary;
+@define-color theme_surface_color       @mocha_surface;
+
+@define-color theme_fg_color            @mocha_text_main;
+@define-color theme_secondary_fg_color  @mocha_text_secondary;
+@define-color theme_muted_fg_color      @mocha_text_muted;
+
+@define-color theme_accent_color        @mocha_accent;
+@define-color theme_accent_hover_color  @mocha_accent_hover;
+@define-color theme_accent_deep_color   @mocha_accent_deep;
+
+@define-color theme_border_color        @mocha_border;
+@define-color theme_focus_color         @mocha_focus;
+@define-color theme_selection_color     @mocha_selection;
+
+@define-color panel_bg                  @mocha_bg_secondary;
+@define-color panel_fg                  @mocha_text_main;
+
+@define-color card_bg                   @mocha_surface;
+@define-color card_fg                   @mocha_text_main;
+@define-color card_border               @mocha_border;
+
+@define-color button_bg                 @mocha_accent;
+@define-color button_bg_hover           @mocha_accent_hover;
+@define-color button_bg_active          @mocha_accent_deep;
+@define-color button_fg                 @mocha_on_accent;
+@define-color button_border             @mocha_border;
+
+@define-color entry_bg                  @mocha_bg_secondary;
+@define-color entry_fg                  @mocha_text_main;
+@define-color entry_border              @mocha_border;
+@define-color entry_focus_border        @mocha_focus;
+
+@define-color osd_bg                    rgba(42, 33, 29, 0.92);
+@define-color osd_fg                    @mocha_text_main;
+@define-color osd_border                @mocha_border;
+
+@define-color tooltip_bg                @mocha_surface;
+@define-color tooltip_fg                @mocha_text_main;
+
+@define-color lockscreen_bg             @mocha_bg_main;
+@define-color lockscreen_card_bg        rgba(51, 40, 35, 0.88);
+@define-color lockscreen_fg             @mocha_text_main;
+@define-color lockscreen_border         @mocha_border;
+
+@define-color login_button_bg           @mocha_accent;
+@define-color login_button_hover        @mocha_accent_hover;
+@define-color login_button_active       @mocha_accent_deep;
+@define-color login_button_fg           @mocha_on_accent;
+
+@define-color quicktoggle_bg            @mocha_surface;
+@define-color quicktoggle_fg            @mocha_text_main;
+@define-color quicktoggle_active_bg     @mocha_accent;
+@define-color quicktoggle_active_fg     @mocha_on_accent;
+
+@define-color selected_bg_color         @mocha_selection;
+@define-color selected_fg_color         @mocha_text_secondary;
+@define-color warning_outline_color     @mocha_focus;

@@ -1,0 +1,282 @@
+# /etc/nixos/iso/mocha-iso.nix
+#
+# Diesel OS Lab - GNOME Mocha Edition
+#
+# Primeira ISO Live do Mocha.
+#
+# Objetivo desta fase:
+# - bootar no virt-manager/QEMU-KVM;
+# - entrar no GNOME;
+# - validar teclado br-abnt2;
+# - validar idiomas pt_BR, en_US, es_ES e fr_FR;
+# - validar kernel Zen 7.0.2;
+# - evitar dependência de hardware-configuration.nix, vmstore e VMware.
+#
+# Observação:
+# esta ISO Live é separada do sistema instalado. O sistema instalado continua
+# usando /etc/nixos/configuration.nix com Zen 7.0.2 e specialisation
+# mocha-lts-fallback com kernel 6.12.83.
+
+{ pkgs, lib, config, zenKernelSrc, mochaRoot ? /etc/nixos, ... }:
+
+let
+  zenVersion = "7.0.2";
+  zenSuffix = "zen1";
+
+  mkKernelOverride = lib.mkOverride 90;
+
+  linuxZenUpstream = pkgs.linuxKernel.kernels.linux_zen.override {
+    argsOverride = rec {
+      version = zenVersion;
+      modDirVersion = lib.versions.pad 3 "${version}-${zenSuffix}";
+      src = zenKernelSrc;
+
+      structuredExtraConfig = with lib.kernel; {
+        ZEN_INTERACTIVE = yes;
+
+        NET_SCH_DEFAULT = yes;
+        DEFAULT_FQ_CODEL = yes;
+
+        PREEMPT = mkKernelOverride yes;
+        PREEMPT_LAZY = mkKernelOverride no;
+
+        TREE_RCU = yes;
+        PREEMPT_RCU = yes;
+        RCU_EXPERT = yes;
+        TREE_SRCU = yes;
+        TASKS_RCU_GENERIC = yes;
+        TASKS_RCU = yes;
+        TASKS_RUDE_RCU = yes;
+        TASKS_TRACE_RCU = yes;
+        RCU_STALL_COMMON = yes;
+        RCU_NEED_SEGCBLIST = yes;
+        RCU_FANOUT = freeform "64";
+        RCU_FANOUT_LEAF = freeform "16";
+        RCU_BOOST = yes;
+        RCU_BOOST_DELAY = option (freeform "500");
+        RCU_NOCB_CPU = yes;
+        RCU_LAZY = yes;
+        RCU_DOUBLE_CHECK_CB_TIME = yes;
+
+        IOSCHED_BFQ = mkKernelOverride yes;
+
+        FUTEX = yes;
+        FUTEX_PI = yes;
+        NTSYNC = yes;
+
+        HZ = freeform "1000";
+        HZ_1000 = yes;
+      };
+    };
+  };
+
+  cursorTheme = "Bibata-Modern-Mocha";
+  cursorSize = 24;
+
+  mochaAssets = pkgs.stdenvNoCC.mkDerivation {
+    pname = "mocha-live-assets";
+    version = "1";
+
+    src = mochaRoot + "/assets";
+
+    dontConfigure = true;
+    dontBuild = true;
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p "$out/share/icons"
+      cp -a "$src/cursors/${cursorTheme}" "$out/share/icons/"
+
+      mkdir -p "$out/share/backgrounds/diesel-os-lab"
+      cp -a "$src/branding/wallpaper/wallpaper.png" \
+        "$out/share/backgrounds/diesel-os-lab/wallpaper.png"
+
+      mkdir -p "$out/share/diesel-os-lab/branding/logo"
+      cp -a "$src/branding/logo/diesel-os-lab-icon.png" \
+        "$out/share/diesel-os-lab/branding/logo/diesel-os-lab-icon.png"
+
+      mkdir -p "$out/share/icons/hicolor/256x256/apps"
+      cp -a "$src/branding/logo/diesel-os-lab-icon.png" \
+        "$out/share/icons/hicolor/256x256/apps/diesel-os-lab.png"
+
+      mkdir -p "$out/share/pixmaps"
+      cp -a "$src/branding/logo/diesel-os-lab-icon.png" \
+        "$out/share/pixmaps/diesel-os-lab.png"
+
+      runHook postInstall
+    '';
+  };
+
+  wallpaperUri = "file://${mochaAssets}/share/backgrounds/diesel-os-lab/wallpaper.png";
+in
+{
+  imports = [
+    ../modules/locale.nix
+  ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  # Kernel principal da ISO Live.
+  boot.kernelPackages = pkgs.linuxPackagesFor linuxZenUpstream;
+
+  # A ISO Live usa kernel Zen 7.0.2.
+  # O módulo gráfico padrão do NixOS pode puxar ZFS para o initrd,
+  # mas zfs-kernel-2.4.1 não avalia com o kernel Zen 7.0.2 neste nixpkgs.
+  # Como o Mocha não usa ZFS como alvo desta ISO, removemos ZFS da lista.
+  boot.supportedFilesystems = lib.mkForce [
+    "btrfs"
+    "ext4"
+    "xfs"
+    "vfat"
+    "exfat"
+    "ntfs"
+  ];
+
+  boot.initrd.supportedFilesystems = lib.mkForce [
+    "btrfs"
+    "ext4"
+    "xfs"
+    "vfat"
+  ];
+
+  # Parâmetros NVIDIA mantidos como compatibilidade quando a ISO for testada
+  # em hardware real NVIDIA. A ISO não força driver NVIDIA como único driver
+  # para continuar bootável em VM/QEMU.
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+  ];
+
+  hardware.enableRedistributableFirmware = true;
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "fbdev"
+    "nvidia"
+  ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = true;
+    nvidiaSettings = true;
+    powerManagement.enable = false;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
+  };
+
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_TemporaryFilePath=/var/tmp
+  '';
+
+  networking.hostName = "mocha-live";
+  networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
+
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.gnome.gnome-initial-setup.enable = false;
+
+  services.xserver.xkb = {
+    layout = "br";
+    model = "abnt2";
+    variant = "";
+    options = "";
+  };
+
+  programs.dconf.enable = true;
+
+  programs.dconf.profiles.user.databases = lib.mkAfter [
+    {
+      settings = {
+        "org/gnome/desktop/input-sources" = {
+          sources = [ (lib.gvariant.mkTuple [ "xkb" "br" ]) ];
+          mru-sources = [ (lib.gvariant.mkTuple [ "xkb" "br" ]) ];
+          xkb-options = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
+        };
+
+        "org/gnome/desktop/background" = {
+          picture-uri = wallpaperUri;
+          picture-uri-dark = wallpaperUri;
+          picture-options = "zoom";
+          primary-color = "#2A1B14";
+          secondary-color = "#35231A";
+        };
+
+        "org/gnome/desktop/screensaver" = {
+          picture-uri = wallpaperUri;
+          primary-color = "#2A1B14";
+          secondary-color = "#35231A";
+        };
+
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          cursor-theme = cursorTheme;
+          cursor-size = cursorSize;
+        };
+      };
+    }
+  ];
+
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  services.gvfs.enable = true;
+  services.flatpak.enable = true;
+
+  programs.firefox.enable = true;
+
+  users.users.nixos.extraGroups = [
+    "networkmanager"
+    "wheel"
+  ];
+
+  security.sudo.wheelNeedsPassword = false;
+
+  environment.sessionVariables = {
+    XCURSOR_THEME = cursorTheme;
+    XCURSOR_SIZE = toString cursorSize;
+  };
+
+  environment.systemPackages = with pkgs; [
+    mochaAssets
+
+    git
+    curl
+    wget
+    micro
+    htop
+    pciutils
+    usbutils
+
+    mesa-demos
+    vulkan-tools
+
+    gnome-tweaks
+    gnome-terminal
+    gnomeExtensions.applications-menu
+
+    mangohud
+    goverlay
+
+    (tela-circle-icon-theme.override {
+      colorVariants = [ "brown" ];
+      circularFolder = true;
+    })
+  ];
+
+  isoImage.appendToMenuLabel = " - Diesel OS Lab GNOME Mocha Edition";
+
+  system.nixos.label = "Diesel-OS-Lab-GNOME-Mocha-Live";
+
+  system.stateVersion = "25.11";
+}

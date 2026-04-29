@@ -1,0 +1,14 @@
+# /etc/nixos/modules/vmstore.nix
+
+{
+  fileSystems."/mnt/vmstore" = {
+    device = "/dev/disk/by-uuid/b81630a0-0756-45e4-9cb2-c7f16637a1c6";
+    fsType = "xfs";
+    options = [
+      "nofail"
+      "x-gvfs-show"
+      "x-gvfs-name=vmstore"
+      "x-systemd.device-timeout=5s"
+    ];
+  };
+}
