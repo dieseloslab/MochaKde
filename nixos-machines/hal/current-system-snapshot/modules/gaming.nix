@@ -524,19 +524,45 @@ in
     protontricks.enable = true;
   };
 
+  # Permitir que o GameMode ajuste o CPU governor via cpugovctl.
+  #
+  # Motivo:
+  #   sem isto, gamemoded tenta usar pkexec para "cpugovctl set performance"
+  #   e recebe "Not authorized" em sessão não interativa.
+  #
+  # Escopo:
+  #   libera apenas o helper cpugovctl do pacote gamemode para usuários
+  #   do grupo gamemode.
+  users.groups.gamemode = { };
+
+  users.users.hal.extraGroups = [ "gamemode" ];
+
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (
+        action.id == "org.freedesktop.policykit.exec" &&
+        subject.isInGroup("gamemode")
+      ) {
+        var program = action.lookup("program");
+        if (program && program.match(/\/gamemode-[^\/]+\/libexec\/cpugovctl$/)) {
+          return polkit.Result.YES;
+        }
+      }
+    });
+  '';
+
   programs.gamemode = {
     enable = true;
-    enableRenice = true;
+    enableRenice = false;
 
     settings = {
       general = {
-        renice = 10;
-        ioprio = 0;
+        renice = 0;
         inhibit_screensaver = 1;
 
         # O Mocha usa tuned latency-performance para governor/EPP.
         # GameMode continua útil para integração por jogo, MangoHud e scripts.
-        softrealtime = "auto";
+        softrealtime = "off";
       };
 
       custom = {

@@ -34,7 +34,6 @@
     ./modules/user-hal.nix
     ./modules/vmstore.nix
     ./modules/tuned.nix
-    ./modules/system76-scheduler-test.nix
     ./modules/local-gnome-extensions.nix
     ./modules/firefox-theme.nix
   ];
