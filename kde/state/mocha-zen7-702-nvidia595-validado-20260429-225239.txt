@@ -1,0 +1,38 @@
+Mocha KDE - Kernel Mocha Zen 7.0.2 validado em máquina real
+
+Data: qua 29 abr 2026 22:52:39 -03
+Host: diesel-os-lab
+
+Kernel em execução:
+7.0.2-zen1
+
+NVIDIA:
+NVIDIA GeForce RTX 5060 Ti, 595.71.05, 37, 16311 MiB
+
+VMware/VirtualBox:
+Nenhum modulo VMware/VirtualBox carregado
+
+Serviços falhando:
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+
+Sistema atual:
+/nix/store/g7j7w9mdpw4ykn9qjbiqsm35s6ircli7-nixos-system-diesel-os-lab-Diesel-OS-Lab-Mocha-Edition
+
+Gerações recentes:
+Generation  Build-date           NixOS version                Kernel        Configuration Revision  Specialisation          Current
+23          2026-04-29 22:46:05  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-zen-fallback']  True
+22          2026-04-29 22:34:24  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-zen-fallback']  False
+21          2026-04-29 18:32:29  Diesel-OS-Lab-Mocha-Edition  7.0.2-zen1    Unknown                 ['mocha-lts-fallback']  False
+20          2026-04-29 18:16:59  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+19          2026-04-29 17:21:22  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+18          2026-04-29 17:16:40  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+17          2026-04-29 17:03:35  Diesel-OS-Lab-Mocha-Edition  6.19.12-zen1  Unknown                 ['mocha-lts-fallback']  False
+
+Resumo:
+- Kernel Mocha Zen 7.0.2-zen1 entrou em boot real.
+- NVIDIA 595.71.05 funcionou.
+- VMware e VirtualBox ficaram fora da configuração ativa.
+- Nenhum serviço falhando após boot.
+- Geração anterior com Zen 6.19.12 permanece como retaguarda limpa.

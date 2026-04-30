@@ -1,6 +1,6 @@
 # /etc/nixos/modules/boot.nix
 
-{ pkgs, lib, zenKernelSrc, ... }:
+{ config, pkgs, lib, zenKernelSrc, ... }:
 
 let
   zenVersion = "7.0.2";
@@ -87,25 +87,20 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel principal do Mocha.
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackagesFor linuxZenUpstream;
 
-  # Fallback conservador para o sistema instalado.
+  # Retaguarda conservadora do Mocha.
   #
   # Objetivo:
-  #   manter o Zen 7.0.2 como padrão, mas oferecer uma opção de boot
-  #   com kernel 6.12 caso algum hardware, driver NVIDIA ou regressão
-  #   futura tenha problema com o kernel principal.
+  #   quando ativarmos o kernel Mocha Zen 7.0.2 customizado como principal,
+  #   manter o Zen atual do nixpkgs como opção de boot de segurança.
   #
-  # Avaliado neste flake:
-  #   pkgs.linuxPackages_6_12.kernel.version = 6.12.83
-  #   pkgs.linuxPackages_6_12.nvidiaPackages.production.version = 595.58.03
-  specialisation.mocha-lts-fallback.configuration = {
-    system.nixos.tags = [ "mocha-lts-fallback" ];
+  # Motivo:
+  #   este kernel já é conhecido nesta máquina e já avaliou com NVIDIA 595.71.05.
+  specialisation.mocha-zen-fallback.configuration = {
+    system.nixos.tags = [ "mocha-zen-fallback" ];
 
-    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
-
-    hardware.nvidia.package =
-      lib.mkForce pkgs.linuxPackages_6_12.nvidiaPackages.production;
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
   };
 
   boot.resumeDevice = "/dev/disk/by-uuid/84b307a9-d28a-44a8-8f86-9346f717d73d";

@@ -4,13 +4,13 @@
 
 {
   imports = [
+
     ./modules/mocha-hide-windows-disks.nix
     ./modules/mocha-kde-integration.nix
     ./modules/mocha-icons.nix
     ./modules/mocha-gnome-session.nix
     ./modules/mocha-kde.nix
     ./modules/nvidia-595-71-05-test.nix
-    ./modules/mocha-vm-alternatives.nix
     ./modules/mocha-vm-managers.nix
     ./hardware-configuration.nix
     ./modules/boot.nix
