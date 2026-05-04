@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../kde/modules/mocha-bluetooth-bluez.nix
     
     ../../kde/modules/mocha-zram-hibernate.nix
     ./hardware-configuration.nix
