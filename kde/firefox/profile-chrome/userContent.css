@@ -1,0 +1,34 @@
+/*
+ * Mocha KDE Firefox userContent
+ * Afeta páginas internas do Firefox; não altera sites comuns.
+ */
+
+@-moz-document url-prefix("about:home"),
+               url-prefix("about:newtab"),
+               url-prefix("about:preferences"),
+               url-prefix("about:addons"),
+               url-prefix("about:policies"),
+               url-prefix("about:protections") {
+  :root,
+  body {
+    background-color: #34221b !important;
+    color: #faecdc !important;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    background-color: #4b3024 !important;
+    color: #faecdc !important;
+    border-color: #8a5a3f !important;
+  }
+
+  button:hover {
+    background-color: #5a392a !important;
+  }
+
+  a {
+    color: #d88e52 !important;
+  }
+}

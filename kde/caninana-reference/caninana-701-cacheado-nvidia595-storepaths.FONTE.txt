@@ -1,0 +1,13 @@
+Kernel:
+  /nix/store/r1lk9g1bzpdhvsz1j013b802gzfaccyn-linux-cachyos-latest-7.0.1
+
+Módulos do kernel:
+  /nix/store/sf4azw8w2vriicjk3jb0ypshgy3dk43m-linux-cachyos-latest-7.0.1-modules
+  /nix/store/jh351kri3ilabwkirrk17z7ia5fc7c26-linux-cachyos-latest-7.0.1-modules
+
+Initrd:
+  /nix/store/z9x14wgfmds1lvl762mcb4ngk9jw3g5n-initrd-linux-cachyos-latest-7.0.1
+
+NVIDIA:
+  /nix/store/w4bbdv2qjni4y6g3dq53sci12yipysv4-nvidia-open-7.0.1-595.71.05
+  /nix/store/zca2ywr16p0lz0xy7cgf1b04cby52rq9-nvidia-x11-595.71.05-7.0.1-firmware

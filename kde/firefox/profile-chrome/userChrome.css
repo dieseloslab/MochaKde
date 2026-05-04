@@ -1,0 +1,129 @@
+/*
+ * Mocha KDE Firefox userChrome
+ * Teste visual local com backup.
+ * Não é o tema final assinado da distro.
+ */
+
+:root {
+  --mocha-bg: #34221b !important;
+  --mocha-bg-2: #3d261d !important;
+  --mocha-bg-3: #4b3024 !important;
+  --mocha-border: #8a5a3f !important;
+  --mocha-accent: #d88e52 !important;
+  --mocha-accent-2: #c47a3a !important;
+  --mocha-text: #faecdc !important;
+  --mocha-text-soft: #d8bda5 !important;
+
+  --toolbar-bgcolor: var(--mocha-bg-2) !important;
+  --toolbar-color: var(--mocha-text) !important;
+  --lwt-accent-color: var(--mocha-bg) !important;
+  --lwt-text-color: var(--mocha-text) !important;
+  --lwt-selected-tab-background-color: var(--mocha-bg-3) !important;
+  --tabs-border-color: var(--mocha-accent) !important;
+  --tab-selected-bgcolor: var(--mocha-bg-3) !important;
+  --tab-selected-textcolor: var(--mocha-text) !important;
+  --urlbar-box-bgcolor: var(--mocha-bg-3) !important;
+  --urlbar-box-text-color: var(--mocha-text) !important;
+  --toolbar-field-background-color: var(--mocha-bg-3) !important;
+  --toolbar-field-color: var(--mocha-text) !important;
+  --toolbar-field-border-color: var(--mocha-border) !important;
+  --arrowpanel-background: var(--mocha-bg-2) !important;
+  --arrowpanel-color: var(--mocha-text) !important;
+  --arrowpanel-border-color: var(--mocha-border) !important;
+  --button-hover-bgcolor: #5a392a !important;
+  --button-active-bgcolor: var(--mocha-accent) !important;
+}
+
+#navigator-toolbox,
+#titlebar,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+  background: var(--mocha-bg-2) !important;
+  color: var(--mocha-text) !important;
+  border-color: var(--mocha-border) !important;
+}
+
+#TabsToolbar {
+  background: var(--mocha-bg) !important;
+}
+
+.tabbrowser-tab .tab-background {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background: var(--mocha-bg-3) !important;
+  border-top: 2px solid var(--mocha-accent) !important;
+  box-shadow: none !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: var(--mocha-text) !important;
+}
+
+.tabbrowser-tab:not([selected="true"]) .tab-label {
+  color: var(--mocha-text-soft) !important;
+}
+
+#urlbar-background,
+#searchbar {
+  background: var(--mocha-bg-3) !important;
+  color: var(--mocha-text) !important;
+  border-color: var(--mocha-border) !important;
+}
+
+#urlbar[focused="true"] #urlbar-background {
+  border-color: var(--mocha-accent) !important;
+}
+
+toolbarbutton,
+.toolbarbutton-1,
+#PanelUI-button,
+#star-button-box,
+#identity-box,
+#tracking-protection-icon-container {
+  color: var(--mocha-text) !important;
+  fill: var(--mocha-text) !important;
+}
+
+toolbarbutton:hover,
+.toolbarbutton-1:hover {
+  background-color: #5a392a !important;
+}
+
+menupopup,
+panel,
+panelview,
+.panel-arrowcontent,
+#appMenu-popup,
+#widget-overflow,
+#PlacesToolbar menupopup {
+  --panel-background: var(--mocha-bg-2) !important;
+  --panel-color: var(--mocha-text) !important;
+  --panel-border-color: var(--mocha-border) !important;
+  background: var(--mocha-bg-2) !important;
+  color: var(--mocha-text) !important;
+  border-color: var(--mocha-border) !important;
+}
+
+menu,
+menuitem,
+.bookmark-item {
+  color: var(--mocha-text) !important;
+}
+
+menu:hover,
+menuitem:hover,
+.bookmark-item:hover {
+  background-color: var(--mocha-accent) !important;
+  color: #2a1710 !important;
+}
+
+#sidebar-box,
+#sidebar-header,
+.sidebar-placesTree {
+  background: var(--mocha-bg) !important;
+  color: var(--mocha-text) !important;
+}

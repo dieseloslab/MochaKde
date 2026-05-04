@@ -1,0 +1,61 @@
+===== CANINANA 7.0.1 + NVIDIA 595.71.05 ROOTED =====
+timestamp=20260503-222345
+current_system=/nix/store/85l9pgbhcxghqfacdsmaxqlxnjbsy2m5-nixos-system-diesel-os-lab-Diesel-OS-Lab-Mocha-Edition
+uname=7.0.1-cachyos
+nvidia_driver=595.71.05
+
+===== NVIDIA-SMI =====
+Sun May  3 22:23:46 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.71.05              Driver Version: 595.71.05      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5060 Ti     Off |   00000000:01:00.0  On |                  N/A |
+|  0%   38C    P8             10W /  180W |     337MiB /  16311MiB |      1%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2835      G   ...me-shell-49.4/bin/gnome-shell         88MiB |
+|    0   N/A  N/A            3284      G   ...xwayland-24.1.11/bin/Xwayland          3MiB |
+|    0   N/A  N/A            3536      G   ...current-system/sw/bin/firefox        171MiB |
++-----------------------------------------------------------------------------------------+
+
+===== GC ROOTS =====
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-10-zca2ywr16p0lz0xy7cgf1b04cby52rq9-nvidia-x11-595.71.05-7.0.1-firmware -> /nix/store/zca2ywr16p0lz0xy7cgf1b04cby52rq9-nvidia-x11-595.71.05-7.0.1-firmware
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-1-4hpxnbns9gd210895aixhq1vc6v789j0-nvidia-x11-595.71.05-7.0.1-bin -> /nix/store/4hpxnbns9gd210895aixhq1vc6v789j0-nvidia-x11-595.71.05-7.0.1-bin
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-2-j6xqs4g6555y5xr6jv011a9x8nfc3yk3-nvidia-x11-595.71.05-7.0.1-lib32 -> /nix/store/j6xqs4g6555y5xr6jv011a9x8nfc3yk3-nvidia-x11-595.71.05-7.0.1-lib32
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-3-jh351kri3ilabwkirrk17z7ia5fc7c26-linux-cachyos-latest-7.0.1-modules -> /nix/store/jh351kri3ilabwkirrk17z7ia5fc7c26-linux-cachyos-latest-7.0.1-modules
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-4-jn1jqh0g039s3ydwk1j975mnwan5l8sj-initrd-linux-cachyos-latest-7.0.1 -> /nix/store/jn1jqh0g039s3ydwk1j975mnwan5l8sj-initrd-linux-cachyos-latest-7.0.1
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-5-qfnlgsgn9ik88lk5l44fjrl7jidx0wm3-nvidia-settings-595.71.05 -> /nix/store/qfnlgsgn9ik88lk5l44fjrl7jidx0wm3-nvidia-settings-595.71.05
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-6-r1lk9g1bzpdhvsz1j013b802gzfaccyn-linux-cachyos-latest-7.0.1 -> /nix/store/r1lk9g1bzpdhvsz1j013b802gzfaccyn-linux-cachyos-latest-7.0.1
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-7-sf4azw8w2vriicjk3jb0ypshgy3dk43m-linux-cachyos-latest-7.0.1-modules -> /nix/store/sf4azw8w2vriicjk3jb0ypshgy3dk43m-linux-cachyos-latest-7.0.1-modules
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-8-w4bbdv2qjni4y6g3dq53sci12yipysv4-nvidia-open-7.0.1-595.71.05 -> /nix/store/w4bbdv2qjni4y6g3dq53sci12yipysv4-nvidia-open-7.0.1-595.71.05
+/nix/var/nix/gcroots/mocha/caninana-701-nvidia595-9-x029wnpcy6y2ysbffa9mj16krivcnr2l-nvidia-x11-595.71.05-7.0.1 -> /nix/store/x029wnpcy6y2ysbffa9mj16krivcnr2l-nvidia-x11-595.71.05-7.0.1
+/nix/var/nix/gcroots/mocha/current-system-caninana-701-nvidia595 -> /nix/store/85l9pgbhcxghqfacdsmaxqlxnjbsy2m5-nixos-system-diesel-os-lab-Diesel-OS-Lab-Mocha-Edition
+
+===== CACHES MOCHAFAST =====
+/media/mochafast/Caninana/caninana-701-cacheado-nvidia595-good-20260503-182353
+/media/mochafast/Caninana/caninana-701-cacheado-nvidia595-good-20260503-182353/cache-reference/nix-cache-gnome-mocha-kernel-c-7.0.1-cachyos-20260501-202527
+/media/mochafast/Caninana/caninana-701-cacheado-nvidia595-good-20260503-182353/storepaths/caninana-701-cacheado-nvidia595-storepaths.txt
+/media/mochafast/Caninana/caninana-701-cacheado-nvidia595-good-current
+/media/mochafast/nix-cache-caninana-7.0.1
+/media/mochafast/nix-cache-caninana-7.0.1/nix-cache-info
+/media/mochafast/nix-cache-gnome-mocha-cachy-lto-reference-current
+/media/mochafast/nix-cache-gnome-mocha-caninana-lto-current
+/media/mochafast/nix-cache-gnome-mocha-caninana-z-lto-7.0.3-20260501-215629
+/media/mochafast/nix-cache-gnome-mocha-caninana-z-lto-7.0.3-20260501-215629/nix-cache-info
+/media/mochafast/nix-cache-gnome-mocha-current
+/media/mochafast/nix-cache-gnome-mocha-final-20260430-191035
+/media/mochafast/nix-cache-gnome-mocha-final-20260430-191035/nix-cache-info
+/media/mochafast/nix-cache-gnome-mocha-kernel-c-7.0.1-cachyos-20260501-202527
+/media/mochafast/nix-cache-gnome-mocha-kernel-c-7.0.1-cachyos-20260501-202527/nix-cache-info
+/media/mochafast/nix-cache-gnome-mocha-kernel-c-7.0.1-cachyos-20260501-204549
+/media/mochafast/nix-cache-gnome-mocha-kernel-c-7.0.1-cachyos-20260501-204549/nix-cache-info

@@ -1,0 +1,17 @@
+logs/*.log
+logs/*.txt
+*.tmp
+*.bak
+*.swp
+result
+result-*
+.direnv
+.cache
+*.key
+*.pem
+id_rsa*
+id_ed25519*
+*.tar
+*.tar.gz
+*.tar.zst
+*.zip

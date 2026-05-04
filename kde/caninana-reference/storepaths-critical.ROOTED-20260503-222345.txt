@@ -1,0 +1,10 @@
+/nix/store/4hpxnbns9gd210895aixhq1vc6v789j0-nvidia-x11-595.71.05-7.0.1-bin
+/nix/store/j6xqs4g6555y5xr6jv011a9x8nfc3yk3-nvidia-x11-595.71.05-7.0.1-lib32
+/nix/store/jh351kri3ilabwkirrk17z7ia5fc7c26-linux-cachyos-latest-7.0.1-modules
+/nix/store/jn1jqh0g039s3ydwk1j975mnwan5l8sj-initrd-linux-cachyos-latest-7.0.1
+/nix/store/qfnlgsgn9ik88lk5l44fjrl7jidx0wm3-nvidia-settings-595.71.05
+/nix/store/r1lk9g1bzpdhvsz1j013b802gzfaccyn-linux-cachyos-latest-7.0.1
+/nix/store/sf4azw8w2vriicjk3jb0ypshgy3dk43m-linux-cachyos-latest-7.0.1-modules
+/nix/store/w4bbdv2qjni4y6g3dq53sci12yipysv4-nvidia-open-7.0.1-595.71.05
+/nix/store/x029wnpcy6y2ysbffa9mj16krivcnr2l-nvidia-x11-595.71.05-7.0.1
+/nix/store/zca2ywr16p0lz0xy7cgf1b04cby52rq9-nvidia-x11-595.71.05-7.0.1-firmware
