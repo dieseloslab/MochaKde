@@ -1,0 +1,24 @@
+===== modinfo nvidia_modeset =====
+filename:       /run/booted-system/kernel-modules/lib/modules/7.0.1-cachyos/kernel/drivers/video/nvidia-modeset.ko.xz
+description:    NVIDIA modeset kernel module
+version:        595.71.05
+supported:      external
+license:        Dual MIT/GPL
+srcversion:     43A702AF19B18EA0FEEA565
+depends:        video,nvidia
+name:           nvidia_modeset
+retpoline:      Y
+vermagic:       7.0.1-cachyos SMP preempt mod_unload 
+parm:           output_rounding_fix:bool
+parm:           disable_hdmi_frl:bool
+parm:           disable_vrr_memclk_switch:bool
+parm:           hdmi_deepcolor:bool
+parm:           opportunistic_display_sync:bool
+parm:           debug_force_color_space:uint
+parm:           enable_overlay_layers:bool
+parm:           fail_malloc:Fail the Nth call to nvkms_alloc (int)
+parm:           malloc_verbose:Report information about malloc calls on module unload (bool)
+parm:           conceal_vrr_caps:Conceal all display VRR capabilities (bool)
+parm:           fail_alloc_core_channel:Control testing for hardware core channel allocation failure (int)
+parm:           debug:Enable debug logging (int)
+parm:           config_file:Path to the nvidia-modeset configuration file (default: disabled) (charp)

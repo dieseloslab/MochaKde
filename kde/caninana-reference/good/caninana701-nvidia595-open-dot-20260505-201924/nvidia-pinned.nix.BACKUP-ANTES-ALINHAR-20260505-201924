@@ -30,7 +30,7 @@ in
 
     package = nvidia595;
 
-    open = true;
+    open = false;
 
     powerManagement.enable = true;
     powerManagement.finegrained = false;

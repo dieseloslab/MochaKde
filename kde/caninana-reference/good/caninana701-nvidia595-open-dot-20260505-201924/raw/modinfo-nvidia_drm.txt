@@ -1,0 +1,16 @@
+===== modinfo nvidia_drm =====
+filename:       /run/booted-system/kernel-modules/lib/modules/7.0.1-cachyos/kernel/drivers/video/nvidia-drm.ko.xz
+description:    NVIDIA DRM kernel module
+version:        595.71.05
+supported:      external
+license:        Dual MIT/GPL
+srcversion:     76B91C545DFE1D16B60C7C8
+alias:          pci:v000010DEd*sv*sd*bc06sc80i00*
+alias:          pci:v000010DEd*sv*sd*bc03sc02i00*
+alias:          pci:v000010DEd*sv*sd*bc03sc00i00*
+depends:        nvidia-modeset,drm_ttm_helper
+name:           nvidia_drm
+retpoline:      Y
+vermagic:       7.0.1-cachyos SMP preempt mod_unload 
+parm:           modeset:Enable atomic kernel modesetting (1 = enable (default), 0 = disable) (bool)
+parm:           fbdev:Create a framebuffer device (1 = enable (default), 0 = disable) (bool)

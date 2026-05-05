@@ -1,0 +1,29 @@
+===== resolvectl status =====
+Global
+         Protocols: -LLMNR -mDNS +DNSOverTLS DNSSEC=no/unsupported
+  resolv.conf mode: stub
+Current DNS Server: 1.1.1.1#one.one.one.one
+       DNS Servers: 1.1.1.1#one.one.one.one 1.0.0.1#one.one.one.one
+                    2606:4700:4700::1111#one.one.one.one
+                    2606:4700:4700::1001#one.one.one.one
+        DNS Domain: ~.
+
+Link 2 (enp4s0)
+    Current Scopes: DNS
+         Protocols: +DefaultRoute -LLMNR -mDNS +DNSOverTLS DNSSEC=no/unsupported
+Current DNS Server: 192.168.100.1
+       DNS Servers: 192.168.100.1 fe80::1%2
+     Default Route: yes
+
+===== resolvectl dns =====
+Global: 1.1.1.1#one.one.one.one 1.0.0.1#one.one.one.one
+        2606:4700:4700::1111#one.one.one.one
+        2606:4700:4700::1001#one.one.one.one
+Link 2 (enp4s0): 192.168.100.1 fe80::1%2
+
+===== resolvectl domain =====
+Global: ~.
+Link 2 (enp4s0):
+
+===== ss DNS/DoT =====
+tcp   ESTAB 0      0      [2804:d51:568d:d300:8505:5487:81b0:feab]:53634        [2a04:4e42:400::347]:443   users:((".firefox-wrappe",pid=4285,fd=203))

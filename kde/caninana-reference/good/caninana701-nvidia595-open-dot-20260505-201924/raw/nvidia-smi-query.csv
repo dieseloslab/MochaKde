@@ -1,0 +1,2 @@
+name, driver_version, pstate, power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB], utilization.gpu [%]
+NVIDIA GeForce RTX 5060 Ti, 595.71.05, P5, 11.84 W, 180.00 W, 16311 MiB, 665 MiB, 0 %
