@@ -1,0 +1,13 @@
+item	caminho
+matrix_root	/media/mochafast/CaninanaMatrix
+recipe	recipes/shared-kernel-video/caninana701-bin-lto-nao-agressiva/RECEITA-COMPARTILHADA-CANINANA701-BIN-LTO-NAO-AGRESSIVA.md
+contract	contracts/shared-kernel-video/CONTRATO-CONSUMO-CANINANA-SHARED.md
+artifacts_index	artifacts-index/shared-kernel-video/INDEX-SHARED-KERNEL-VIDEO-CURRENT.md
+review_index	artifacts-index/shared-kernel-video-review/INDEX-SHARED-KERNEL-VIDEO-REVIEW-CURRENT.md
+legacy_index	artifacts-index/legacy-quarantine-mochakde/INDEX-LEGACY-QUARANTINE-MOCHAKDE-CURRENT.md
+shared_701	/media/mochafast/shared-kernel-video/caninana-7.0.1
+shared_703_candidates	/media/mochafast/shared-kernel-video/candidates/caninana-7.0.3
+shared_review	/media/mochafast/shared-kernel-video/review
+expected_kernel	7.0.1
+expected_nvidia	595.71.05
+mode	non-aggressive
