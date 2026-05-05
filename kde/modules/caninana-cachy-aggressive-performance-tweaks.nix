@@ -1,0 +1,169 @@
+{ config, lib, pkgs, ... }:
+
+{
+  # MochaKde / Caninana 7.0.3 - perfil agressivo Cachy-style para teste.
+  #
+  # Objetivo:
+  #   criar uma geração separada para comparar jogabilidade com ajustes
+  #   mais agressivos de VM/ZRAM/I/O/latência, inspirados em cachyos-settings,
+  #   sem trocar kernel, sem trocar NVIDIA e sem mexer no tema KDE.
+  #
+  # Correção:
+  #   não redefine fs.inotify.max_user_instances.
+  #   O NixOS atual já define 524288, que é maior que o valor experimental 1024.
+  #
+  # Não faz:
+  #   - não redefine mocha-tuned-latency-performance;
+  #   - não troca kernel;
+  #   - não troca driver NVIDIA;
+  #   - não usa LTO;
+  #   - não renomeia pname para linux-caninana;
+  #   - não mexe em KDE/tema.
+
+  system.nixos.tags = [
+    "caninana703-cachy-aggressive"
+    "nvidia595"
+    "playability-test"
+  ];
+
+  services.tuned.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    tuned
+    pciutils
+    usbutils
+    lm_sensors
+    hdparm
+  ];
+
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = lib.mkForce 2147483642;
+
+    "vm.swappiness" = lib.mkForce 180;
+    "vm.page-cluster" = lib.mkForce 0;
+    "vm.vfs_cache_pressure" = lib.mkForce 50;
+    "vm.watermark_boost_factor" = lib.mkForce 0;
+    "vm.watermark_scale_factor" = lib.mkForce 125;
+
+    "vm.dirty_bytes" = lib.mkForce 268435456;
+    "vm.dirty_background_bytes" = lib.mkForce 134217728;
+    "vm.dirty_writeback_centisecs" = lib.mkForce 1500;
+
+    "fs.file-max" = lib.mkForce 2097152;
+
+    "kernel.nmi_watchdog" = lib.mkForce 0;
+    "kernel.sched_autogroup_enabled" = lib.mkForce 0;
+  };
+
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "1048576";
+    }
+    {
+      domain = "*";
+      type = "hard";
+      item = "nofile";
+      value = "1048576";
+    }
+    {
+      domain = "*";
+      type = "soft";
+      item = "memlock";
+      value = "unlimited";
+    }
+    {
+      domain = "*";
+      type = "hard";
+      item = "memlock";
+      value = "unlimited";
+    }
+  ];
+
+  systemd.settings.Manager = {
+    DefaultLimitNOFILE = "1048576";
+    DefaultLimitMEMLOCK = "infinity";
+  };
+
+  systemd.tmpfiles.rules = [
+    "w /sys/kernel/mm/transparent_hugepage/enabled - - - - madvise"
+    "w /sys/kernel/mm/transparent_hugepage/defrag - - - - madvise"
+
+    "z /dev/cpu_dma_latency 0660 root audio - -"
+    "z /dev/hpet 0660 root audio - -"
+    "z /dev/rtc0 0660 root audio - -"
+  ];
+
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/scheduler}="none"
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
+
+    ACTION=="add|change", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="max_performance"
+
+    KERNEL=="cpu_dma_latency", GROUP="audio", MODE="0660"
+    KERNEL=="hpet", GROUP="audio", MODE="0660"
+    KERNEL=="rtc0", GROUP="audio", MODE="0660"
+  '';
+
+  boot.extraModprobeConfig = ''
+    options snd_hda_intel power_save=0 power_save_controller=N
+  '';
+
+  environment.etc."mocha-kde/caninana-cachy-aggressive-performance-tweaks.txt".text = ''
+    profile = caninana703-cachy-aggressive-performance-tweaks
+    status = experimental generation
+    base_kernel = 7.0.3-cachyos
+    base_nvidia = 595.71.05
+
+    vm.max_map_count = 2147483642
+    vm.swappiness = 180
+    vm.page-cluster = 0
+    vm.vfs_cache_pressure = 50
+    vm.watermark_boost_factor = 0
+    vm.watermark_scale_factor = 125
+    vm.dirty_bytes = 268435456
+    vm.dirty_background_bytes = 134217728
+    vm.dirty_writeback_centisecs = 1500
+
+    fs.file-max = 2097152
+    fs.inotify.max_user_instances = keep NixOS existing value
+    kernel.nmi_watchdog = 0
+    kernel.sched_autogroup_enabled = 0
+
+    nofile = 1048576
+    memlock = unlimited
+    thp = madvise
+    nvme_scheduler = none
+    ssd_scheduler = mq-deadline
+    hdd_scheduler = bfq
+    sata_lpm = max_performance
+    snd_hda_intel_power_save = 0
+
+    tuned_owner = performance-base.nix
+    expected_tuned_profile = latency-performance
+
+    rule = separate generation
+    rule = dry-build, build, boot; never switch
+    rule = keep Caninana 7.0.3
+    rule = keep NVIDIA 595.71.05
+    rule = cache closure in separate MOCHAFAST cache folder
+  '';
+
+  assertions = [
+    {
+      assertion = config.boot.kernelPackages.kernel.version == "7.0.3";
+      message = "Caninana aggressive tweaks abortado: kernel esperado 7.0.3.";
+    }
+    {
+      assertion = config.boot.kernelPackages.kernel.pname == "linux-cachyos-latest";
+      message = "Caninana aggressive tweaks abortado: pname esperado linux-cachyos-latest.";
+    }
+    {
+      assertion = config.hardware.nvidia.package.version == "595.71.05";
+      message = "Caninana aggressive tweaks abortado: NVIDIA esperada 595.71.05.";
+    }
+  ];
+}

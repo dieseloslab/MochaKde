@@ -1,0 +1,16 @@
+NAME        TYPE FSTYPE UUID                                 LABEL       SIZE MOUNTPOINTS
+sda         disk                                                       447,1G 
+├─sda1      part vfat   1716-3A10                                          4G 
+└─sda2      part btrfs  2dac5934-b52a-48c8-abcc-bbc0732eb8c9           443,1G 
+sdb         disk                                                       223,6G 
+└─sdb1      part xfs    2f9237e4-e958-462b-a322-0552265ea23a MOCHAFAST 223,6G /media/mochafast
+sdc         disk                                                        55,9G 
+├─sdc1      part exfat  5D8D-2429                            Ventoy     55,9G 
+└─sdc2      part vfat   EA6C-95B2                            VTOYEFI      32M 
+zram0       disk swap   5bee1f60-461c-46db-ba76-0a2720e01ac5 zram0      15,4G [SWAP]
+nvme0n1     disk                                                       931,5G 
+├─nvme0n1p1 part vfat   4254-8B81                                          1G /boot
+├─nvme0n1p2 part ext4   61448713-bb1b-43c3-9ffe-98f6421c0658           195,2G /nix/store
+│                                                                             /
+├─nvme0n1p3 part xfs    5ec8653a-3539-403d-83b0-ac8ab4fc5b70           702,1G /home
+└─nvme0n1p4 part swap   4f20952d-3696-40ee-bd26-61b0a090ee7d            33,2G [SWAP]

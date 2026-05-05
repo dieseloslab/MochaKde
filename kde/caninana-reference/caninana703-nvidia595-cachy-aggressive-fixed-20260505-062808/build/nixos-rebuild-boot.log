@@ -1,0 +1,5 @@
+warning: Git tree '/media/mochafast/MochaKde' is dirty
+building the system configuration...
+warning: Git tree '/media/mochafast/MochaKde' is dirty
+Not checking switch inhibitors (action = boot)
+Done. The new configuration is /nix/store/jgznfagr6l2f4gcjf9adwpmgpmzdrp2d-nixos-system-mocha-kde-hal-caninana703-cachy-aggressive-caninana703-experiment-mochakde-nixos-unstable-nvidia-latest-nvidia595-playability-test-26.05.20260430.15f4ee4

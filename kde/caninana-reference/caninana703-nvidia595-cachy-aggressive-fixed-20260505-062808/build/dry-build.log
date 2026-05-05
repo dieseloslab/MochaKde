@@ -1,0 +1,69 @@
+warning: Git tree '/media/mochafast/MochaKde' is dirty
+warning: ignoring untrusted substituter 'https://attic.xuyh0120.win/lantian', you are not a trusted user.
+Run `man nix.conf` for more information on the `substituters` configuration option.
+warning: ignoring untrusted substituter 'https://cache.garnix.io', you are not a trusted user.
+Run `man nix.conf` for more information on the `substituters` configuration option.
+warning: ignoring the client-specified setting 'trusted-public-keys', because it is a restricted setting and you are not a trusted user
+warning: ignoring untrusted substituter 'https://attic.xuyh0120.win/lantian', you are not a trusted user.
+Run `man nix.conf` for more information on the `substituters` configuration option.
+warning: ignoring untrusted substituter 'https://cache.garnix.io', you are not a trusted user.
+Run `man nix.conf` for more information on the `substituters` configuration option.
+warning: ignoring the client-specified setting 'trusted-public-keys', because it is a restricted setting and you are not a trusted user
+these 54 derivations will be built:
+  /nix/store/zgqacg8csrqji12yzqnf8vhdf6b20s0d-limits.conf.drv
+  /nix/store/00nim8c69hd6glh54yyzmvhv7dy8kj23-usermod.pam.drv
+  /nix/store/2rq2qqfy5d2ybwx6lzm6j59v34jpv2gs-system-path.drv
+  /nix/store/gawxxhg01s64vsn2kqwd3w1qjbv6sq6q-dbus-1.drv
+  /nix/store/g4vnxfavm3i9gbhrpcs2jlznwzcs7465-X-Restart-Triggers-dbus-broker.drv
+  /nix/store/0f3zimmm4p6kkb4m0pn0jakr9anjds50-unit-dbus-broker.service.drv
+  /nix/store/0wyyx8qgnrwksy0f7ajh4znad2ka61h2-extra-udev-rules.drv
+  /nix/store/10k9mwp80d9fvy81b9fdnwfkmih8byia-groupmod.pam.drv
+  /nix/store/rd9wy1j46gw9s5x3avjadz46r94dh9r6-etc-modprobe.d-nixos.conf.drv
+  /nix/store/1ablms0g37w7z8n77z4wpj8rkk1qbd9l-initrd-linux-cachyos-latest-7.0.3.drv
+  /nix/store/dbjmcgbjv6gp64qgf7bng0k8dcx4wjm6-nixos-tmpfiles.d.drv
+  /nix/store/pp19md9jbsgc6p8hzssnlflf28sadbak-tmpfiles.d.drv
+  /nix/store/gsdh3iw8dlx239rdqb26mhyha4vnmib5-X-Restart-Triggers-systemd-tmpfiles-resetup.drv
+  /nix/store/1pph602y6i7l3278441qig8sv4issx0l-unit-systemd-tmpfiles-resetup.service.drv
+  /nix/store/1r2mg1hpmgy0j485czr8lkgzj6r3msbr-groupadd.pam.drv
+  /nix/store/2kv4iardrz9x17sjn52l2bsvfiixcpjl-runuser-l.pam.drv
+  /nix/store/3dxa43pndp8m2x7bp4ch45lal183rjbx-xlock.pam.drv
+  /nix/store/3kc1d5r8rmpjk3jlrggvylr1bliw6qpf-unit-dbus-broker.service.drv
+  /nix/store/428b7rbfk7f0ala2qh0qm727nvvir09h-polkit-1.pam.drv
+  /nix/store/l20ncbw1ax4blhlwdyggy6g092kknhc6-etc-sysctl.d-60-nixos.conf.drv
+  /nix/store/4b40dij5yfsmv7q7rv5885dprzqgxwz9-X-Restart-Triggers-systemd-sysctl.drv
+  /nix/store/57xph95z9cywnahjv7hxjzs45rz1hlhf-udev-rules.drv
+  /nix/store/5xyfrpbj2g0gb8v1bwbrfjvfwbs3mf34-groupdel.pam.drv
+  /nix/store/85i7kh0vd5i4x5d56vqb0vylf3clgvvf-unit-accounts-daemon.service.drv
+  /nix/store/934rxkg7gkjz8kiky8y60dq7vfnw6y3s-X-Restart-Triggers-polkit.drv
+  /nix/store/adm37dr5sq7v60sj12dkf47ba4qap3lz-su.pam.drv
+  /nix/store/aqh0bg3fszv15cr8jbxk7wd87f5ybk7i-etc-systemd-system.conf.drv
+  /nix/store/aw9dsfdpbih2h4phkg8mxzn0iz4p5jzi-login.pam.drv
+  /nix/store/bi9n6lfzbag8s6ib7lkx3kr62yq07hr7-unit-systemd-sysctl.service.drv
+  /nix/store/c2ps9x561z4aj607ckr6dikpvk2sd37x-user-units.drv
+  /nix/store/cmr6ij5bvr1dvd8nd7zin1zpcf6f47r5-chfn.pam.drv
+  /nix/store/cmwfyzlcir4ahcbxn7ncczcg6krsicjs-vlock.pam.drv
+  /nix/store/fdndpwim9mf8xf03rri5s028936wg90a-userdel.pam.drv
+  /nix/store/ggl6njbx4nvxhmclspwbyfcw9wk4ak92-passwd.pam.drv
+  /nix/store/h3lhj6snmalwi9xd3ahql4n5gmfxcnx9-boot.json.drv
+  /nix/store/kvfiqx622hs9zb1m78y75xihcvzf9cr1-useradd.pam.drv
+  /nix/store/lsn45qy33ryjfv6b2jjl22xz0gmbjm0v-unit-polkit.service.drv
+  /nix/store/nilswvyvjxjbnb18nis0l301nj6zxq1q-X-Restart-Triggers-systemd-udevd.drv
+  /nix/store/niyy4cs23jixjwb0srifz1xi6xk6ld1j-unit-systemd-udevd.service.drv
+  /nix/store/lr26lgzjrig4qgysvirx5d1sa00kg44q-system-units.drv
+  /nix/store/masbs3f1nfqls7bgyb9p1f2p5kdh4vdc-systemd-user.pam.drv
+  /nix/store/mimdy35mpvb66dlc5jva07asz2gpqq8s-sudo.pam.drv
+  /nix/store/mv7lq13chfb5576nx871h9x8fxjrnnpq-etc-mocha-kde-caninana-cachy-aggressive-performance-tweaks.txt.drv
+  /nix/store/niwwgsvx3r77vplg86yflzawy9rdkccd-groupmems.pam.drv
+  /nix/store/p155fzi18xd385b3rffam8d07ir1ibx8-systemd-run0.pam.drv
+  /nix/store/qyqz6z5lxh5qpcaki7iiqn41lvm3sxzf-kde.pam.drv
+  /nix/store/x9iqdw2811w400w9x40gzy6fw80bg3ij-issue.drv
+  /nix/store/xk8s11vi8yzkyv7nrv0qm5a4s7bnzl5n-chpasswd.pam.drv
+  /nix/store/xlicfc190lmwd3ayis07sp72kjx7jkwh-chsh.pam.drv
+  /nix/store/xsnd720gqz5m5d85jbwpmi58vshj217c-hwdb.bin.drv
+  /nix/store/ycy886nmc4kp7afvh068bnbmac1bpxv5-runuser.pam.drv
+  /nix/store/qkjz4p82zjv0hy82rpk0wlkp0zppdn97-etc.drv
+  /nix/store/xsa0656iipvlax8syp5678ya01djjyyi-activate.drv
+  /nix/store/kmm2x4rgi92r2vgnyvl32qiyczgcmrf2-nixos-system-mocha-kde-hal-caninana703-cachy-aggressive-caninana703-experiment-mochakde-nixos-unstable-nvidia-latest-nvidia595-playability-test-26.05.20260430.15f4ee4.drv
+these 2 paths will be fetched (85.4 KiB download, 386.4 KiB unpacked):
+  /nix/store/v3m7j4fxbaqf22is10yz2q245avis0dy-lm-sensors-3.6.2-doc
+  /nix/store/0rj326s4kcv3va1gdak8f0wmyh4cbcfm-lm-sensors-3.6.2-man

@@ -1,0 +1,3 @@
+NAME           TYPE       SIZE   USED  PRIO
+/dev/zram0     partition 15,4G 901,1M 32767
+/dev/nvme0n1p4 partition 33,2G     0B     5

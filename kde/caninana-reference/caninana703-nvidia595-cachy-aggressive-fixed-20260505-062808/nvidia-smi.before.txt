@@ -1,0 +1,32 @@
+Tue May  5 06:28:09 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.71.05              Driver Version: 595.71.05      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5060 Ti     Off |   00000000:01:00.0  On |                  N/A |
+|  0%   37C    P8             10W /  180W |     560MiB /  16311MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            1820      G   ...y-kwallet-6.25.0/bin/ksecretd          2MiB |
+|    0   N/A  N/A            1837      G   ...0-kwin-6.6.4/bin/kwin_wayland         35MiB |
+|    0   N/A  N/A            1895      G   ...urrent-system/sw/bin/Xwayland          3MiB |
+|    0   N/A  N/A            1920      G   ...workspace-6.6.4/bin/ksmserver          2MiB |
+|    0   N/A  N/A            1922      G   ...3ah4kv1-kded-6.25.0/bin/kded6          2MiB |
+|    0   N/A  N/A            1948      G   ...rkspace-6.6.4/bin/plasmashell         70MiB |
+|    0   N/A  N/A            1963      G   ...sma-desktop-6.6.4/bin/kaccess          2MiB |
+|    0   N/A  N/A            1964      G   ...it-kde-authentication-agent-1          2MiB |
+|    0   N/A  N/A            2128      G   ....6.4/libexec/DiscoverNotifier          2MiB |
+|    0   N/A  N/A            2195      G   ...ibexec/xdg-desktop-portal-kde          2MiB |
+|    0   N/A  N/A            2790      G   ...current-system/sw/bin/firefox        183MiB |
+|    0   N/A  N/A            4935      G   ...m/sw/bin/plasma-systemmonitor         32MiB |
+|    0   N/A  N/A           14412      G   ...current-system/sw/bin/konsole          2MiB |
++-----------------------------------------------------------------------------------------+

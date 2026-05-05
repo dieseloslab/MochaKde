@@ -1,0 +1,1 @@
+/etc/static/mocha-kde/nvidia-latest.txt
