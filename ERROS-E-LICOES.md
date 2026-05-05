@@ -126,3 +126,54 @@ O dry-build foi bloqueado contra `linux-6.18` e contra build de kernel/NVIDIA an
 - O script abortou antes de boot porque procurou o XPI em result/sw/share, mas o XPI estava referenciado por store path na policy.
 - Correção: publicar o XPI também como /etc/firefox/mocha-kde-firefox-theme.xpi e usar install_url=file:///etc/firefox/mocha-kde-firefox-theme.xpi.
 - Ainda não registrar estado final; Firefox precisa confirmação visual.
+
+---
+
+<a id="CACHE-REFERENCE-NAO-E-STORE-IMPORTADO-20260504"></a>
+
+## 2026-05-04 — Cache-reference não é store importado
+
+Erro/risco observado:
+- Na montagem limpa do MochaKde, o flake declarou corretamente:
+  - kernel `linux-cachyos-latest-7.0.1`
+  - NVIDIA `595.71.05`
+- O `dry-build` passou, mas listou derivations críticas para construir:
+  - `linux-src-patched`
+  - `linux-cachyos-latest-7.0.1`
+  - `nvidia-x11-595.71.05-7.0.1`
+  - `nvidia-open-7.0.1-595.71.05`
+  - `initrd-linux-cachyos-latest-7.0.1`
+- Isso deve bloquear `boot` até validar/importar o cache local.
+
+O que NÃO fazer:
+- Não assumir que um `cache-reference` no MOCHAFAST significa que o path já existe em `/nix/store`.
+- Não rodar `nixos-rebuild boot` quando o dry-build listar kernel/NVIDIA como derivations a construir.
+- Não tratar `.narinfo` encontrado como store path válido sem antes rodar `nix-store --check-validity`.
+- Não varrer diretórios GNOME/Mocha genéricos ao montar MochaKde; restringir a auditoria a `/etc/nixos`, `/media/mochafast/MochaKde` e ao snapshot Caninana necessário.
+- Não avaliar `kernel.outPath` e `nvidia.outPath` cedo demais na fase de materialização; isso deixa a primeira montagem lenta. Preferir `version` + `dry-build`, e só usar `outPath` para auditoria específica.
+
+Procedimento correto:
+1. Materializar o repo em `/etc/nixos`, preservando o `hardware-configuration.nix` da instalação nova.
+2. Rodar `dry-build`.
+3. Se o `dry-build` listar kernel/NVIDIA, parar.
+4. Ler `declaracoes-criticas.txt` da Fase 2.
+5. Validar os paths com:
+   - `test -e /nix/store/...`
+   - `nix-store --check-validity /nix/store/...`
+6. Localizar `.narinfo` exato no cache Caninana.
+7. Importar com `nix copy --from file://...` antes de qualquer build real.
+8. Só depois rodar `nixos-rebuild build`.
+9. Só depois, se tudo passar, rodar `nixos-rebuild boot`.
+10. Nunca usar `switch` como padrão.
+
+Snapshot/cache relacionado:
+- `/media/mochafast/Caninana/caninana-701-cacheado-nvidia595-good-20260503-182353`
+- cache localizado:
+  - `cache-reference/nix-cache-gnome-mocha-kernel-c-7.0.1-cachyos-20260501-202527`
+
+Observação:
+- Apesar do nome histórico conter `gnome-mocha`, esse cache é a referência Caninana/NVIDIA usada para reaproveitar os store paths críticos. Isso não autoriza misturar módulos GNOME no MochaKde.
+
+Store paths críticos esperados na montagem de 2026-05-04:
+- `/nix/store/r1lk9g1bzpdhvsz1j013b802gzfaccyn-linux-cachyos-latest-7.0.1`
+- `/nix/store/x029wnpcy6y2ysbffa9mj16krivcnr2l-nvidia-x11-595.71.05-7.0.1`

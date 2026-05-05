@@ -1,8 +1,0 @@
-# Fonte e binarios locais grandes.
-# Mantidos no MOCHAFAST, nao no GitHub.
-source/
-tarballs/*.tar.xz
-tarballs/*.git.bundle
-
-# Podemos commitar os hashes.
-!tarballs/SHA256SUMS
