@@ -1,0 +1,8 @@
+Mocha KDE theme snapshot/apply
+timestamp=20260504-013302
+snapshot=/media/mochafast/MochaKde/kde/state/plasma-theme-before-20260504-013302
+desktop_info=XDG_CURRENT_DESKTOP=KDE DESKTOP_SESSION=plasma Desktop=KDE Type=wayland 
+icon_theme=breeze-dark
+scheme=MochaKDE
+panel=bottom/autohide/non-floating/fill
+animations=disabled/reduced

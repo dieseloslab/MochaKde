@@ -1,0 +1,15 @@
+{
+  "KPlugin": {
+    "Authors": [
+      {
+        "Name": "Diesel OS Lab"
+      }
+    ],
+    "Category": "Plasma Theme",
+    "Description": "Mocha KDE Plasma theme overlay",
+    "Id": "MochaKde",
+    "License": "GPL",
+    "Name": "Mocha KDE"
+  },
+  "X-Plasma-API": "5.0"
+}

@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+  "name": "Mocha KDE Caramelo",
+  "version": "1.0.0",
+  "description": "Tema Firefox da distro Mocha KDE: café, caramelo e texto creme.",
+  "theme": {
+    "colors": {
+      "frame": "#38261E",
+      "frame_inactive": "#2A1E19",
+      "tab_background_text": "#F2E5DA",
+      "tab_text": "#F2E5DA",
+      "tab_selected": "#4A3227",
+      "tab_line": "#C47A3A",
+      "toolbar": "#31211A",
+      "toolbar_text": "#F2E5DA",
+      "toolbar_field": "#3A281F",
+      "toolbar_field_text": "#F2E5DA",
+      "toolbar_field_border": "#6D4936",
+      "toolbar_field_focus": "#432D23",
+      "toolbar_field_text_focus": "#F2E5DA",
+      "toolbar_field_border_focus": "#C47A3A",
+      "button_background_hover": "#4A3227",
+      "button_background_active": "#C47A3A",
+      "popup": "#38261E",
+      "popup_text": "#F2E5DA",
+      "popup_border": "#6D4936",
+      "popup_highlight": "#C47A3A",
+      "popup_highlight_text": "#261912",
+      "sidebar": "#31211A",
+      "sidebar_text": "#F2E5DA",
+      "sidebar_border": "#6D4936",
+      "icons": "#F2E5DA",
+      "icons_attention": "#D78F4A",
+      "bookmark_text": "#F2E5DA",
+      "ntp_background": "#31211A",
+      "ntp_text": "#F2E5DA"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "mocha-kde-caramelo-theme@dieseloslab"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+
+===== SNAPSHOT =====
+Snapshot salvo em:
+/media/mochafast/MochaKde/kde/state/before-force-folder-icons-20260504-014728
+
+===== CRIANDO TEMA LOCAL MOCHAFOLDERS =====
+
+===== APLICANDO TEMA DE ÍCONES NO KDE =====
+
+===== LIMPANDO CACHE DE ÍCONES/KDE =====
+kbuildsycoca6 running...
+
+===== FECHANDO DOLPHIN PARA REABRIR COM ÍCONES NOVOS =====
+
+===== VALIDAÇÃO =====
+Icon Theme: MochaFolders
+
+AccentColor: 156,103,73
+
+
+Arquivos criados:
+/home/hal/.local/share/icons/MochaFolders/16x16/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/16x16/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/22x22/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/22x22/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/24x24/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/24x24/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/32x32/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/32x32/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/48x48/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/48x48/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/64x64/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/64x64/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/96x96/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/96x96/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/128x128/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/128x128/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaFolders/scalable/places/folder.svg
+/home/hal/.local/share/icons/MochaFolders/scalable/places/inode-directory.svg
+
+===== PRONTO =====
+Agora abre o Dolphin de novo.
+Se ainda aparecer azul/cinza, faz logout/login. Se após logout/login não mudar, o problema é outro ponto de cache/tema do Plasma, não falta de SVG.
+
+Snapshot/log:
+/media/mochafast/MochaKde/kde/state/before-force-folder-icons-20260504-014728

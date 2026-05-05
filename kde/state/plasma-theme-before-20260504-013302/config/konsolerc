@@ -1,0 +1,10 @@
+[General]
+ConfigVersion=1
+
+[Notification Messages]
+CloseAllEmptyTabs=true
+CloseAllTabs=true
+ShowPasteHugeTextWarning=false
+
+[UiSettings]
+ColorScheme=

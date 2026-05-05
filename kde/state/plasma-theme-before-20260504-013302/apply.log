@@ -1,0 +1,56 @@
+===== MOCHA KDE THEME APPLY - 20260504-013302 =====
+Snapshot: /media/mochafast/MochaKde/kde/state/plasma-theme-before-20260504-013302
+
+===== SESSÃO =====
+XDG_CURRENT_DESKTOP=KDE DESKTOP_SESSION=plasma Desktop=KDE Type=wayland 
+
+===== SNAPSHOT DOS ARQUIVOS KDE =====
+copiado: ~/.config/kdeglobals
+ausente: ~/.config/plasmarc
+copiado: ~/.config/kwinrc
+ausente: ~/.config/kscreenlockerrc
+ausente: ~/.config/dolphinrc
+copiado: ~/.config/konsolerc
+copiado: ~/.config/ksmserverrc
+copiado: ~/.config/plasma-org.kde.plasma.desktop-appletsrc
+snapshot local-share: /home/hal/.local/share/icons
+
+===== FERRAMENTAS =====
+kwriteconfig: /run/current-system/sw/bin/kwriteconfig6
+kreadconfig:  /run/current-system/sw/bin/kreadconfig6
+qdbus:        /run/current-system/sw/bin/qdbus
+
+===== CRIANDO ESQUEMA DE CORES MOCHA KDE =====
+Criado: ~/.local/share/color-schemes/MochaKDE.colors a partir de /run/current-system/sw/share/color-schemes/BreezeDark.colors
+
+===== ESCOLHENDO ÍCONES =====
+Ícones escolhidos: breeze-dark
+
+===== APLICANDO VISUAL GLOBAL =====
+O esquema de cores MochaKDE foi aplicado à sua sessão atual do Plasma com sucesso.
+
+===== REDUZINDO ANIMAÇÕES / PERFIL GAMER =====
+
+===== PAINEL: BAIXO, AUTO-OCULTAR, SEM DOCK FLUTUANTE =====
+
+
+===== DOLPHIN / USABILIDADE LEVE =====
+
+===== RECARREGANDO KDE SEM REBOOT =====
+kbuildsycoca6 running...
+
+===== VALIDAÇÃO =====
+ColorScheme:
+MochaKDE
+AccentColor:
+156,103,73
+Icon theme:
+breeze-dark
+AnimationDurationFactor:
+0
+
+===== PRONTO =====
+Snapshot salvo em:
+/media/mochafast/MochaKde/kde/state/plasma-theme-before-20260504-013302
+
+Se ficar visualmente bom, depois registramos esse estado como plasma-visual-bom.

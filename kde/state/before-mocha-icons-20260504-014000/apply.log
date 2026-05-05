@@ -1,0 +1,167 @@
+===== SNAPSHOT SEM ALTERAR PAINEL =====
+Snapshot:
+/media/mochafast/MochaKde/kde/state/before-mocha-icons-20260504-014000
+
+===== INSTALAR PAPIRUS NO PERFIL DO USUARIO, SE FALTAR =====
+these 48 paths will be fetched (25.0 MiB download, 160.3 MiB unpacked):
+  /nix/store/pw7njlq5hwf43drjfxvwdjzb98jifinc-breeze-icons-6.25.0-dev
+  /nix/store/jc55bix1lk4v4d646s78gs6pvliks9jw-double-conversion-3.3.1-dev
+  /nix/store/gzjvsf4bmh0xsdgf21h0spf426w4y5hx-extra-cmake-modules-6.25.0
+  /nix/store/fga8simmllr8rlxql3qfb41620yh3n3p-icu4c-76.1-dev
+  /nix/store/lsvpjp91i7hs4vlpgrbj7s2i849r7d1w-libdatrie-2019-12-20
+  /nix/store/gdx3ay9ms54qyivhbdmcrbcb778ww7wf-libdatrie-2019-12-20-bin
+  /nix/store/1cg9syf0w509d5prxya2ak7k1pizrbi4-libdatrie-2019-12-20-dev
+  /nix/store/xf5sljv7paqfjc6j62kmns4xxva1kwsd-libepoxy-1.5.10-dev
+  /nix/store/xq5q2y828igkiwyq25lhrhhv424y3aza-libproxy-0.5.12-dev
+  /nix/store/8w64dm3sny77mnf8jm5n1n57d1fk25x4-libselinux-3.10-bin
+  /nix/store/1bkcpa0lhy8dw3h6sz5b9742bihb9290-libselinux-3.10-dev
+  /nix/store/lf8iwryhabj1ifjg3kjyidvl9nakib4p-libsepol-3.10
+  /nix/store/hb9zkpgafixyxc52dcj8sfknqpmfdpk6-libsepol-3.10-bin
+  /nix/store/hrbmsxk0jl93igyrmlhns5a8jfvc96b3-libsepol-3.10-dev
+  /nix/store/6h473sgnn2glbvgjd6sj242144zmllvj-libthai-0.1.30-dev
+  /nix/store/cmvpl03c604f718hhnazghiwb5dbn32a-liburcu-0.15.6-dev
+  /nix/store/8yvsggi3lyxvly1d24dppc3l3ccn3n1a-libxcb-cursor-0.1.6-dev
+  /nix/store/7i4fyg0w0kbdvb22gpnvjdxivjgc0nij-libxcb-image-0.4.1-dev
+  /nix/store/yihma6aw528nj48ddwm835f8yg3jjb7p-libxcb-keysyms-0.4.1-dev
+  /nix/store/286wksf4n6hknrnljjs7z0wqnbsjwpnr-libxcb-render-util-0.3.10-dev
+  /nix/store/9ag3dbrwgbf1pzzbrhcyk6kqss2h9qgz-libxcb-util-0.4.1-dev
+  /nix/store/zba0kgibxmp87ddlnnvwxrlfbc85w4cy-libxcb-wm-0.4.2-dev
+  /nix/store/sz4fx21lyp3gwmvnm000v1fk4nyfbmdr-libxdmcp-1.1.5-dev
+  /nix/store/s11qidhaq78zrwnd6jc2plxhbmv6y9b9-libxkbcommon-1.13.1-dev
+  /nix/store/2b9b04irbcmasriarwwgqhby01mzzwr1-libxml2-2.15.1-bin
+  /nix/store/6sirsgrlw5wpjb61v07sbgs4sfsfdwx6-libxml2-2.15.1-dev
+  /nix/store/f4329v3zm2p5ggkvh5ymv9jphvrpf6ad-libxslt-1.1.45-dev
+  /nix/store/6qx14wf29yn2vqqh0nf0gmvdbk24g964-lksctp-tools-1.0.21
+  /nix/store/5xr74grdnd43gd0ngkbkcrc3bhidxyng-lttng-ust-2.14.0-bin
+  /nix/store/p3459sn6kfj0lxvy6r1nlcgc249bqmvl-lttng-ust-2.14.0-dev
+  /nix/store/mr1ghgw331ncp06bv7kcra1wdpg8qdab-mariadb-connector-odbc-3.2.6
+  /nix/store/82agk4mh225wblcdyv6yq3a852w7lxsn-md4c-0.5.2
+  /nix/store/mm2abhg9j26xcz4mbzi0k2zxqf1924bd-md4c-0.5.2-dev
+  /nix/store/n03f6g8flrp8p5nlm45qadssjf3klhs0-papirus-icon-theme-20250501
+  /nix/store/lpzr2b7izm6d80b4hjc062fl0ylimr2x-pcre2-10.46-bin
+  /nix/store/k1cm26fb7bsxif6lcwpzi7iyccvrv4f1-pcre2-10.46-dev
+  /nix/store/f2qrafl07iyfggddmw44bd9z0isn77jg-psqlodbc-17.00.0008
+  /nix/store/hksq1dd4i8hp42q0y6ndhas4s3kscmb6-qtbase-6.11.0-dev
+  /nix/store/qriil2zh2r8n9p76x3z4admfsipc6mr3-qtsvg-6.11.0-dev
+  /nix/store/67cm7qx8s210dwkq64vqbf3q9z62ddyg-sqlite-3.51.2-bin
+  /nix/store/jphqqkgn7swnppi4dgwxavd3fac51bvx-sqlite-3.51.2-dev
+  /nix/store/mzf14h3p86kb5ik5f2b9c857i9465c1h-sqlite-connector-odbc-0.99991
+  /nix/store/490b2y1f8lz3jfns1zf7l0g7bh4kncbh-systemd-260.1-dev
+  /nix/store/80s9hhm2wyb053v2q55iz91hccxw0w47-util-linux-2.42-dev
+  /nix/store/jmjmp6wkg646s4ii5znac68zxdj1p55h-vulkan-loader-1.4.341.0-dev
+  /nix/store/jp2k2qal08z06glmgpiwracq0bwi1bzg-wayland-scanner-1.24.0
+  /nix/store/pkh91qil9ai3jjslkp590xij6ymxsa6g-wayland-scanner-1.24.0-bin
+  /nix/store/97xaplx9nwxxxsp954sdpia89jqvyz4v-wayland-scanner-1.24.0-dev
+copying path '/nix/store/gzjvsf4bmh0xsdgf21h0spf426w4y5hx-extra-cmake-modules-6.25.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/lsvpjp91i7hs4vlpgrbj7s2i849r7d1w-libdatrie-2019-12-20' from 'https://cache.nixos.org'...
+copying path '/nix/store/jp2k2qal08z06glmgpiwracq0bwi1bzg-wayland-scanner-1.24.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/jc55bix1lk4v4d646s78gs6pvliks9jw-double-conversion-3.3.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/fga8simmllr8rlxql3qfb41620yh3n3p-icu4c-76.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/xf5sljv7paqfjc6j62kmns4xxva1kwsd-libepoxy-1.5.10-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/xq5q2y828igkiwyq25lhrhhv424y3aza-libproxy-0.5.12-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/6h473sgnn2glbvgjd6sj242144zmllvj-libthai-0.1.30-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/8yvsggi3lyxvly1d24dppc3l3ccn3n1a-libxcb-cursor-0.1.6-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/7i4fyg0w0kbdvb22gpnvjdxivjgc0nij-libxcb-image-0.4.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/yihma6aw528nj48ddwm835f8yg3jjb7p-libxcb-keysyms-0.4.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/286wksf4n6hknrnljjs7z0wqnbsjwpnr-libxcb-render-util-0.3.10-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/9ag3dbrwgbf1pzzbrhcyk6kqss2h9qgz-libxcb-util-0.4.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/zba0kgibxmp87ddlnnvwxrlfbc85w4cy-libxcb-wm-0.4.2-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/sz4fx21lyp3gwmvnm000v1fk4nyfbmdr-libxdmcp-1.1.5-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/s11qidhaq78zrwnd6jc2plxhbmv6y9b9-libxkbcommon-1.13.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/gdx3ay9ms54qyivhbdmcrbcb778ww7wf-libdatrie-2019-12-20-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/lf8iwryhabj1ifjg3kjyidvl9nakib4p-libsepol-3.10' from 'https://cache.nixos.org'...
+copying path '/nix/store/cmvpl03c604f718hhnazghiwb5dbn32a-liburcu-0.15.6-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/2b9b04irbcmasriarwwgqhby01mzzwr1-libxml2-2.15.1-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/6qx14wf29yn2vqqh0nf0gmvdbk24g964-lksctp-tools-1.0.21' from 'https://cache.nixos.org'...
+copying path '/nix/store/5xr74grdnd43gd0ngkbkcrc3bhidxyng-lttng-ust-2.14.0-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/mr1ghgw331ncp06bv7kcra1wdpg8qdab-mariadb-connector-odbc-3.2.6' from 'https://cache.nixos.org'...
+copying path '/nix/store/82agk4mh225wblcdyv6yq3a852w7lxsn-md4c-0.5.2' from 'https://cache.nixos.org'...
+copying path '/nix/store/lpzr2b7izm6d80b4hjc062fl0ylimr2x-pcre2-10.46-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/f2qrafl07iyfggddmw44bd9z0isn77jg-psqlodbc-17.00.0008' from 'https://cache.nixos.org'...
+copying path '/nix/store/67cm7qx8s210dwkq64vqbf3q9z62ddyg-sqlite-3.51.2-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/mzf14h3p86kb5ik5f2b9c857i9465c1h-sqlite-connector-odbc-0.99991' from 'https://cache.nixos.org'...
+copying path '/nix/store/490b2y1f8lz3jfns1zf7l0g7bh4kncbh-systemd-260.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/mm2abhg9j26xcz4mbzi0k2zxqf1924bd-md4c-0.5.2-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/80s9hhm2wyb053v2q55iz91hccxw0w47-util-linux-2.42-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/1cg9syf0w509d5prxya2ak7k1pizrbi4-libdatrie-2019-12-20-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/jmjmp6wkg646s4ii5znac68zxdj1p55h-vulkan-loader-1.4.341.0-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/pkh91qil9ai3jjslkp590xij6ymxsa6g-wayland-scanner-1.24.0-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/6sirsgrlw5wpjb61v07sbgs4sfsfdwx6-libxml2-2.15.1-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/p3459sn6kfj0lxvy6r1nlcgc249bqmvl-lttng-ust-2.14.0-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/97xaplx9nwxxxsp954sdpia89jqvyz4v-wayland-scanner-1.24.0-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/k1cm26fb7bsxif6lcwpzi7iyccvrv4f1-pcre2-10.46-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/f4329v3zm2p5ggkvh5ymv9jphvrpf6ad-libxslt-1.1.45-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/8w64dm3sny77mnf8jm5n1n57d1fk25x4-libselinux-3.10-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/hb9zkpgafixyxc52dcj8sfknqpmfdpk6-libsepol-3.10-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/hrbmsxk0jl93igyrmlhns5a8jfvc96b3-libsepol-3.10-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/1bkcpa0lhy8dw3h6sz5b9742bihb9290-libselinux-3.10-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/jphqqkgn7swnppi4dgwxavd3fac51bvx-sqlite-3.51.2-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/hksq1dd4i8hp42q0y6ndhas4s3kscmb6-qtbase-6.11.0-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/qriil2zh2r8n9p76x3z4admfsipc6mr3-qtsvg-6.11.0-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/pw7njlq5hwf43drjfxvwdjzb98jifinc-breeze-icons-6.25.0-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/n03f6g8flrp8p5nlm45qadssjf3klhs0-papirus-icon-theme-20250501' from 'https://cache.nixos.org'...
+
+===== LOCALIZAR PAPIRUS =====
+Papirus-Dark encontrado em:
+/home/hal/.nix-profile/share/icons/Papirus-Dark
+
+===== CRIAR TEMA LOCAL MOCHA-PAPIRUS-DARK COM PASTAS MARRONS =====
+
+===== APLICAR ICONES E ACCENT MOCHA - SEM PAINEL =====
+
+===== RECARREGAR CACHE DE ICONES =====
+kbuildsycoca6 running...
+
+===== VALIDACAO =====
+Icon Theme: MochaPapirus-Dark
+
+AccentColor: 156,103,73
+
+
+===== ICONES MOCHA CRIADOS =====
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-open.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-documents.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-download.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-downloads.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-music.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-pictures.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-publicshare.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-templates.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/folder-videos.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/user-desktop.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/16x16/places/user-home.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-open.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-documents.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-download.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-downloads.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-music.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-pictures.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-publicshare.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-templates.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/folder-videos.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/user-desktop.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/32x32/places/user-home.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/inode-directory.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-open.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-documents.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-download.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-downloads.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-music.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-pictures.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-publicshare.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-templates.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/folder-videos.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/user-desktop.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/48x48/places/user-home.svg
+/home/hal/.local/share/icons/MochaPapirus-Dark/64x64/places/folder.svg
+
+===== PRONTO =====
+Não mexi no painel.
+Fecha e abre o Dolphin. Se não mudar, faz logout/login.
+Snapshot salvo em:
+/media/mochafast/MochaKde/kde/state/before-mocha-icons-20260504-014000
