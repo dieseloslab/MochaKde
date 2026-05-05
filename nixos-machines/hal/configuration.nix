@@ -10,6 +10,7 @@
 
     ../../kde/modules/mochafast-mount.nix
     ../../kde/modules/protect-foreign-internal-disks.nix
+    ../../kde/modules/mocha-fix-stale-uuid-boot-waits.nix
 
     ../../kde/modules/caninana-703-kernel.nix
     ../../kde/modules/nvidia-latest.nix
