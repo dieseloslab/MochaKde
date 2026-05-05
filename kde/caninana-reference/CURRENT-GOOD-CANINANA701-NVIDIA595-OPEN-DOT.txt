@@ -1,0 +1,37 @@
+CURRENT GOOD RECIPE — MochaKde
+
+Nome:
+  Caninana 7.0.1 + NVIDIA 595.71.05 open kernel modules + Cloudflare DoT
+
+Branch canônica:
+  good/caninana701-nvidia595-open-dot
+
+Tag canônico:
+  recipe/caninana701-nvidia595-open-dot-20260505-201924
+
+Commit base da receita:
+  389239a
+
+Manifesto principal:
+  kde/caninana-reference/RECEITA-BOA-CANINANA701-NVIDIA595-OPEN-DOT.md
+
+Pasta de evidências:
+  kde/caninana-reference/good/caninana701-nvidia595-open-dot-20260505-201924
+
+Arquivos centrais:
+  kde/caninana-reference/good/caninana701-nvidia595-open-dot-20260505-201924/MANIFEST.md
+  kde/caninana-reference/good/caninana701-nvidia595-open-dot-20260505-201924/nvidia-pinned.FONTE-ATIVA-BOA.nix
+  kde/caninana-reference/good/caninana701-nvidia595-open-dot-20260505-201924/caninana-kernel.FONTE-ATIVA-BOA.nix
+  kde/caninana-reference/good/caninana701-nvidia595-open-dot-20260505-201924/mocha-dns-cloudflare-dot.FONTE-ATIVA-BOA.nix
+
+Estado validado:
+  kernel = 7.0.1-cachyos
+  NVIDIA = 595.71.05
+  kernel module = nvidia-open
+  hardware.nvidia.open = true
+  DNS = Cloudflare DNS-over-TLS via systemd-resolved
+
+Regra:
+  /etc/nixos é fonte ativa quando o sistema estiver instalado.
+  Este repo guarda a receita, evidências, manifesto e script de restauração.
+  Não importar KDE diretamente no GNOME; reaproveitar apenas a receita kernel/NVIDIA/DNS com módulo próprio.
