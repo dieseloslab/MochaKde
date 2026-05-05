@@ -1,0 +1,150 @@
+{ config, pkgs, lib, ... }:
+
+let
+  optionalPath = path:
+    if lib.hasAttrByPath path pkgs
+    then [ (lib.getAttrFromPath path pkgs) ]
+    else [];
+
+  mochaSteamRun = pkgs.writeShellScriptBin "mocha-steam-run" ''
+    set -e
+
+    export MANGOHUD=1
+    export MANGOHUD_CONFIGFILE="/etc/xdg/MangoHud/MangoHud.conf"
+    export __GL_SHADER_DISK_CACHE=1
+    export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+    export DXVK_STATE_CACHE=1
+
+    if command -v mocha-game-on >/dev/null 2>&1; then
+      mocha-game-on || true
+    fi
+
+    cleanup() {
+      if command -v mocha-game-off >/dev/null 2>&1; then
+        mocha-game-off || true
+      fi
+    }
+    trap cleanup EXIT INT TERM
+
+    exec "$@"
+  '';
+
+  mochaSteamRunGamemode = pkgs.writeShellScriptBin "mocha-steam-run-gamemode" ''
+    set -e
+
+    export MANGOHUD=1
+    export MANGOHUD_CONFIGFILE="/etc/xdg/MangoHud/MangoHud.conf"
+    export __GL_SHADER_DISK_CACHE=1
+    export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+    export DXVK_STATE_CACHE=1
+
+    if command -v mocha-game-on >/dev/null 2>&1; then
+      mocha-game-on || true
+    fi
+
+    cleanup() {
+      if command -v mocha-game-off >/dev/null 2>&1; then
+        mocha-game-off || true
+      fi
+    }
+    trap cleanup EXIT INT TERM
+
+    exec gamemoderun "$@"
+  '';
+in
+{
+  nixpkgs.config.allowUnfree = true;
+
+  programs.steam.enable = true;
+  hardware.steam-hardware.enable = true;
+
+  programs.gamemode.enable = true;
+  programs.gamescope.enable = true;
+  programs.mangohud.enable = true;
+
+  services.tuned = {
+    enable = true;
+    recommend = false;
+    ppdSupport = true;
+    ppdSettings.main.default = "performance";
+  };
+
+  systemd.services.mocha-tuned-latency-performance = {
+    description = "Mocha KDE gaming TuneD latency-performance profile";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "tuned.service" ];
+    wants = [ "tuned.service" ];
+    path = [ pkgs.tuned pkgs.gnugrep ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      if tuned-adm list | grep -q 'latency-performance'; then
+        tuned-adm profile latency-performance
+      else
+        tuned-adm profile throughput-performance || true
+      fi
+    '';
+  };
+
+  environment.systemPackages =
+    with pkgs; [
+      firefox
+
+      mangohud
+      gamemode
+      gamescope
+      protonup-qt
+      protontricks
+      winetricks
+
+      vulkan-tools
+      pciutils
+      usbutils
+      lm_sensors
+      lsof
+      jq
+      ripgrep
+      btop
+
+      mochaSteamRun
+      mochaSteamRunGamemode
+    ]
+    ++ optionalPath [ "nvtopPackages" "nvidia" ]
+    ++ optionalPath [ "goverlay" ]
+    ++ optionalPath [ "vkbasalt" ];
+
+  environment.etc."xdg/MangoHud/MangoHud.conf".text = ''
+    legacy_layout=0
+    horizontal
+    table_columns=20
+    background_alpha=0.35
+    font_size=20
+    position=top-left
+
+    fps
+    frametime
+    gpu_stats
+    gpu_temp
+    gpu_core_clock
+    gpu_mem_clock
+    gpu_power
+    gpu_load_change
+    vram
+
+    cpu_stats
+    cpu_temp
+    cpu_mhz
+    cpu_load_change
+    ram
+
+    gamemode
+    wine
+    vulkan_driver
+    engine_version
+
+    time
+    time_format=%H:%M
+  '';
+}

@@ -15,3 +15,11 @@ id_ed25519*
 *.tar.gz
 *.tar.zst
 *.zip
+/audits/
+/backups/
+/logs/
+/upstream-study/
+/kde/caninana-reference/cache-built-missing-outputs-*/
+/kde/caninana-reference/caninana703-nvidia595-cachy-aggressive-*/
+/kde/caninana-reference/caninana703-nvidia595-playability-approved-*/
+/kde/caninana-reference/*-current
