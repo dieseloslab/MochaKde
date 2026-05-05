@@ -7,7 +7,12 @@
 
     # Caninana funcional: kernel Cachy/CachyOS como base técnica estudada.
     # Identidade pública/técnica no Mocha: Caninana.
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/0f7e2bea4088227a80502557f6c0e3b74949d6b5";
+    #
+    # Para o casamento 7.0.3, usamos a branch release do nix-cachyos-kernel:
+    # - tende a acompanhar o kernel mais novo ja buildado na Hydra/cache do mantenedor;
+    # - evita ficar preso em commit antigo;
+    # - o modulo caninana-703-kernel.nix ainda valida obrigatoriamente version == 7.0.3.
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   outputs = inputs@{ self, nixpkgs, nix-cachyos-kernel, ... }:
@@ -17,13 +22,14 @@
     nixosConfigurations.mocha-kde-hal = nixpkgs.lib.nixosSystem {
       inherit system;
 
-      specialArgs = { nix-cachyos-kernel = inputs.nix-cachyos-kernel;
+      specialArgs = {
+        nix-cachyos-kernel = inputs.nix-cachyos-kernel;
         inherit inputs;
       };
 
       modules = [
-        # O nix-cachyos-kernel não expõe nixosModules.default.
-        # Ele expõe overlays; pinned usa os legacyPackages do próprio flake lock.
+        # O nix-cachyos-kernel nao expoe nixosModules.default.
+        # Ele expoe overlays; pinned usa os legacyPackages do proprio flake lock.
         ({ ... }: {
           nixpkgs.overlays = [
             nix-cachyos-kernel.overlays.pinned

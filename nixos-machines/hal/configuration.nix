@@ -11,8 +11,8 @@
     ../../kde/modules/mochafast-mount.nix
     ../../kde/modules/protect-foreign-internal-disks.nix
 
-    ../../kde/modules/caninana-kernel.nix
-    ../../kde/modules/nvidia-pinned.nix
+    ../../kde/modules/caninana-703-kernel.nix
+    ../../kde/modules/nvidia-latest.nix
 
     ../../kde/modules/plasma-base.nix
     ../../kde/modules/mocha-kde-theme-system.nix
