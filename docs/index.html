@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MochaKde — Diesel OS Lab</title>
+  <meta name="description" content="MochaKde is a reproducible, gaming-oriented NixOS/KDE system by Diesel OS Lab, focused on performance, accessibility, and proper upstream credit." />
+  <meta name="theme-color" content="#4b2f22" />
+
+  <style>
+    :root {
+      --bg: #160f0b;
+      --panel: #241711;
+      --panel-2: #2f2018;
+      --text: #f7eadf;
+      --muted: #c9ad99;
+      --soft: #8f6a55;
+      --accent: #d89a5b;
+      --accent-2: #f0c48c;
+      --line: rgba(240, 196, 140, 0.22);
+      --shadow: rgba(0, 0, 0, 0.38);
+      --ok: #d2a66c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(216, 154, 91, 0.24), transparent 34rem),
+        radial-gradient(circle at 80% 20%, rgba(95, 59, 37, 0.32), transparent 28rem),
+        linear-gradient(135deg, #120b08 0%, #1a100c 45%, #2a190f 100%);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(22, 15, 11, 0.78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 35% 28%, #f5d3a5 0 18%, transparent 19%),
+        linear-gradient(145deg, #7a4528, #d89a5b);
+      box-shadow: 0 0.8rem 2rem rgba(216, 154, 91, 0.22);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 4.5rem 1.25rem 3rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 2rem;
+      align-items: center;
+      min-height: 58vh;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--accent-2);
+      background: rgba(47, 32, 24, 0.62);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      margin: 1.15rem 0 1rem;
+      font-size: clamp(3rem, 8vw, 6.8rem);
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .lead {
+      font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+      color: var(--muted);
+      max-width: 68ch;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.8rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.86rem 1.15rem;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      background: var(--accent);
+      color: #1a100c;
+      box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.28);
+    }
+
+    .button.secondary {
+      background: rgba(47, 32, 24, 0.7);
+      color: var(--text);
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(60, 38, 27, 0.82), rgba(31, 20, 15, 0.86));
+      border-radius: 2rem;
+      padding: 1.5rem;
+      box-shadow: 0 2rem 5rem var(--shadow);
+    }
+
+    .terminal {
+      border-radius: 1.35rem;
+      background: #0f0907;
+      border: 1px solid rgba(240, 196, 140, 0.14);
+      overflow: hidden;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92rem;
+    }
+
+    .terminal-bar {
+      display: flex;
+      gap: 0.45rem;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(240, 196, 140, 0.12);
+    }
+
+    .dot {
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 99px;
+      background: var(--soft);
+    }
+
+    .terminal pre {
+      margin: 0;
+      padding: 1rem;
+      white-space: pre-wrap;
+      color: #f1d5b4;
+    }
+
+    section {
+      scroll-margin-top: 5.5rem;
+      margin-top: 4rem;
+    }
+
+    .section-head {
+      max-width: 840px;
+      margin-bottom: 1.35rem;
+    }
+
+    h2 {
+      margin: 0 0 0.8rem;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: rgba(36, 23, 17, 0.75);
+      border-radius: 1.35rem;
+      padding: 1.25rem;
+      box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.18);
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem;
+      color: var(--accent-2);
+      font-size: 1.08rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(47, 32, 24, 0.78);
+      color: var(--accent-2);
+      border-radius: 999px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .notice {
+      border-left: 4px solid var(--accent);
+      background: rgba(216, 154, 91, 0.10);
+      padding: 1rem 1.1rem;
+      border-radius: 1rem;
+      color: var(--muted);
+    }
+
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+      color: var(--soft);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid,
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>Diesel OS Lab · MochaKde</div>
+      </div>
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="#mission">Mission</a>
+        <a href="#kde">KDE</a>
+        <a href="#technical">Technical</a>
+        <a href="#credits">Credits</a>
+        <a href="#status">Status</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div>
+        <div class="eyebrow">☕ KDE Plasma · NixOS · Gaming · Reproducibility</div>
+        <h1>Mocha<span>Kde</span></h1>
+        <p class="lead">
+          A reproducible, gaming-oriented NixOS/KDE system from Diesel OS Lab.
+          MochaKde focuses on performance, visual polish, safe rebuild discipline,
+          local cache strategy, and public credit for the upstream work that makes it possible.
+        </p>
+        <div class="cta-row">
+          <a class="button" href="#mission">Read the mission</a>
+          <a class="button secondary" href="#credits">Upstream credits</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="MochaKde terminal summary">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <pre>system = MochaKde
+desktop = KDE Plasma
+base = NixOS
+focus = gaming + reproducibility
+kernel-study = CachyOS / Caninana
+driver-strategy = pinned NVIDIA pairings
+rule = dry-build → build → boot
+never-default = unsafe switch</pre>
+        </div>
+      </aside>
+    </section>
+
+    <section id="mission">
+      <div class="section-head">
+        <h2>Mission</h2>
+        <p>
+          MochaKde exists to make a high-performance Linux gaming system reproducible,
+          understandable, and accessible.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Accessible performance</h3>
+          <p>
+            The project studies how to get strong gaming performance without depending on
+            expensive licenses, paid tuning tools, or unnecessary hardware upgrades.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Reproducible systems</h3>
+          <p>
+            Working states are documented with manifests, logs, cache paths, pinned inputs,
+            and bootable generations instead of one-off manual tweaks.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Social purpose</h3>
+          <p>
+            Diesel OS Lab has a nonprofit/beneficial purpose, including support for social
+            and educational initiatives that help children with Down syndrome and their
+            families access technology, learning resources, digital inclusion, and support programs.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="kde">
+      <div class="section-head">
+        <h2>Why KDE Plasma?</h2>
+        <p>
+          MochaKde is the KDE/Plasma branch of the Mocha project. It is intentionally kept
+          separate from the GNOME edition to avoid mixing desktop-specific assets, services,
+          themes, and assumptions.
+        </p>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <h3>Fast, flexible desktop</h3>
+          <p>
+            KDE Plasma gives MochaKde a highly configurable desktop suitable for a familiar,
+            gaming-friendly layout, while still allowing deep control over visuals and workflow.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Separate recipe</h3>
+          <p>
+            MochaKde has its own repository and KDE-specific modules. The GNOME Mocha system
+            remains separate, so experiments in Plasma do not pollute the stable GNOME recipe.
+          </p>
+        </article>
+      </div>
+
+      <div class="pill-list">
+        <span class="pill">KDE Plasma</span>
+        <span class="pill">Wayland</span>
+        <span class="pill">SDDM</span>
+        <span class="pill">Mocha palette</span>
+        <span class="pill">Gaming layout</span>
+        <span class="pill">Separate repo</span>
+      </div>
+    </section>
+
+    <section id="technical">
+      <div class="section-head">
+        <h2>Technical principles</h2>
+        <p>
+          MochaKde favors careful validation over risky changes. Kernel, NVIDIA, desktop,
+          theme, and gaming changes are treated as reproducibility-sensitive work.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Safe rebuild flow</h3>
+          <p>
+            The default flow is dry-build, build, then boot. Live system switching is not
+            the default path for risky kernel, NVIDIA, KDE, or desktop changes.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Kernel/NVIDIA pairing</h3>
+          <p>
+            MochaKde studies pinned kernel and NVIDIA combinations, including CachyOS-derived
+            kernel work and explicit driver pairings for repeatable gaming tests.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Local cache discipline</h3>
+          <p>
+            MOCHAFAST is used for logs, snapshots, manifests, study mirrors, and cache strategy.
+            Good states are recorded before they become canonical.
+          </p>
+        </article>
+      </div>
+
+      <div class="notice" style="margin-top: 1rem;">
+        MochaKde does not import raw Arch/CachyOS packages directly into NixOS. The safe path is
+        Nix/NixOS packaging, pinned inputs, explicit manifests, and bootable generations.
+      </div>
+    </section>
+
+    <section id="credits">
+      <div class="section-head">
+        <h2>Upstream credits</h2>
+        <p>
+          MochaKde is an integration and validation project. It depends on major upstream work
+          and credits that work explicitly.
+        </p>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <h3>Yuhui Xu</h3>
+          <p>
+            MochaKde uses and studies the community Nix project
+            <a href="https://github.com/xddxdd/nix-cachyos-kernel">xddxdd/nix-cachyos-kernel</a>,
+            maintained by <strong>Yuhui Xu</strong>. This project provides CachyOS kernel variants
+            as Nix/NixOS packages with support for reproducible integration.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>CachyOS Team and contributors</h3>
+          <p>
+            The upstream CachyOS kernel patchset, tuning work, and kernel variants come from
+            the <a href="https://cachyos.org/">CachyOS</a> project and its contributors.
+            MochaKde does not claim authorship of that upstream work.
+          </p>
+        </article>
+      </div>
+
+      <div class="notice" style="margin-top: 1rem;">
+        License clarification for <code>xddxdd/nix-cachyos-kernel</code> was requested in
+        <a href="https://github.com/xddxdd/nix-cachyos-kernel/issues/74">issue #74</a>.
+        Yuhui Xu replied that GPLv2 was added, the stated use cases are allowed, and the correct
+        credit name is “Yuhui Xu”.
+      </div>
+    </section>
+
+    <section id="status">
+      <div class="section-head">
+        <h2>Project status</h2>
+        <p>
+          MochaKde is under active development. The current focus is preserving good KDE visual
+          states, validating CachyOS/Caninana kernel recipes, pinning NVIDIA behavior, and recording
+          every working state so it can be reproduced later.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Current priority</h3>
+          <p>
+            Keep the KDE recipe separate, beautiful, reproducible, and safe to rebuild.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Known-good philosophy</h3>
+          <p>
+            A state only becomes canonical after it is tested, logged, documented, and confirmed.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Public responsibility</h3>
+          <p>
+            Credits, licenses, upstream references, and derivative work boundaries are documented
+            before the project presents them publicly.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Diesel OS Lab · MochaKde · Built with respect for upstream free software communities.
+    </p>
+  </footer>
+</body>
+</html>
