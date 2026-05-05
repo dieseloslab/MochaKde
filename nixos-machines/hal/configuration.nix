@@ -12,15 +12,14 @@
     ../../kde/modules/protect-foreign-internal-disks.nix
     ../../kde/modules/mocha-fix-stale-uuid-boot-waits.nix
 
-    ../../kde/modules/caninana-703-kernel.nix
-    ../../kde/modules/nvidia-latest.nix
+    ../../kde/modules/caninana-703-bore-lto-xu-native-nvidia5957105-open.nix
+
 
     ../../kde/modules/plasma-base.nix
     ../../kde/modules/mocha-kde-theme-system.nix
     ../../kde/modules/mocha-firefox-force-theme-policy.nix
     ../../kde/modules/gaming-base.nix
     ../../kde/modules/performance-base.nix
-    ../../kde/modules/caninana-cachy-aggressive-performance-tweaks.nix
   ];
 
   networking.hostName = "mocha-kde-hal";
