@@ -1,0 +1,8 @@
+HOST=mocha-kde-hal
+USER=hal
+DATE=20260506-150052
+CURRENT_SYSTEM=/nix/store/15g72gkdr4vrwhjjlrlll0p4bmic57j3-nixos-system-mocha-kde-hal-caninana701-good-recipe-mochakde-nvidia595-26.05.20260505.549bd84
+BOOT_SYSTEM=/nix/store/15g72gkdr4vrwhjjlrlll0p4bmic57j3-nixos-system-mocha-kde-hal-caninana701-good-recipe-mochakde-nvidia595-26.05.20260505.549bd84
+KERNEL=7.0.1-cachyos
+NIXOS_VERSION=26.05.20260505.549bd84 (Yarara)
+NVIDIA=NVIDIA GeForce RTX 5060 Ti, 595.71.05

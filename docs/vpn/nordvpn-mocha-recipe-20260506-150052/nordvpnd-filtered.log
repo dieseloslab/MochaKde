@@ -1,0 +1,41 @@
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:10 [Info] [DNS] management service inferred from resolv.conf comment
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:10 [Info] [DNS] Set on interface [nordlynx] using:  resolved
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:10 [Debug][DNS] publishing event: &{JsonData:{"event":"dns_configured","namespace":"nordvpn-linux","management_service":"systemd-resolved"} GeneralContextPaths:[device.* application.nordvpnapp.* application.nordvpnapp.version application.nordvpnapp.platform] KeyBasedContextPaths:[{Path:dns.type Value:dns_configured} {Path:dns.management_service Value:systemd-resolved}]}
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:10 [Info] connected to br116.nordvpn.com
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: default dev nordlynx table 205 scope link
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: 10.5.0.0/16 dev nordlynx proto kernel scope link src 10.5.0.2
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: local 10.5.0.2 dev nordlynx table local proto kernel scope host src 10.5.0.2
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: broadcast 10.5.255.255 dev nordlynx table local proto kernel scope link src 10.5.0.2
+mai 06 14:38:10 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:10 [Info] notifying about data connect change event: {Status:{State:CONNECTED Technology:NORDLYNX Protocol:UDP IP:193.176.127.166 Name:Brazil #116 Hostname:br116.nordvpn.com Country:Brazil CountryCode:BR City:Sao Paulo StartTime:2026-05-06 14:38:10.325915553 -0300 -03 m=+761.979305964 IsVirtualLocation:false IsPostQuantum:false IsObfuscated:false TunnelName: IsMeshnetPeer:false Rx:0 Tx:0 RecommendationUUID:a76956fc-0f96-4267-99d8-31c528edf90c PausedAt:0001-01-01 00:00:00 +0000 UTC PauseRemainingTimeSec:0}}
+mai 06 14:38:41 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:41 [NC] connection lost:  pingresp not received, disconnecting
+mai 06 14:38:41 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:41 [Info] [NC] Connected
+mai 06 14:38:41 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:38:41 [NC] Connected
+mai 06 14:40:51 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:40:51 [Error] filtering servers <nil>
+mai 06 14:40:51 mocha-kde-hal nordvpnd[1534]: Request:  GET https://api.nordvpn.com/v1/users/services map[Accept-Encoding:[gzip, deflate] Authorization:[<REDACTED>] Content-Length:[] Content-Type:[application/json] User-Agent:[NordApp Linux/4.6.0 (NixOS 26.05 (Yarara))]]
+mai 06 14:43:16 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:43:16 [Info] notifying about config change: github.com/NordSecurity/nordvpn-linux/daemon/rpc_set_technology.go:72
+mai 06 14:43:16 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:43:16 Technology set to: OPENVPN
+mai 06 14:43:17 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:43:17 [Error] filtering servers <nil>
+mai 06 14:44:21 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:44:21 [Error] filtering servers <nil>
+mai 06 14:44:21 mocha-kde-hal nordvpnd[1534]: Request:  GET https://api.nordvpn.com/v1/users/services map[Accept-Encoding:[gzip, deflate] Authorization:[<REDACTED>] Content-Length:[] Content-Type:[application/json] User-Agent:[NordApp Linux/4.6.0 (NixOS 26.05 (Yarara))]]
+mai 06 14:48:49 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:48:49 [Info] [DNS] Unset on interface [nordlynx] using:  resolved
+mai 06 14:48:49 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:48:49 [nordlynx] ip link delete nordlynx
+mai 06 14:48:50 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:48:50 [Info] notifying about data connect change event: {Status:{State:DISCONNECTED Technology:UNKNOWN_TECHNOLOGY Protocol:UNKNOWN_PROTOCOL IP:invalid IP Name: Hostname: Country: CountryCode: City: StartTime:<nil> IsVirtualLocation:false IsPostQuantum:false IsObfuscated:false TunnelName: IsMeshnetPeer:false Rx:0 Tx:0 RecommendationUUID: PausedAt:0001-01-01 00:00:00 +0000 UTC PauseRemainingTimeSec:0}}
+mai 06 14:49:21 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:49:21 [NC] connection lost:  pingresp not received, disconnecting
+mai 06 14:49:22 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:49:22 [Info] [NC] Connected
+mai 06 14:49:22 mocha-kde-hal nordvpnd[1534]: 2026/05/06 14:49:22 [NC] Connected
+mai 06 14:58:50 mocha-kde-hal nordvpnd[1534]: Request:  GET https://api.nordvpn.com/v1/users/services map[Accept-Encoding:[gzip, deflate] Authorization:[<REDACTED>] Content-Length:[] Content-Type:[application/json] User-Agent:[NordApp Linux/4.6.0 (NixOS 26.05 (Yarara))]]
+mai 06 15:00:52 mocha-kde-hal systemd[1]: Stopping NordVPN daemon...
+mai 06 15:00:53 mocha-kde-hal nordvpnd[1534]: 2026/05/06 15:00:53 [Info] Daemon stopped
+mai 06 15:00:53 mocha-kde-hal systemd[1]: nordvpnd.service: Deactivated successfully.
+mai 06 15:00:53 mocha-kde-hal systemd[1]: Stopped NordVPN daemon.
+mai 06 15:00:53 mocha-kde-hal systemd[1]: nordvpnd.service: Consumed 5.196s CPU time over 35min 24.934s wall clock time, 99.8M memory peak, 58.6M read from disk, 76K written to disk, 255.2K incoming IP traffic, 75.1K outgoing IP traffic.
+mai 06 15:00:53 mocha-kde-hal systemd[1]: Starting NordVPN daemon...
+mai 06 15:00:53 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:00:53 [Info] Daemon has started
+mai 06 15:00:53 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:00:53 Protocol set to: UDP
+mai 06 15:00:53 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:00:53 Technology set to: OPENVPN
+mai 06 15:00:53 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:00:53 [Error] getting NordWhisper vpn: NordWhisper technology was disabled in compile time
+mai 06 15:00:53 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:00:53 [Warning] DataManager failed to load data: loading country data: open /var/lib/nordvpn/data/countries.dat: no such file or directory
+mai 06 15:00:53 mocha-kde-hal systemd[1]: Started NordVPN daemon.
+mai 06 15:00:53 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:00:53 [Info] [NC] Connected
+mai 06 15:00:53 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:00:53 [NC] Connected
+mai 06 15:00:54 mocha-kde-hal nordvpnd[5792]: Request:  GET https://api.nordvpn.com/v1/users/services map[Accept-Encoding:[gzip, deflate] Authorization:[<REDACTED>] Content-Length:[] Content-Type:[application/json] User-Agent:[NordApp Linux/4.6.0 (NixOS 26.05 (Yarara))]]

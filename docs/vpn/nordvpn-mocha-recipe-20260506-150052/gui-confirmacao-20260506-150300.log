@@ -1,0 +1,83 @@
+===== CONFIRMAR GUI NORDVPN FUNCIONANDO =====
+
+===== STATUS REAL AGORA =====
+Status: Connected
+Server: Brazil #104
+Hostname: br104.nordvpn.com
+IP: 193.176.127.21
+Country: Brazil
+City: Sao Paulo
+Current technology: OPENVPN
+Current protocol: UDP
+Post-quantum VPN: Disabled
+Transfer: 256.86 KiB received, 410.55 KiB sent
+Uptime: 1 minute 10 seconds
+Technology: OPENVPN
+Protocol: UDP
+Firewall: enabled
+Firewall Mark: 0xe1f1
+Routing: enabled
+User Consent: enabled
+Kill Switch: disabled
+Threat Protection Lite: disabled
+Obfuscate: disabled
+Notify: enabled
+Tray: enabled
+Auto-connect: disabled
+DNS: disabled
+LAN Discovery: disabled
+Virtual Location: enabled
+ARP Ignore: enabled
+1.1.1.1 dev nordtun table 205 src 10.100.0.2 uid 1000 
+    cache 
+ip=193.176.127.22
+colo=GRU
+http=http/2
+loc=BR
+tls=TLSv1.3
+warp=off
+
+===== PROCESSOS / GUI =====
+150 [kworker/13:1-wg-crypt-nordlynx]
+869 [kworker/14:2-wg-crypt-nordlynx]
+999 [kworker/12:2-wg-crypt-nordlynx]
+4884 [kworker/15:1-wg-crypt-nordlynx]
+5792 /nix/store/9wq87pn0h9llhlb460csbi3rh43am0rm-nordvpn-4.6.0/bin/nordvpnd
+5824 /nix/store/1bwl2515v1awh19p0a95bzn1z8fid00c-nordvpn-cli-4.6.0/bin/norduserd
+6059 /run/current-system/sw/bin/nordvpn-gui
+6136 /nix/store/a3hkbyi6w41z5yc37i65g3dggcrm6dza-openvpn-2.6.19/bin/openvpn --config /var/lib/nordvpn/data/.config.ovpn --management-client --management /run/nordvpn/nordvpn-openvpn.sock unix --pull-filter ignore redirect-gateway --script-security 1 --connect-retry 5 5 --auth-retry nointeract --management-query-passwords --verify-x509-name CN=br104.nordvpn.com --mark 57841 --dev-type tun --dev nordtun --disable-dco --auth-nocache
+● nordvpnd.service - NordVPN daemon
+     Loaded: loaded (/etc/systemd/system/nordvpnd.service; enabled; preset: ignored)
+     Active: active (running) since Wed 2026-05-06 15:00:53 -03; 2min 7s ago
+ Invocation: c60a3cc9751d4c5ba599e892729a28f2
+    Process: 5793 ExecStartPost=/nix/store/m8hihycm0cmfg5cp9im71zqa2m57ljfb-unit-script-nordvpnd-post-start/bin/nordvpnd-post-start (code=exited, status=0/SUCCESS)
+   Main PID: 5792 (.nordvpnd-wrapp)
+         IP: 1.1M in, 533.3K out
+         IO: 12.9M read, 4.7M written
+      Tasks: 37 (limit: 18892)
+     Memory: 115.6M (peak: 117.4M)
+        CPU: 1.637s
+     CGroup: /system.slice/nordvpnd.service
+             ├─5792 /nix/store/9wq87pn0h9llhlb460csbi3rh43am0rm-nordvpn-4.6.0/bin/nordvpnd
+             ├─5824 /nix/store/1bwl2515v1awh19p0a95bzn1z8fid00c-nordvpn-cli-4.6.0/bin/norduserd
+             └─6136 /nix/store/a3hkbyi6w41z5yc37i65g3dggcrm6dza-openvpn-2.6.19/bin/openvpn --config /var/lib/nordvpn/data/.config.ovpn --management-client --management /run/nordvpn/nordvpn-openvpn.sock unix --pull-filter ignore redirect-gateway --script-security 1 --connect-retry 5 5 --auth-retry nointeract --management-query-passwords --verify-x509-name CN=br104.nordvpn.com --mark 57841 --dev-type tun --dev nordtun --disable-dco --auth-nocache
+
+mai 06 15:01:50 mocha-kde-hal nordvpnd[5792]: -P OUTPUT ACCEPT
+mai 06 15:01:50 mocha-kde-hal nordvpnd[5792]: security:
+mai 06 15:01:50 mocha-kde-hal nordvpnd[5792]: -P INPUT ACCEPT
+mai 06 15:01:50 mocha-kde-hal nordvpnd[5792]: -P FORWARD ACCEPT
+mai 06 15:01:50 mocha-kde-hal nordvpnd[5792]: -P OUTPUT ACCEPT
+mai 06 15:01:50 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:01:50 [Info] notifying about data connect change event: {Status:{State:CONNECTED Technology:OPENVPN Protocol:UDP IP:193.176.127.21 Name:Brazil #104 Hostname:br104.nordvpn.com Country:Brazil CountryCode:BR City:Sao Paulo StartTime:2026-05-06 15:01:50.075698924 -0300 -03 m=+56.812265242 IsVirtualLocation:false IsPostQuantum:false IsObfuscated:false TunnelName: IsMeshnetPeer:false Rx:0 Tx:0 RecommendationUUID:b332b483-c6cc-479d-be9c-ddc060cafe87 PausedAt:0001-01-01 00:00:00 +0000 UTC PauseRemainingTimeSec:0}}
+mai 06 15:02:13 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:02:13 [NC] connection lost:  pingresp not received, disconnecting
+mai 06 15:02:13 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:02:13 [NC] start connection loop
+mai 06 15:02:14 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:02:14 [Info] [NC] Connected
+mai 06 15:02:14 mocha-kde-hal nordvpnd[5792]: 2026/05/06 15:02:14 [NC] Connected
+
+===== MARCAR RECEITA COMO GUI VALIDADA =====
+Receita atual: /media/mochafast/MochaKde/docs/vpn/nordvpn-mocha-recipe-20260506-150052
+
+===== LIMPAR COOKIES/TOKENS DOS ARQUIVOS DA RECEITA =====
+redigido: /media/mochafast/MochaKde/docs/vpn/nordvpn-mocha-recipe-20260506-150052/services.txt
+redigido: /media/mochafast/MochaKde/docs/vpn/nordvpn-mocha-recipe-20260506-150052/nordvpnd-filtered.log
+
+===== COPIAR LOG DE CONFIRMACAO PARA RECEITA =====

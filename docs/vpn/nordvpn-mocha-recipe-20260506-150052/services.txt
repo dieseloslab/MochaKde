@@ -1,0 +1,53 @@
+# Serviços NordVPN / Cloudflare - resumo seguro
+
+Data: 20260506-150547
+
+## nordvpnd
+
+Serviço esperado:
+
+- nordvpnd.service
+- Estado esperado: active/running
+- ExecStart esperado: nordvpnd vindo do pacote Nix nordvpn 4.6.0
+- Serviço usado pelo CLI e pela GUI real da NordVPN
+
+Validar com:
+
+```bash
+systemctl status nordvpnd --no-pager
+systemctl cat nordvpnd --no-pager
+```
+
+## Nord user daemon
+
+Processo esperado:
+
+- norduserd
+
+Validar com:
+
+```bash
+pgrep -a -i 'nord|vpn'
+```
+
+## Cloudflare WARP
+
+No estado auditado, Cloudflare WARP não é o caminho principal.
+
+- warp-svc.service pode aparecer inactive/dead
+- cloudflare-warp.service pode não existir
+- caminho aprovado no Mocha: NordVPN NordLynx/WireGuard
+
+## Segurança
+
+O log bruto do systemctl não deve ser versionado quando contiver:
+
+- Set-Cookie
+- X-Signature
+- X-Authorization
+- Authorization
+- respostas HTTP completas da API NordVPN
+- tokens
+- cookies
+
+Este arquivo substitui o log bruto por um resumo seguro.

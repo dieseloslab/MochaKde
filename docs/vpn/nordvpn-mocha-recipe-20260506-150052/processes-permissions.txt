@@ -1,0 +1,16 @@
+### socket
+drwxrwx--- 2 root nordvpn 80 mai  6 15:00 /run/nordvpn
+srw-rw---- 1 root nordvpn  0 mai  6 15:00 /run/nordvpn/nordvpnd.sock
+
+### id
+uid=1000(hal) gid=100(users) groups=100(users),1(wheel),17(audio),26(video),57(networkmanager),174(input),987(nordvpn),989(gamemode)
+
+### processos
+150 [kworker/13:1-wg-crypt-nordlynx]
+365 [kworker/4:2-wg-crypt-nordlynx]
+869 [kworker/14:2-wg-crypt-nordlynx]
+999 [kworker/12:2-wg-crypt-nordlynx]
+2011 /nix/store/kfg45wlln630r6z9f4r2kwjpfa0d9klb-cloudflare-warp-2026.3.846.0/bin/warp-taskbar
+4884 [kworker/15:1-wg-crypt-nordlynx]
+5792 /nix/store/9wq87pn0h9llhlb460csbi3rh43am0rm-nordvpn-4.6.0/bin/nordvpnd
+5824 /nix/store/1bwl2515v1awh19p0a95bzn1z8fid00c-nordvpn-cli-4.6.0/bin/norduserd

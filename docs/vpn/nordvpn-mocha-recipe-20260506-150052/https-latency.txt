@@ -1,0 +1,13 @@
+### Cloudflare HTTPS
+cloudflare teste=1 dns=0.000611s connect=0.020660s tls=0.045444s first_byte=0.068794s total=0.068864s
+cloudflare teste=2 dns=0.000765s connect=0.023924s tls=0.050846s first_byte=0.075661s total=0.075734s
+cloudflare teste=3 dns=0.000778s connect=0.023112s tls=0.049575s first_byte=0.075183s total=0.075250s
+cloudflare teste=4 dns=0.000585s connect=0.018971s tls=0.042657s first_byte=0.064660s total=0.064732s
+cloudflare teste=5 dns=0.000736s connect=0.021025s tls=0.045319s first_byte=0.066575s total=0.066659s
+
+### Google HTTPS
+google teste=1 dns=0.014513s connect=0.035085s tls=0.106273s first_byte=0.209857s total=0.249199s
+google teste=2 dns=0.000740s connect=0.020134s tls=0.092593s first_byte=0.208098s total=0.246777s
+google teste=3 dns=0.000818s connect=0.027494s tls=0.108908s first_byte=0.230803s total=0.284529s
+google teste=4 dns=0.000722s connect=0.021502s tls=0.096177s first_byte=0.212200s total=0.256700s
+google teste=5 dns=0.000839s connect=0.019242s tls=0.090850s first_byte=0.206463s total=0.246908s
